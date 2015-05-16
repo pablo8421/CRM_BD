@@ -50,5 +50,19 @@ namespace CRM
 
             return dt;
         }
+
+        static public int query(String query)
+        {
+            NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
+
+            try
+            {
+                return comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                return -1;
+            }
+        }
     }
 }
