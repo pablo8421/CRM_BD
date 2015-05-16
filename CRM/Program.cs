@@ -14,13 +14,12 @@ namespace CRM
         [STAThread]
         static void Main()
         {
-            //Prueba para borrar despues
-            Control_query control = new Control_query();
-            control.iniciarConexion();
-            control.prueba();
-            Console.WriteLine("Fin conexion");
-            //Fin prueba
-
+            
+            Control_query.iniciarConexion();
+            
+            //Prueba EsquemaCRM
+            EsquemaCRM esquema = new EsquemaCRM();
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

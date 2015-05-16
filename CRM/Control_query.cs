@@ -4,20 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Npgsql;
+using System.Data;
 
 namespace CRM
 {
-    class Control_query
+    static class Control_query
     {
-        string host = "127.0.0.1";
-        string puerto = "5432";
-        string usuario = "computadora";
-        string contrasenia = "123456";
-        string nombre_bd = "CRM";
+        static string host = "127.0.0.1";
+        static string puerto = "5432";
+        static string usuario = "computadora";
+        static string contrasenia = "123456";
+        static string nombre_bd = "CRM";
 
-        NpgsqlConnection conexion;
+        static NpgsqlConnection conexion;
 
-        public void iniciarConexion() {
+        public static void iniciarConexion()
+        {
             string conexion_string = String.Format("Server={0};Port={1};" +
                     "User Id={2};Password={3};Database={4};",
                     host, puerto, usuario,
@@ -27,13 +29,26 @@ namespace CRM
             conexion.Open();
         }
 
-        public void prueba() {
+        public static void prueba() 
+        {
             string query = "INSERT INTO CIUDAD VALUES(1, 'Puebla', 'Mexico');";
 
             NpgsqlCommand da = new NpgsqlCommand(query, conexion);
 
             Console.WriteLine(da.ExecuteNonQuery());
             
+        }
+
+        static public DataTable querySelect(String query)
+        {
+            NpgsqlDataAdapter da = new NpgsqlDataAdapter(query, conexion);
+
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            DataTable dt = new DataTable();
+            dt = ds.Tables[0];
+
+            return dt;
         }
     }
 }
