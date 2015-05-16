@@ -30,8 +30,10 @@ namespace CRM
         public void prueba() {
             string query = "INSERT INTO CIUDAD VALUES(1, 'Puebla', 'Mexico');";
 
-            NpgsqlDataAdapter da = new NpgsqlDataAdapter(query, conexion);
+            NpgsqlCommand da = new NpgsqlCommand(query, conexion);
 
+            Console.WriteLine(da.ExecuteNonQuery());
+            
         }
     }
 }
