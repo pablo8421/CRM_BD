@@ -14,6 +14,12 @@ namespace CRM
         [STAThread]
         static void Main()
         {
+            
+            Control_query.iniciarConexion();
+            
+            //Prueba EsquemaCRM
+            EsquemaCRM esquema = new EsquemaCRM();
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Principal());
