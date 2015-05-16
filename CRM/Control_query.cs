@@ -54,7 +54,6 @@ namespace CRM
         static public int query(String query)
         {
             NpgsqlCommand comando = new NpgsqlCommand(query, conexion);
-
             try
             {
                 return comando.ExecuteNonQuery();
