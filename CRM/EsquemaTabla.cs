@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace CRM
 {
-    class EsquemaTabla
+    public class EsquemaTabla
     {
-        string nombre;
-
-        List<String> columnas;
-        List<String> tipos;
+        public string nombre;
+        public List<String> columnas;
+        public List<String> tipos;
 
         public EsquemaTabla(string nombre)
         {
@@ -40,7 +39,7 @@ namespace CRM
                 
             }
 
-            mostrarEnConsola();
+            //mostrarEnConsola();
         }
 
         public void mostrarEnConsola() {

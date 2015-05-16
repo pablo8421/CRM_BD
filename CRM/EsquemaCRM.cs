@@ -24,5 +24,15 @@ namespace CRM
                 tablas.Add(tabla);
             }
         }
+
+        public EsquemaTabla getTabla(String nombre)
+        {
+            foreach (EsquemaTabla tabla in tablas)
+            {
+                if (tabla.nombre.Equals(nombre))
+                    return tabla;
+            }
+            return null;
+        }
     }
 }
