@@ -15,7 +15,7 @@ namespace CRM
         {
             tablas = new List<EsquemaTabla>();
 
-            //Query para obtener las tablas en la BD
+            //Query para obtener las tablas en la BD 
             DataTable dt = Control_query.querySelect("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';");
 
             //Agregar cada tabla

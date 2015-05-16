@@ -20,7 +20,7 @@ namespace CRM
             columnas = new List<string>();
             tipos = new List<string>();
 
-            //Query para obtener las columnas de la tabla en la BD
+            //Query para obtener las columnas de la tabla en la BD 
             DataTable dt = Control_query.querySelect("SELECT * FROM information_schema.columns WHERE table_name ='" + nombre + "';");
             
             foreach (DataRow row in dt.Rows)
