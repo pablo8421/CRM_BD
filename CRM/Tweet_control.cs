@@ -39,11 +39,6 @@ namespace CRM
             //Filtrar por los publicados por el usuario
             Tweetinvi.Core.Interfaces.ITweet[] tweetsPublicados = tweets.Where(x => x.Creator.Equals(user)).ToArray();
 
-            foreach (Tweetinvi.Core.Interfaces.ITweet tweet in tweetsPublicados)
-            {
-                Console.WriteLine(tweet.Text);
-            }
-
             return tweetsPublicados;
         }
     }
