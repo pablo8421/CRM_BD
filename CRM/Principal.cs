@@ -41,12 +41,17 @@ namespace CRM
 
         private void Principal_Load(object sender, EventArgs e)
         {
-            //dataGridView1.DataSource = Control_query.querySelect("SELECT * FROM Cliente");
+            cargarVentanaPrincipal();
+        }
+
+        public void cargarVentanaPrincipal() {
+
             EsquemaCRM esquemaCRM = new EsquemaCRM();
             EsquemaTabla cliente = esquemaCRM.getTabla("cliente");
             filtros = new List<CheckBox>();
             filtros_texto = new List<TextBox>();
-            for (int i = 0; i < cliente.columnas.Count; i++) {
+            for (int i = 0; i < cliente.columnas.Count; i++)
+            {
                 if (!(cliente.columnas[i].Equals("direccion_foto") || cliente.columnas[i].Equals("id")))
                 {
                     CheckBox cb = new CheckBox();
@@ -78,22 +83,22 @@ namespace CRM
                     filtros.Add(cb);
                     filtros_texto.Add(tb);
                 }
-                
+
             }
             String query = "SELECT ";
-            for (int i = 0; i < filtros.Count; i++){
+            for (int i = 0; i < filtros.Count; i++)
+            {
                 splitContainer1.Panel1.Controls.Add(filtros[i]);
                 splitContainer1.Panel1.Controls.Add(filtros_texto[i]);
                 if (!filtros[i].Equals("id"))
                 {
                     query += filtros[i].Text + ", ";
                 }
-                    
+
             }
             query = query.Substring(0, query.Length - 2);
             query += " FROM cliente";
             dataGridView1.DataSource = Control_query.querySelect(query);
-            
         }
 
         public void controlDataGrid(object sender, EventArgs e)
