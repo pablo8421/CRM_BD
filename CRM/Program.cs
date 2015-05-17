@@ -19,7 +19,7 @@ namespace CRM
             
             //Prueba EsquemaCRM
             EsquemaCRM esquema = new EsquemaCRM();
-            
+            Tweet_control tweets = new Tweet_control();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Principal());
