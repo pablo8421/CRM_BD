@@ -92,6 +92,18 @@ namespace CRM
         private void AgregarUsuario_Load(object sender, EventArgs e)
         {
             cargarOtros();
+
+            //Obtener ciudades
+            DataTable dtCiudad = Control_query.querySelect("SELECT * FROM ciudad;");
+            //Agregarlas al combo box
+            comboCiudad.DataSource = dtCiudad.DefaultView;
+            comboCiudad.DisplayMember = "nombre_ciudad";
+
+            //Obtener empleos
+            DataTable dtEmpleo = Control_query.querySelect("SELECT * FROM empleo;");
+            //Agregarlas al combo box
+            comboOcuapcion.DataSource = dtEmpleo.DefaultView;
+            comboOcuapcion.DisplayMember = "nombre_puesto";
         }
 
         private void btnExaminar_Click(object sender, EventArgs e)
@@ -135,12 +147,46 @@ namespace CRM
             String nombre = textNombre.Text;
             String apellido = textApellido.Text;
             String fecha = fechaPicker.Value.Year + "-" + fechaPicker.Value.Month + "-" + fechaPicker.Value.Day;
-            int ciudad = comboCiudad.SelectedIndex;
+
+            //identificador de la ciudad
+            DataRowView fila = (DataRowView)comboCiudad.SelectedItem;
+            int ciudad;
+            try
+            {
+                ciudad = (Int32)fila["id"];
+
+            }
+            catch (Exception error)
+            {
+                int res = Control_query.query("INSERT INTO ciudad(nombre_ciudad) VALUES ('" + comboCiudad.Text + "');");
+                if (res == -5)
+                {
+                    MessageBox.Show("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)", "Problemas al agregar el cliente", MessageBoxButtons.OK);
+
+                }
+                DataTable dt =  Control_query.querySelect("SELECT * FROM ciudad WHERE nombre_ciudad = '" + comboCiudad.Text + "';");
+                ciudad = (Int32) dt.Rows[0]["id"];
+
+            }
+
             String dpi = textDpi.Text;
             String email = textEmail.Text;
             String telefono_fijo = textTelFijo.Text;
             String telefono_movil = textTelMovil.Text;
-            int ocupacion = comboOcuapcion.SelectedIndex;
+            //identificador del empleo
+            fila = (DataRowView)comboCiudad.SelectedItem;
+            fila = (DataRowView)comboCiudad.SelectedItem;
+            int ocupacion;
+            try
+            {
+                ocupacion = (Int32)fila["id"];
+
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)", "Eta chit no esta implementada", MessageBoxButtons.OK);
+                ocupacion = 0;
+            }
             String foto_perfil = apellido + "_" + dpi + ".jpg";
 
             subquery1 = "INSERT INTO cliente (";
