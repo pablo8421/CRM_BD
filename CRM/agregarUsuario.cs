@@ -174,8 +174,7 @@ namespace CRM
             String telefono_fijo = textTelFijo.Text;
             String telefono_movil = textTelMovil.Text;
             //identificador del empleo
-            fila = (DataRowView)comboCiudad.SelectedItem;
-            fila = (DataRowView)comboCiudad.SelectedItem;
+            fila = (DataRowView)comboOcuapcion.SelectedItem;
             int ocupacion;
             try
             {
@@ -184,8 +183,14 @@ namespace CRM
             }
             catch (Exception error)
             {
-                MessageBox.Show("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)", "Eta chit no esta implementada", MessageBoxButtons.OK);
-                ocupacion = 0;
+                int res = Control_query.query("INSERT INTO empleo(nombre_puesto) VALUES ('" + comboOcuapcion.Text + "');");
+                if (res == -5)
+                {
+                    MessageBox.Show("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)", "Problemas al agregar el puesto", MessageBoxButtons.OK);
+
+                }
+                DataTable dt = Control_query.querySelect("SELECT * FROM empleo WHERE nombre_puesto = '" + comboOcuapcion.Text + "';");
+                ocupacion = (Int32)dt.Rows[0]["id"];
             }
             String foto_perfil = apellido + "_" + dpi + ".jpg";
 
