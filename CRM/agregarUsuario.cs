@@ -175,9 +175,12 @@ namespace CRM
             {
                 Bitmap paGuardar = new Bitmap(pictureBox1.Image);
                 paGuardar.Save("Imagenes\\" + foto_perfil, System.Drawing.Imaging.ImageFormat.Jpeg);
+                this.Close();
             }
             else
-                Console.WriteLine("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)");
+            {
+                MessageBox.Show("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)", "Problemas al agregar el cliente", MessageBoxButtons.OK);
+            }
         }
     }
 }
