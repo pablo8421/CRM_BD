@@ -28,7 +28,7 @@ namespace CRM
         private void btnAñadir_Click(object sender, EventArgs e)
         {
             // show other form
-            AgregarUsuario agregar = new AgregarUsuario();
+            AgregarUsuario agregar = new AgregarUsuario(this);
             agregar.ShowDialog();
 
         }
@@ -50,10 +50,12 @@ namespace CRM
             EsquemaTabla cliente = esquemaCRM.getTabla("cliente");
             filtros = new List<CheckBox>();
             filtros_texto = new List<TextBox>();
+            int contador = 1;
             for (int i = 0; i < cliente.columnas.Count; i++)
             {
                 if (!(cliente.columnas[i].Equals("direccion_foto") || cliente.columnas[i].Equals("id")))
                 {
+                    
                     CheckBox cb = new CheckBox();
                     TextBox tb = new TextBox();
                     cb.Checked = true;
@@ -67,22 +69,24 @@ namespace CRM
 
                     Size tamanioTB = new Size();
                     tamanioTB.Height = 20;
-                    tamanioTB.Width = 110;
+                    tamanioTB.Width = 226;
                     tb.Size = tamanioTB;
 
                     Point pCB = new Point();
                     pCB.X = 10;
-                    pCB.Y = i * 25 + 20;
+                    pCB.Y = contador * 25 + 20;
                     cb.Location = pCB;
 
                     Point pTB = new Point();
                     pTB.X = 125;
-                    pTB.Y = i * 25 + 20;
+                    pTB.Y = contador * 25 + 20;
                     tb.Location = pTB;
 
                     filtros.Add(cb);
                     filtros_texto.Add(tb);
+                    contador++;
                 }
+                
 
             }
             String query = "SELECT ";

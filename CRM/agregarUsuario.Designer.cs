@@ -29,29 +29,29 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnAceptar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.textNombre = new System.Windows.Forms.TextBox();
-            this.textApellido = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.fechaPicker = new System.Windows.Forms.DateTimePicker();
-            this.textDpi = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.comboCiudad = new System.Windows.Forms.ComboBox();
+            this.btnExaminar = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.comboOcuapcion = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textTelMovil = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.textTelFijo = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.textEmail = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textTelMovil = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.comboOcuapcion = new System.Windows.Forms.ComboBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnExaminar = new System.Windows.Forms.Button();
+            this.comboCiudad = new System.Windows.Forms.ComboBox();
+            this.textDpi = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.fechaPicker = new System.Windows.Forms.DateTimePicker();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textApellido = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textNombre = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.btnAceptar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -98,111 +98,62 @@
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
             this.splitContainer1.Panel2.Controls.Add(this.label10);
+            this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
             this.splitContainer1.Size = new System.Drawing.Size(882, 440);
             this.splitContainer1.SplitterDistance = 192;
             this.splitContainer1.TabIndex = 0;
             // 
-            // label1
+            // btnExaminar
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Nombre:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.btnExaminar.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnExaminar.Location = new System.Drawing.Point(595, 226);
+            this.btnExaminar.Name = "btnExaminar";
+            this.btnExaminar.Size = new System.Drawing.Size(75, 23);
+            this.btnExaminar.TabIndex = 22;
+            this.btnExaminar.Text = "Examinar";
+            this.btnExaminar.UseVisualStyleBackColor = true;
             // 
-            // btnAceptar
+            // pictureBox1
             // 
-            this.btnAceptar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnAceptar.Location = new System.Drawing.Point(382, 458);
-            this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(75, 23);
-            this.btnAceptar.TabIndex = 1;
-            this.btnAceptar.Text = "Aceptar";
-            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.pictureBox1.Location = new System.Drawing.Point(528, 24);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(231, 196);
+            this.pictureBox1.TabIndex = 21;
+            this.pictureBox1.TabStop = false;
             // 
-            // btnCancelar
+            // comboOcuapcion
             // 
-            this.btnCancelar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnCancelar.Location = new System.Drawing.Point(463, 458);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
-            this.btnCancelar.TabIndex = 2;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.comboOcuapcion.FormattingEnabled = true;
+            this.comboOcuapcion.Location = new System.Drawing.Point(122, 231);
+            this.comboOcuapcion.Name = "comboOcuapcion";
+            this.comboOcuapcion.Size = new System.Drawing.Size(226, 21);
+            this.comboOcuapcion.TabIndex = 20;
+            this.comboOcuapcion.SelectedIndexChanged += new System.EventHandler(this.comboOcuapcion_SelectedIndexChanged);
             // 
-            // textNombre
+            // label8
             // 
-            this.textNombre.Location = new System.Drawing.Point(122, 19);
-            this.textNombre.Name = "textNombre";
-            this.textNombre.Size = new System.Drawing.Size(226, 20);
-            this.textNombre.TabIndex = 2;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(8, 234);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(62, 13);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "Ocupacion:";
             // 
-            // textApellido
+            // textTelMovil
             // 
-            this.textApellido.Location = new System.Drawing.Point(122, 45);
-            this.textApellido.Name = "textApellido";
-            this.textApellido.Size = new System.Drawing.Size(226, 20);
-            this.textApellido.TabIndex = 4;
+            this.textTelMovil.Location = new System.Drawing.Point(122, 205);
+            this.textTelMovil.Name = "textTelMovil";
+            this.textTelMovil.Size = new System.Drawing.Size(226, 20);
+            this.textTelMovil.TabIndex = 18;
             // 
-            // label2
+            // label9
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 48);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Apellido:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 77);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(111, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Fecha de Nacimiento:";
-            // 
-            // fechaPicker
-            // 
-            this.fechaPicker.Location = new System.Drawing.Point(122, 71);
-            this.fechaPicker.Name = "fechaPicker";
-            this.fechaPicker.Size = new System.Drawing.Size(226, 20);
-            this.fechaPicker.TabIndex = 7;
-            // 
-            // textDpi
-            // 
-            this.textDpi.Location = new System.Drawing.Point(122, 124);
-            this.textDpi.Name = "textDpi";
-            this.textDpi.Size = new System.Drawing.Size(226, 20);
-            this.textDpi.TabIndex = 11;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 127);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "No. DPI";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 100);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Ciudad:";
-            // 
-            // comboCiudad
-            // 
-            this.comboCiudad.FormattingEnabled = true;
-            this.comboCiudad.Location = new System.Drawing.Point(122, 97);
-            this.comboCiudad.Name = "comboCiudad";
-            this.comboCiudad.Size = new System.Drawing.Size(226, 21);
-            this.comboCiudad.TabIndex = 12;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(8, 208);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(77, 13);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "Telefono Movil";
             // 
             // textTelFijo
             // 
@@ -236,57 +187,87 @@
             this.label7.TabIndex = 13;
             this.label7.Text = "E-mail:";
             // 
-            // label8
+            // comboCiudad
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(8, 234);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(62, 13);
-            this.label8.TabIndex = 19;
-            this.label8.Text = "Ocupacion:";
+            this.comboCiudad.FormattingEnabled = true;
+            this.comboCiudad.Location = new System.Drawing.Point(122, 97);
+            this.comboCiudad.Name = "comboCiudad";
+            this.comboCiudad.Size = new System.Drawing.Size(226, 21);
+            this.comboCiudad.TabIndex = 12;
             // 
-            // textTelMovil
+            // textDpi
             // 
-            this.textTelMovil.Location = new System.Drawing.Point(122, 205);
-            this.textTelMovil.Name = "textTelMovil";
-            this.textTelMovil.Size = new System.Drawing.Size(226, 20);
-            this.textTelMovil.TabIndex = 18;
+            this.textDpi.Location = new System.Drawing.Point(122, 124);
+            this.textDpi.Name = "textDpi";
+            this.textDpi.Size = new System.Drawing.Size(226, 20);
+            this.textDpi.TabIndex = 11;
             // 
-            // label9
+            // label4
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(8, 208);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(77, 13);
-            this.label9.TabIndex = 17;
-            this.label9.Text = "Telefono Movil";
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 124);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(45, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "No. DPI";
             // 
-            // comboOcuapcion
+            // label5
             // 
-            this.comboOcuapcion.FormattingEnabled = true;
-            this.comboOcuapcion.Location = new System.Drawing.Point(122, 231);
-            this.comboOcuapcion.Name = "comboOcuapcion";
-            this.comboOcuapcion.Size = new System.Drawing.Size(226, 21);
-            this.comboOcuapcion.TabIndex = 20;
-            this.comboOcuapcion.SelectedIndexChanged += new System.EventHandler(this.comboOcuapcion_SelectedIndexChanged);
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(8, 100);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Ciudad:";
             // 
-            // pictureBox1
+            // fechaPicker
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(528, 24);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(231, 196);
-            this.pictureBox1.TabIndex = 21;
-            this.pictureBox1.TabStop = false;
+            this.fechaPicker.Location = new System.Drawing.Point(122, 71);
+            this.fechaPicker.Name = "fechaPicker";
+            this.fechaPicker.Size = new System.Drawing.Size(226, 20);
+            this.fechaPicker.TabIndex = 7;
             // 
-            // btnExaminar
+            // label3
             // 
-            this.btnExaminar.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnExaminar.Location = new System.Drawing.Point(613, 226);
-            this.btnExaminar.Name = "btnExaminar";
-            this.btnExaminar.Size = new System.Drawing.Size(75, 23);
-            this.btnExaminar.TabIndex = 22;
-            this.btnExaminar.Text = "Examinar";
-            this.btnExaminar.UseVisualStyleBackColor = true;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 77);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(111, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Fecha de Nacimiento:";
+            // 
+            // textApellido
+            // 
+            this.textApellido.Location = new System.Drawing.Point(122, 45);
+            this.textApellido.Name = "textApellido";
+            this.textApellido.Size = new System.Drawing.Size(226, 20);
+            this.textApellido.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(47, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Apellido:";
+            // 
+            // textNombre
+            // 
+            this.textNombre.Location = new System.Drawing.Point(122, 19);
+            this.textNombre.Name = "textNombre";
+            this.textNombre.Size = new System.Drawing.Size(226, 20);
+            this.textNombre.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(47, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Nombre:";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label10
             // 
@@ -296,6 +277,27 @@
             this.label10.Size = new System.Drawing.Size(45, 13);
             this.label10.TabIndex = 0;
             this.label10.Text = "OTROS";
+            // 
+            // btnAceptar
+            // 
+            this.btnAceptar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnAceptar.Location = new System.Drawing.Point(382, 458);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(75, 23);
+            this.btnAceptar.TabIndex = 1;
+            this.btnAceptar.Text = "Aceptar";
+            this.btnAceptar.UseVisualStyleBackColor = true;
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnCancelar.Location = new System.Drawing.Point(463, 458);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.TabIndex = 2;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // AgregarUsuario
             // 
@@ -307,6 +309,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Name = "AgregarUsuario";
             this.Text = "Agregar Usuario";
+            this.Load += new System.EventHandler(this.AgregarUsuario_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
