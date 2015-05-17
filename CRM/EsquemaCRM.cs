@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CRM
 {
-    class EsquemaCRM
+    public class EsquemaCRM
     {
         List<EsquemaTabla> tablas;
 

@@ -15,6 +15,9 @@ namespace CRM
 
         public List<CheckBox> filtros;
         public List<TextBox> filtros_texto;
+        public EsquemaCRM esquemaCRM;
+        public EsquemaTabla cliente;
+
         public Principal()
         {
             InitializeComponent();
@@ -46,8 +49,8 @@ namespace CRM
 
         public void cargarVentanaPrincipal() {
 
-            EsquemaCRM esquemaCRM = new EsquemaCRM();
-            EsquemaTabla cliente = esquemaCRM.getTabla("cliente");
+            esquemaCRM = new EsquemaCRM();
+            cliente = esquemaCRM.getTabla("cliente");
             filtros = new List<CheckBox>();
             filtros_texto = new List<TextBox>();
             int contador = 1;

@@ -127,5 +127,48 @@ namespace CRM
                 }
             }
         }
+
+        private void btnAceptar_Click_1(object sender, EventArgs e)
+        {
+            String subquery1, subquery2;
+
+            String nombre = textNombre.Text;
+            String apellido = textApellido.Text;
+            String fecha = fechaPicker.Value.Year + "-" + fechaPicker.Value.Month + "-" + fechaPicker.Value.Day;
+            int ciudad = comboCiudad.SelectedIndex;
+            String dpi = textDpi.Text;
+            String email = textEmail.Text;
+            String telefono_fijo = textTelFijo.Text;
+            String telefono_movil = textTelMovil.Text;
+            int ocupacion = comboOcuapcion.SelectedIndex;
+            String foto_perfil = "jiji";
+
+            subquery1 = "INSERT INTO cliente (";
+            foreach (CheckBox l in miPrincipal.filtros)
+            {
+                subquery1 += l.Text + ", ";
+            }
+            subquery1 = subquery1.Substring(0, subquery1.Length - 2);
+            subquery1 += ") ";
+            subquery2 = "VALUES ('" + nombre + "', '" + apellido + "', '" + fecha + "'," + ciudad + ",'" + dpi + "', '" + email + "', " + telefono_fijo + ", " + telefono_movil + ", " + ocupacion + ", '" + foto_perfil + "'";
+            for (int i = 0; i < label_texto.Count; i++)
+            {
+                TextBox tb = label_texto[i];
+                if (miPrincipal.cliente.tipos[i + 11].Contains("varchar") || miPrincipal.cliente.tipos[i + 11].Contains("date"))//un comentario
+                    subquery2 += ", '" + tb.Text + "'";
+                else if (miPrincipal.cliente.tipos[i + 11].Contains("integer") || miPrincipal.cliente.tipos[i + 11].Contains("double"))
+                    subquery2 += ", " + tb.Text;
+                else
+                {
+                    Console.WriteLine("La cantamos");
+                }
+
+            }
+            subquery2 += ");";
+            String query = subquery1 + subquery2;
+            int valor = Control_query.query(query);
+            if (valor == -5)
+                Console.WriteLine("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)");
+        }
     }
 }
