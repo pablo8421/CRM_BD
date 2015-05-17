@@ -141,12 +141,16 @@ namespace CRM
             String telefono_fijo = textTelFijo.Text;
             String telefono_movil = textTelMovil.Text;
             int ocupacion = comboOcuapcion.SelectedIndex;
-            String foto_perfil = "jiji";
+            String foto_perfil = apellido + "_" + dpi + ".jpg";
 
             subquery1 = "INSERT INTO cliente (";
             foreach (CheckBox l in miPrincipal.filtros)
             {
                 subquery1 += l.Text + ", ";
+                if (l.Text.Equals("id_empleo"))
+                {
+                    subquery1 += "direccion_foto, ";
+                }
             }
             subquery1 = subquery1.Substring(0, subquery1.Length - 2);
             subquery1 += ") ";
@@ -167,7 +171,12 @@ namespace CRM
             subquery2 += ");";
             String query = subquery1 + subquery2;
             int valor = Control_query.query(query);
-            if (valor == -5)
+            if (valor != -5)
+            {
+                Bitmap paGuardar = new Bitmap(pictureBox1.Image);
+                paGuardar.Save("Imagenes\\" + foto_perfil, System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
+            else
                 Console.WriteLine("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)");
         }
     }
