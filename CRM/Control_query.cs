@@ -10,6 +10,7 @@ namespace CRM
 {
     static class Control_query
     {
+        //Datos para conectarse a la BD
         static string host = "127.0.0.1";
         static string puerto = "5432";
         static string usuario = "computadora";
