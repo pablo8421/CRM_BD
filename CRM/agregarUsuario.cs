@@ -93,5 +93,39 @@ namespace CRM
         {
             cargarOtros();
         }
+
+        private void btnExaminar_Click(object sender, EventArgs e)
+        {
+            // Create an instance of the open file dialog box.
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            // Set filter options and filter index.
+            openFileDialog1.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png |" +
+                                     "All Files (*.*)|*.*";
+            openFileDialog1.FilterIndex = 1;
+
+            openFileDialog1.Multiselect = false;
+
+            // Call the ShowDialog method to show the dialog box.
+            DialogResult userClickedOK = openFileDialog1.ShowDialog();
+
+            // Process input if the user clicked OK.
+            if (userClickedOK == DialogResult.OK)
+            {
+                try
+                {
+                    //Obtener la imagen obtenida del archivo
+                    PictureBox imagen = new PictureBox();
+                    imagen.Image = new Bitmap(openFileDialog1.FileName);
+
+                    //Mostrar la imagen
+                    pictureBox1.Image = imagen.Image;
+                }
+                catch (Exception error)
+                {
+                    MessageBox.Show("El archivo seleccionado no era una archivo de imagen valido.", "Error al cargar imagen", MessageBoxButtons.OK);
+                }
+            }
+        }
     }
 }

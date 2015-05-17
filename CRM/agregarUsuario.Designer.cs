@@ -100,24 +100,26 @@
             this.splitContainer1.Panel2.Controls.Add(this.label10);
             this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
             this.splitContainer1.Size = new System.Drawing.Size(882, 440);
-            this.splitContainer1.SplitterDistance = 192;
+            this.splitContainer1.SplitterDistance = 275;
             this.splitContainer1.TabIndex = 0;
             // 
             // btnExaminar
             // 
             this.btnExaminar.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnExaminar.Location = new System.Drawing.Point(595, 226);
+            this.btnExaminar.Location = new System.Drawing.Point(599, 231);
             this.btnExaminar.Name = "btnExaminar";
             this.btnExaminar.Size = new System.Drawing.Size(75, 23);
             this.btnExaminar.TabIndex = 22;
             this.btnExaminar.Text = "Examinar";
             this.btnExaminar.UseVisualStyleBackColor = true;
+            this.btnExaminar.Click += new System.EventHandler(this.btnExaminar_Click);
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(528, 24);
+            this.pictureBox1.Location = new System.Drawing.Point(426, 22);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(231, 196);
+            this.pictureBox1.Size = new System.Drawing.Size(394, 203);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 21;
             this.pictureBox1.TabStop = false;
             // 
