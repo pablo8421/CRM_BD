@@ -23,14 +23,18 @@ namespace CRM
         {
             
             String nombreCampo = textBoxNombre.Text;
-            String tipoCampo = comboBoxTipo.SelectedItem.ToString();
+            String tipoCampo;
+            if (comboBoxTipo.SelectedItem != null)
+                tipoCampo = comboBoxTipo.SelectedItem.ToString();
+            else
+                tipoCampo = "";
             String query = "ALTER TABLE cliente ADD COLUMN " + nombreCampo + " " + tipoCampo + ";";
             int valor = Control_query.query(query);
-            if (valor == -1)
+            if (valor == -5)
             {
                 Console.Write("Laca");
             }
-            miPrincipal.Show();
+            miPrincipal.cargarVentanaPrincipal();
             this.Close();
         }
 
