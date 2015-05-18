@@ -17,15 +17,21 @@ namespace CRM
                                               "FylAM4mFG1UfeEiOVFyInfiBxgRxYUbiTQJDqpCEaKAcHDOg15");
         }
 
-        public Tweetinvi.Core.Interfaces.ITweet[] getTweets(String cuenta)
+        public static Tweetinvi.Core.Interfaces.ITweet[] getTweets(String cuenta)
         {
             return getTweets(cuenta, 100);
         } 
 
-        public Tweetinvi.Core.Interfaces.ITweet[] getTweets(String cuenta, int cantidad)
+        public static Tweetinvi.Core.Interfaces.ITweet[] getTweets(String cuenta, int cantidad)
         {
             //Obtener el usuario
             Tweetinvi.Core.Interfaces.IUser user = Tweetinvi.User.GetUserFromScreenName(cuenta);
+
+            //Si no existe el usuario, regresa nulo
+            if (user == null)
+            {
+                return null;
+            }
 
             //Generar la busqueda
             Tweetinvi.Core.Interfaces.Models.Parameters.IUserTimelineRequestParameters timelineParameter = Timeline.CreateUserTimelineRequestParameter(user);
@@ -35,11 +41,22 @@ namespace CRM
 
             //Obtener los tweets
             var tweets = Timeline.GetUserTimeline(timelineParameter);
-            
+
+            if (tweets == null)
+            {
+                return null;
+            }
+
             //Filtrar por los publicados por el usuario
             Tweetinvi.Core.Interfaces.ITweet[] tweetsPublicados = tweets.Where(x => x.Creator.Equals(user)).ToArray();
 
             return tweetsPublicados;
+        }
+
+        public static Tweetinvi.Core.Interfaces.ITweet[] buscarTweets(String busqueda)
+        {
+            Tweetinvi.Core.Interfaces.ITweet[] tweets = Search.SearchTweets(busqueda).ToArray();
+           return tweets;
         }
     }
 }
