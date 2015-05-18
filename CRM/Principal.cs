@@ -234,19 +234,76 @@ namespace CRM
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            //Armar la query
+            //SELECT del query
             string query = "SELECT ";
 
-            foreach (TextBox caja in filtros_texto)
+            foreach (CheckBox caja in filtros)
             {
-                query += caja.Text+ ", ";
+                if(caja.Checked)
+                {
+                    query += caja.Text + ", ";
+                }
+            }
+            if (query.EndsWith(", "))
+            {
+                query = query.Substring(0, query.Length - 2) + " ";
+            }
+            else
+            {
+                query += "* ";
+            }
+            
+            //FROM del query
+            query += "FROM (cliente JOIN ciudad ON (cliente.id_ciudad = ciudad.id)) JOIN empleo ON (cliente.id_empleo = empleo.id) ";
+
+            //WHERE del query
+            Boolean sinWhere = true;
+
+            //Por cada filtro
+            for (int i = 0; i < filtros.Count; i++)
+            {
+                string subquery = "";
+                //Si el filtro no se encuentra vacio
+                if (filtros_texto[i].Text.Trim().Length != 0 && filtros[i].Checked)
+                {
+                    //Cada parametro que se desea buscar
+                    String[] parametros = filtros_texto[i].Text.Trim().Split(',');
+                    //Por cada parametro, unirlos por ORs
+                    foreach (string parametro in parametros)
+                    {
+                        subquery += filtros[i].Text + " = '" + parametro.Trim() + "' OR ";
+                    }
+                    //Quitar el ultimo OR
+                    subquery = subquery.Substring(0, subquery.Length - 3);
+                    //Agregar el where si hace falta y poner AND para el siguiente filtro
+                    if (sinWhere)
+                    {
+                        query += "WHERE " + "(" + subquery + ") AND ";
+                        sinWhere = false;
+                    }
+                    else
+                    {
+                        query += "(" + subquery + ") AND ";
+                    }
+                }
+
+            }
+            //Si no hay where se coloca ;
+            if (sinWhere)
+            {
+                query = query.Substring(0, query.Length - 1) + ";";
+            }
+            //Si hay where si quita el and del ultimo filtro
+            else
+            {
+                query = query.Substring(0, query.Length - 5) + ";";
             }
 
-            query = query.Substring(0, query.Length - 2);
+
 
             //Hacer la query
-            Console.WriteLine(query);
-            //dataGridView1.DataSource = Control_query.querySelect(query);
+            //Console.WriteLine(query);
+            dataGridView1.DataSource = Control_query.querySelect(query);
         }
     }
 }
