@@ -232,14 +232,14 @@ namespace CRM
 
         }
 
-        private void btnBuscar_Click(object sender, EventArgs e)
+        private string obtenerSelectQuery()
         {
             //SELECT del query
             string query = "SELECT ";
 
             foreach (CheckBox caja in filtros)
             {
-                if(caja.Checked)
+                if (caja.Checked)
                 {
                     query += caja.Text + ", ";
                 }
@@ -252,7 +252,7 @@ namespace CRM
             {
                 query += "* ";
             }
-            
+
             //FROM del query
             query += "FROM (cliente JOIN ciudad ON (cliente.id_ciudad = ciudad.id)) JOIN empleo ON (cliente.id_empleo = empleo.id) ";
 
@@ -299,10 +299,15 @@ namespace CRM
                 query = query.Substring(0, query.Length - 5) + ";";
             }
 
+            return query;
+        }
 
-
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            //SELECT del query
+            string query = obtenerSelectQuery();
+            
             //Hacer la query
-            //Console.WriteLine(query);
             dataGridView1.DataSource = Control_query.querySelect(query);
         }
 
