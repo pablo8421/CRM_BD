@@ -71,23 +71,22 @@ namespace CRM
                 tamanioLB1.Width = 125;
                 label1.Size = tamanioLB1;
 
-                Size tamanioTB = new Size();
-                tamanioTB.Height = 20;
-                tamanioTB.Width = 226;
-                tb.Size = tamanioTB;
+                Size tamanioLB2 = new Size();
+                tamanioLB2.Height = 20;
+                tamanioLB2.Width = 226;
+                label2.Size = tamanioLB2;
 
-                Point pCB = new Point();
-                pCB.X = 10;
-                pCB.Y = contador * 25 + 20;
-                cb.Location = pCB;
+                Point pLB1 = new Point();
+                pLB1.X = 12;
+                pLB1.Y = 467 + contador * 30;
+                label1.Location = pLB1;
 
-                Point pTB = new Point();
-                pTB.X = 140;
-                pTB.Y = contador * 25 + 20;
-                tb.Location = pTB;
+                Point pLB2 = new Point();
+                pLB2.X = 160;
+                pLB2.Y = 467 + contador * 30;
+                label2.Location = pLB2;
 
-                filtros.Add(cb);
-                filtros_texto.Add(tb);
+                
                 contador++;
                 
             }
