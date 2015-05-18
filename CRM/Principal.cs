@@ -231,5 +231,22 @@ namespace CRM
         {
 
         }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            //Armar la query
+            string query = "SELECT ";
+
+            foreach (TextBox caja in filtros_texto)
+            {
+                query += caja.Text+ ", ";
+            }
+
+            query = query.Substring(0, query.Length - 2);
+
+            //Hacer la query
+            Console.WriteLine(query);
+            //dataGridView1.DataSource = Control_query.querySelect(query);
+        }
     }
 }
