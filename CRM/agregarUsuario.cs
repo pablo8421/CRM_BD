@@ -51,7 +51,7 @@ namespace CRM
             label = new List<Label>();
             label_texto = new List<TextBox>();
             int contador = 1;
-            for (int i = 9; i < miPrincipal.filtros.Count; i++)
+            for (int i = 12; i < miPrincipal.filtros.Count; i++)
             {
                 Label lb = new Label();
                 TextBox tb = new TextBox();
@@ -214,13 +214,10 @@ namespace CRM
             String foto_perfil = apellido + "_" + dpi + ".jpg";
 
             subquery1 = "INSERT INTO cliente (";
-            foreach (CheckBox l in miPrincipal.filtros)
+            foreach (String l in miPrincipal.cliente.columnas)
             {
-                subquery1 += l.Text + ", ";
-                if (l.Text.Equals("id_empleo"))
-                {
-                    subquery1 += "direccion_foto, ";
-                }
+                if (!l.Equals("id"))
+                    subquery1 += l+", ";
             }
             subquery1 = subquery1.Substring(0, subquery1.Length - 2);
             subquery1 += ") ";
@@ -228,7 +225,7 @@ namespace CRM
             for (int i = 0; i < label_texto.Count; i++)
             {
                 TextBox tb = label_texto[i];
-                if (miPrincipal.cliente.tipos[i + 11].Contains("varchar") || miPrincipal.cliente.tipos[i + 11].Contains("date"))
+                if (miPrincipal.cliente.tipos[i + 11].Contains("text") || miPrincipal.cliente.tipos[i + 11].Contains("date"))
                     subquery2 += ", '" + tb.Text + "'";
                 else if (miPrincipal.cliente.tipos[i + 11].Contains("integer") || miPrincipal.cliente.tipos[i + 11].Contains("double"))
                     subquery2 += ", " + tb.Text;
