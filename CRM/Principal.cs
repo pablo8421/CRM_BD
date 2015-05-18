@@ -17,6 +17,8 @@ namespace CRM
         public List<TextBox> filtros_texto;
         public EsquemaCRM esquemaCRM;
         public EsquemaTabla cliente;
+        public EsquemaTabla ciudad;
+        public EsquemaTabla empleo;
 
         public Principal()
         {
@@ -58,36 +60,117 @@ namespace CRM
             {
                 if (!(cliente.columnas[i].Equals("direccion_foto") || cliente.columnas[i].Equals("id")))
                 {
+                    if (!(cliente.columnas[i].Equals("id_ciudad") || cliente.columnas[i].Equals("id_empleo")))
+                    {
+                        CheckBox cb = new CheckBox();
+                        TextBox tb = new TextBox();
+                        cb.Checked = true;
+                        cb.CheckedChanged += controlDataGrid;
+                        cb.Text = cliente.columnas[i];
+
+                        Size tamanioCB = new Size();
+                        tamanioCB.Height = 20;
+                        tamanioCB.Width = 125;
+                        cb.Size = tamanioCB;
+
+                        Size tamanioTB = new Size();
+                        tamanioTB.Height = 20;
+                        tamanioTB.Width = 226;
+                        tb.Size = tamanioTB;
+
+                        Point pCB = new Point();
+                        pCB.X = 10;
+                        pCB.Y = contador * 25 + 20;
+                        cb.Location = pCB;
+
+                        Point pTB = new Point();
+                        pTB.X = 140;
+                        pTB.Y = contador * 25 + 20;
+                        tb.Location = pTB;
+
+                        filtros.Add(cb);
+                        filtros_texto.Add(tb);
+                        contador++;
+                    }
+                    else if (cliente.columnas[i].Equals("id_ciudad"))
+                    {
+                        ciudad = esquemaCRM.getTabla("ciudad");
+                        for (int j = 0; j < ciudad.columnas.Count; j++)
+                        {
+                            if (!ciudad.columnas[j].Equals("id"))
+                            {
+                                CheckBox cb = new CheckBox();
+                                TextBox tb = new TextBox();
+                                cb.Checked = true;
+                                cb.CheckedChanged += controlDataGrid;
+                                cb.Text = ciudad.columnas[j];
+
+                                Size tamanioCB = new Size();
+                                tamanioCB.Height = 20;
+                                tamanioCB.Width = 125;
+                                cb.Size = tamanioCB;
+
+                                Size tamanioTB = new Size();
+                                tamanioTB.Height = 20;
+                                tamanioTB.Width = 226;
+                                tb.Size = tamanioTB;
+
+                                Point pCB = new Point();
+                                pCB.X = 10;
+                                pCB.Y = contador * 25 + 20;
+                                cb.Location = pCB;
+
+                                Point pTB = new Point();
+                                pTB.X = 140;
+                                pTB.Y = contador * 25 + 20;
+                                tb.Location = pTB;
+
+                                filtros.Add(cb);
+                                filtros_texto.Add(tb);
+                                contador++;
+                            }
+                        }
+                    }
+                    else if (cliente.columnas[i].Equals("id_empleo"))
+                    {
+                        empleo = esquemaCRM.getTabla("empleo");
+                        for (int j = 0; j < empleo.columnas.Count; j++)
+                        {
+                            if (!empleo.columnas[j].Equals("id"))
+                            {
+                                CheckBox cb = new CheckBox();
+                                TextBox tb = new TextBox();
+                                cb.Checked = true;
+                                cb.CheckedChanged += controlDataGrid;
+                                cb.Text = empleo.columnas[j];
+
+                                Size tamanioCB = new Size();
+                                tamanioCB.Height = 20;
+                                tamanioCB.Width = 125;
+                                cb.Size = tamanioCB;
+
+                                Size tamanioTB = new Size();
+                                tamanioTB.Height = 20;
+                                tamanioTB.Width = 226;
+                                tb.Size = tamanioTB;
+
+                                Point pCB = new Point();
+                                pCB.X = 10;
+                                pCB.Y = contador * 25 + 20;
+                                cb.Location = pCB;
+
+                                Point pTB = new Point();
+                                pTB.X = 140;
+                                pTB.Y = contador * 25 + 20;
+                                tb.Location = pTB;
+
+                                filtros.Add(cb);
+                                filtros_texto.Add(tb);
+                                contador++;
+                            }
+                        }
+                    }    
                     
-                    CheckBox cb = new CheckBox();
-                    TextBox tb = new TextBox();
-                    cb.Checked = true;
-                    cb.CheckedChanged += controlDataGrid;
-                    cb.Text = cliente.columnas[i];
-
-                    Size tamanioCB = new Size();
-                    tamanioCB.Height = 20;
-                    tamanioCB.Width = 110;
-                    cb.Size = tamanioCB;
-
-                    Size tamanioTB = new Size();
-                    tamanioTB.Height = 20;
-                    tamanioTB.Width = 226;
-                    tb.Size = tamanioTB;
-
-                    Point pCB = new Point();
-                    pCB.X = 10;
-                    pCB.Y = contador * 25 + 20;
-                    cb.Location = pCB;
-
-                    Point pTB = new Point();
-                    pTB.X = 125;
-                    pTB.Y = contador * 25 + 20;
-                    tb.Location = pTB;
-
-                    filtros.Add(cb);
-                    filtros_texto.Add(tb);
-                    contador++;
                 }
                 
 
@@ -104,7 +187,7 @@ namespace CRM
 
             }
             query = query.Substring(0, query.Length - 2);
-            query += " FROM cliente";
+            query += " FROM (cliente JOIN ciudad ON (cliente.id_ciudad = ciudad.id)) JOIN empleo ON (cliente.id_empleo = empleo.id)";
             dataGridView1.DataSource = Control_query.querySelect(query);
         }
 
@@ -134,7 +217,7 @@ namespace CRM
                     }
                 }
                 query = query.Substring(0, query.Length - 2);
-                query += " FROM cliente";
+                query += " FROM (cliente JOIN ciudad ON (cliente.id_ciudad = ciudad.id)) JOIN empleo ON (cliente.id_empleo = empleo.id)";
                 dataGridView1.DataSource = Control_query.querySelect(query);
             }
             else
