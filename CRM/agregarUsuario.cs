@@ -51,7 +51,7 @@ namespace CRM
             label = new List<Label>();
             label_texto = new List<TextBox>();
             int contador = 1;
-            for (int i = 12; i < miPrincipal.filtros.Count; i++)
+            for (int i = 13; i < miPrincipal.filtros.Count; i++)
             {
                 Label lb = new Label();
                 TextBox tb = new TextBox();
@@ -212,7 +212,7 @@ namespace CRM
             }
 
             String foto_perfil = apellido + "_" + dpi + ".jpg";
-
+            String twitter = tbTwitter.Text;
             subquery1 = "INSERT INTO cliente (";
             foreach (String l in miPrincipal.cliente.columnas)
             {
@@ -221,13 +221,13 @@ namespace CRM
             }
             subquery1 = subquery1.Substring(0, subquery1.Length - 2);
             subquery1 += ") ";
-            subquery2 = "VALUES ('" + nombre + "', '" + apellido + "', '" + fecha + "'," + ciudad + ",'" + dpi + "', '" + email + "', " + telefono_fijo + ", " + telefono_movil + ", " + ocupacion + ", '" + foto_perfil + "'";
+            subquery2 = "VALUES ('" + nombre + "', '" + apellido + "', '" + fecha + "'," + ciudad + ",'" + dpi + "', '" + email + "', " + telefono_fijo + ", " + telefono_movil + ", " + ocupacion + ", '" + foto_perfil + "', '"+twitter+"'";
             for (int i = 0; i < label_texto.Count; i++)
             {
                 TextBox tb = label_texto[i];
-                if (miPrincipal.cliente.tipos[i + 11].Contains("text") || miPrincipal.cliente.tipos[i + 11].Contains("date"))
+                if (miPrincipal.cliente.tipos[i + 12].Contains("text") || miPrincipal.cliente.tipos[i + 12].Contains("date"))
                     subquery2 += ", '" + tb.Text + "'";
-                else if (miPrincipal.cliente.tipos[i + 11].Contains("integer") || miPrincipal.cliente.tipos[i + 11].Contains("double"))
+                else if (miPrincipal.cliente.tipos[i + 12].Contains("integer") || miPrincipal.cliente.tipos[i + 12].Contains("double"))
                     subquery2 += ", " + tb.Text;
                 else
                 {

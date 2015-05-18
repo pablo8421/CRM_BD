@@ -193,38 +193,16 @@ namespace CRM
 
         public void controlDataGrid(object sender, EventArgs e)
         {
-            int contador = 0;
             for (int i = 0; i < filtros.Count; i++)
             {
                 if (filtros[i].Checked)
                 {
-                    contador++;
+                    dataGridView1.Columns[i].Visible = true;
+                }
+                else {
+                    dataGridView1.Columns[i].Visible = false;
                 }
             }
-            if (contador >= 1)
-            {
-                dataGridView1.Show();
-                String query = "SELECT ";
-                foreach (CheckBox cb in filtros)
-                {
-                    if (cb.Checked)
-                    {
-                        if (!cb.Equals("id"))
-                        {
-
-                            query += cb.Text + ", ";
-                        }
-                    }
-                }
-                query = query.Substring(0, query.Length - 2);
-                query += " FROM (cliente JOIN ciudad ON (cliente.id_ciudad = ciudad.id)) JOIN empleo ON (cliente.id_empleo = empleo.id)";
-                dataGridView1.DataSource = Control_query.querySelect(query);
-            }
-            else
-            {
-                dataGridView1.Hide();
-            }
-
         }
 
         private void label1_Click(object sender, EventArgs e)

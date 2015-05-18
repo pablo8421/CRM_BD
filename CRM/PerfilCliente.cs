@@ -60,8 +60,6 @@ namespace CRM
 
             String path = datosCliente[1] + "_" + datosCliente[5] + ".jpg";
             pictureFotoCliente.Load("Imagenes\\" + path);
-            
-
             int contador = 0;
             for (int i = 12; i < datosCliente.Count; i++)
             {

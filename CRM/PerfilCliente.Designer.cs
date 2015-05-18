@@ -62,6 +62,7 @@
             // 
             // splitContainer1
             // 
+            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
@@ -350,6 +351,7 @@
             this.pictureFotoCliente.Location = new System.Drawing.Point(12, 12);
             this.pictureFotoCliente.Name = "pictureFotoCliente";
             this.pictureFotoCliente.Size = new System.Drawing.Size(197, 198);
+            this.pictureFotoCliente.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureFotoCliente.TabIndex = 0;
             this.pictureFotoCliente.TabStop = false;
             // 
