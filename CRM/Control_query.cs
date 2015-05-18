@@ -36,7 +36,7 @@ namespace CRM
 
             NpgsqlCommand da = new NpgsqlCommand(query, conexion);
 
-            Console.WriteLine(da.ExecuteNonQuery());
+            //Console.WriteLine(da.ExecuteNonQuery());
             
         }
 

@@ -58,6 +58,8 @@ namespace CRM
             lbNombreC.Text = datosCliente[10];
             lbDireccionC.Text = datosCliente[11];
 
+            String path = datosCliente[1] + "_" + datosCliente[5] + ".jpg";
+            pictureFotoCliente.Load("Imagenes\\" + path);
             int contador = 0;
             for (int i = 12; i < datosCliente.Count; i++)
             {
@@ -85,12 +87,8 @@ namespace CRM
                 pLB2.X = 160;
                 pLB2.Y = 467 + contador * 30;
                 label2.Location = pLB2;
-
-                
                 contador++;
-                
             }
-
         }
     }
 }

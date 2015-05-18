@@ -19,6 +19,8 @@ namespace CRM
         public EsquemaTabla cliente;
         public EsquemaTabla ciudad;
         public EsquemaTabla empleo;
+        int indiceCliente = -1;
+        String nombreCliente = "";
 
         public Principal()
         {
@@ -27,7 +29,22 @@ namespace CRM
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            if (indiceCliente != -1)
+            {
+                DialogResult dialogResult = MessageBox.Show("Esta seguro que desea eliminar a: "+nombreCliente+"?", "Eliminar cliente", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    String query = "DELETE FROM cliente WHERE id = " + indiceCliente+";";
+                    Control_query.query(query);
+                    indiceCliente = -1;
+                    //SELECT del query
+                    query = obtenerSelectQuery();
 
+                    //Hacer la query
+                    dataGridView1.DataSource = Control_query.querySelect(query);
+                    dataGridView1.Columns[0].Visible = false;
+                }
+            }
         }
 
         private void btnAñadir_Click(object sender, EventArgs e)
@@ -175,7 +192,7 @@ namespace CRM
                 
 
             }
-            String query = "SELECT ";
+            String query = "SELECT cliente.id, ";
             for (int i = 0; i < filtros.Count; i++)
             {
                 splitContainer1.Panel1.Controls.Add(filtros[i]);
@@ -189,42 +206,21 @@ namespace CRM
             query = query.Substring(0, query.Length - 2);
             query += " FROM (cliente JOIN ciudad ON (cliente.id_ciudad = ciudad.id)) JOIN empleo ON (cliente.id_empleo = empleo.id)";
             dataGridView1.DataSource = Control_query.querySelect(query);
+            dataGridView1.Columns[0].Visible = false;
         }
 
         public void controlDataGrid(object sender, EventArgs e)
         {
-            int contador = 0;
             for (int i = 0; i < filtros.Count; i++)
             {
                 if (filtros[i].Checked)
                 {
-                    contador++;
+                    dataGridView1.Columns[i+1].Visible = true;
+                }
+                else {
+                    dataGridView1.Columns[i+1].Visible = false;
                 }
             }
-            if (contador >= 1)
-            {
-                dataGridView1.Show();
-                String query = "SELECT ";
-                foreach (CheckBox cb in filtros)
-                {
-                    if (cb.Checked)
-                    {
-                        if (!cb.Equals("id"))
-                        {
-
-                            query += cb.Text + ", ";
-                        }
-                    }
-                }
-                query = query.Substring(0, query.Length - 2);
-                query += " FROM (cliente JOIN ciudad ON (cliente.id_ciudad = ciudad.id)) JOIN empleo ON (cliente.id_empleo = empleo.id)";
-                dataGridView1.DataSource = Control_query.querySelect(query);
-            }
-            else
-            {
-                dataGridView1.Hide();
-            }
-
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -235,7 +231,7 @@ namespace CRM
         private string obtenerSelectQuery()
         {
             //SELECT del query
-            string query = "SELECT ";
+            string query = "SELECT cliente.id,";
 
             foreach (CheckBox caja in filtros)
             {
@@ -309,12 +305,13 @@ namespace CRM
             
             //Hacer la query
             dataGridView1.DataSource = Control_query.querySelect(query);
+            dataGridView1.Columns[0].Visible = false;
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             List<String> datosCliente = new List<String>();
-            for (int i = 0; i < filtros.Count; i++) {
+            for (int i = 1; i < filtros.Count; i++) {
                 //String dato = (String ) ((DataTable) dataGridView1.DataSource).Rows[e.RowIndex][i];
                 String dato = dataGridView1.Rows[e.RowIndex].Cells[i].Value+"";
                 datosCliente.Add(dato);
@@ -327,6 +324,12 @@ namespace CRM
         {
             TwitterBusqueda formTwitter = new TwitterBusqueda();
             formTwitter.ShowDialog();
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            indiceCliente = (Int32) dataGridView1.Rows[e.RowIndex].Cells[0].Value;
+            nombreCliente = (String)dataGridView1.Rows[e.RowIndex].Cells[1].Value;
         }
     }
 }
