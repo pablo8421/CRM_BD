@@ -142,6 +142,8 @@ namespace CRM
 
         private void btnAceptar_Click_1(object sender, EventArgs e)
         {
+            bool queryCorrecta = true;
+
             String subquery1, subquery2;
 
             String nombre = textNombre.Text;
@@ -150,7 +152,7 @@ namespace CRM
 
             //identificador de la ciudad
             DataRowView fila = (DataRowView)comboCiudad.SelectedItem;
-            int ciudad;
+            int ciudad = 0;
             try
             {
                 ciudad = (Int32)fila["id"];
@@ -158,15 +160,22 @@ namespace CRM
             }
             catch (Exception error)
             {
-                int res = Control_query.query("INSERT INTO ciudad(nombre_ciudad) VALUES ('" + comboCiudad.Text + "');");
+                AgregarCiudad ciudadForm = new AgregarCiudad(comboCiudad.Text);
+                ciudadForm.ShowDialog();
+                //Resultado del query hecho
+                int res = ciudadForm.queryResult;
+
                 if (res == -5)
                 {
                     MessageBox.Show("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)", "Problemas al agregar el cliente", MessageBoxButtons.OK);
-
+                    queryCorrecta = false;
                 }
-                DataTable dt =  Control_query.querySelect("SELECT * FROM ciudad WHERE nombre_ciudad = '" + comboCiudad.Text + "';");
-                ciudad = (Int32) dt.Rows[0]["id"];
-
+                else
+                {
+                    DataTable dt =  Control_query.querySelect("SELECT * FROM ciudad WHERE nombre_ciudad = '" + ciudadForm.ciudad + "' AND " +
+                                                                                                  "pais = '" + ciudadForm.pais +"';");
+                    ciudad = (Int32) dt.Rows[0]["id"];
+                }
             }
 
             String dpi = textDpi.Text;
@@ -175,7 +184,7 @@ namespace CRM
             String telefono_movil = textTelMovil.Text;
             //identificador del empleo
             fila = (DataRowView)comboOcuapcion.SelectedItem;
-            int ocupacion;
+            int ocupacion = 0;
             try
             {
                 ocupacion = (Int32)fila["id"];
@@ -183,15 +192,25 @@ namespace CRM
             }
             catch (Exception error)
             {
-                int res = Control_query.query("INSERT INTO empleo(nombre_puesto) VALUES ('" + comboOcuapcion.Text + "');");
+                AgregarEmpleo empleoForm = new AgregarEmpleo(comboOcuapcion.Text);
+                empleoForm.ShowDialog();
+                //Resultado del query hecho
+                int res = empleoForm.queryResult;
+
                 if (res == -5)
                 {
-                    MessageBox.Show("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)", "Problemas al agregar el puesto", MessageBoxButtons.OK);
-
+                    MessageBox.Show("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)", "Problemas al agregar el cliente", MessageBoxButtons.OK);
+                    queryCorrecta = false;
                 }
-                DataTable dt = Control_query.querySelect("SELECT * FROM empleo WHERE nombre_puesto = '" + comboOcuapcion.Text + "';");
-                ocupacion = (Int32)dt.Rows[0]["id"];
+                else
+                {
+                    DataTable dt = Control_query.querySelect("SELECT * FROM empleo WHERE nombre_puesto = '" + empleoForm.puesto + "' AND " +
+                                                                                      "nombre_compañia = '" + empleoForm.compania + "' AND " +
+                                                                                   "direccion_compañia = '" + empleoForm.direccion + "';");
+                    ocupacion = (Int32)dt.Rows[0]["id"];
+                }
             }
+
             String foto_perfil = apellido + "_" + dpi + ".jpg";
 
             subquery1 = "INSERT INTO cliente (";
@@ -209,7 +228,7 @@ namespace CRM
             for (int i = 0; i < label_texto.Count; i++)
             {
                 TextBox tb = label_texto[i];
-                if (miPrincipal.cliente.tipos[i + 11].Contains("varchar") || miPrincipal.cliente.tipos[i + 11].Contains("date"))//un comentario
+                if (miPrincipal.cliente.tipos[i + 11].Contains("varchar") || miPrincipal.cliente.tipos[i + 11].Contains("date"))
                     subquery2 += ", '" + tb.Text + "'";
                 else if (miPrincipal.cliente.tipos[i + 11].Contains("integer") || miPrincipal.cliente.tipos[i + 11].Contains("double"))
                     subquery2 += ", " + tb.Text;
@@ -221,7 +240,15 @@ namespace CRM
             }
             subquery2 += ");";
             String query = subquery1 + subquery2;
-            int valor = Control_query.query(query);
+            int valor;
+            if (queryCorrecta)
+            {
+                valor = Control_query.query(query);
+            }
+            else
+            {
+                valor = -5;
+            }
             if (valor != -5)
             {
                 Bitmap paGuardar = new Bitmap(pictureBox1.Image);
