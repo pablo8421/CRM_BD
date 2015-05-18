@@ -325,7 +325,8 @@ namespace CRM
 
         private void btnTwitter_Click(object sender, EventArgs e)
         {
-
+            TwitterBusqueda formTwitter = new TwitterBusqueda();
+            formTwitter.ShowDialog();
         }
     }
 }
