@@ -248,5 +248,16 @@ namespace CRM
             Console.WriteLine(query);
             //dataGridView1.DataSource = Control_query.querySelect(query);
         }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            List<String> datosCliente = new List<String>();
+            for (int i = 0; i < filtros.Count; i++) {
+                String dato = dataGridView1.Rows[e.RowIndex].Cells[i]+"";
+                datosCliente.Add(dato);
+            }
+            PerfilCliente perfil = new PerfilCliente(this, datosCliente);
+            perfil.Show();
+        }
     }
 }
