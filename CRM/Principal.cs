@@ -31,12 +31,18 @@ namespace CRM
         {
             if (indiceCliente != -1)
             {
-                DialogResult dialogResult = MessageBox.Show("Esta seguro que desea eliminar a: "+nombreCliente+"?", "Eliminar a ese pendejo", MessageBoxButtons.YesNo);
+                DialogResult dialogResult = MessageBox.Show("Esta seguro que desea eliminar a: "+nombreCliente+"?", "Eliminar cliente", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    //do something
                     String query = "DELETE FROM cliente WHERE id = " + indiceCliente+";";
+                    Control_query.query(query);
                     indiceCliente = -1;
+                    //SELECT del query
+                    query = obtenerSelectQuery();
+
+                    //Hacer la query
+                    dataGridView1.DataSource = Control_query.querySelect(query);
+                    dataGridView1.Columns[0].Visible = false;
                 }
             }
         }
@@ -209,10 +215,10 @@ namespace CRM
             {
                 if (filtros[i].Checked)
                 {
-                    dataGridView1.Columns[i].Visible = true;
+                    dataGridView1.Columns[i+1].Visible = true;
                 }
                 else {
-                    dataGridView1.Columns[i].Visible = false;
+                    dataGridView1.Columns[i+1].Visible = false;
                 }
             }
         }
