@@ -31,6 +31,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.btnTwitter = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnCampo = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
@@ -89,6 +90,17 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
+            // btnTwitter
+            // 
+            this.btnTwitter.BackgroundImage = global::CRM.Properties.Resources.Twitter_64;
+            this.btnTwitter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnTwitter.Location = new System.Drawing.Point(124, 13);
+            this.btnTwitter.Name = "btnTwitter";
+            this.btnTwitter.Size = new System.Drawing.Size(33, 31);
+            this.btnTwitter.TabIndex = 6;
+            this.btnTwitter.UseVisualStyleBackColor = true;
+            this.btnTwitter.Click += new System.EventHandler(this.btnTwitter_Click);
+            // 
             // btnBuscar
             // 
             this.btnBuscar.BackgroundImage = global::CRM.Properties.Resources.Search_50;
@@ -141,6 +153,7 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(823, 452);
+            this.Controls.Add(this.btnTwitter);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.btnCampo);
@@ -168,6 +181,7 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Button btnTwitter;
     }
 }
 

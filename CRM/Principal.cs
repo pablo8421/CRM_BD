@@ -322,5 +322,10 @@ namespace CRM
             PerfilCliente perfil = new PerfilCliente(this, datosCliente);
             perfil.Show();
         }
+
+        private void btnTwitter_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
