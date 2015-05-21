@@ -24,7 +24,7 @@ namespace CRM
             EsquemaCRM esquema = new EsquemaCRM();
             Tweet_control tweets = new Tweet_control();
 
-            Control_query.agregarTweet(Tweet_control.getTweets("emisorasunidas"));
+            //Control_query.agregarTweet(Tweet_control.getTweets("emisorasunidas"));
             
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

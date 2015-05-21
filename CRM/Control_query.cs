@@ -80,7 +80,7 @@ namespace CRM
 
         public async static void mongoPrueba()
         {
-            var collection = _database.GetCollection<BsonDocument>("test");
+            var collection = _database.GetCollection<BsonDocument>("tweets");
             BsonDocument filter = new BsonDocument();
 
             using (var cursor = await collection.FindAsync(filter))
@@ -90,10 +90,15 @@ namespace CRM
                     var batch = cursor.Current;
                     foreach (var document in batch)
                     {
-                        var filtros = Builders<BsonDocument>.Filter.Eq("a", 1);
+                        var filtros = Builders<BsonDocument>.Filter.Eq("screenName", "EmisorasUnidas");
+                        filtros = filtros & Builders<BsonDocument>.Filter.Eq("publicado.dia", 21);
                         var result = await collection.Find(filtros).ToListAsync();
-                        Console.Write("wiii");
-                        Console.WriteLine(result[0]);
+                        Console.WriteLine();
+                        foreach (var algo in result)
+                        {
+                            Console.WriteLine(algo);
+                        }
+
 
 
                     }
