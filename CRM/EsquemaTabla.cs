@@ -39,7 +39,7 @@ namespace CRM
                 
             }
 
-            mostrarEnConsola();
+            //mostrarEnConsola();
         }
 
         public void mostrarEnConsola() {

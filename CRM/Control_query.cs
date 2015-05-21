@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 using Npgsql;
 using System.Data;
 
+using MongoDB.Bson;
+using MongoDB.Driver;
+using System.Threading.Tasks;
+using MongoDB.Bson;
+
 namespace CRM
 {
     static class Control_query
@@ -18,6 +23,9 @@ namespace CRM
         static string nombre_bd = "CRM";
 
         static NpgsqlConnection conexion;
+
+        static IMongoClient _client;
+        static IMongoDatabase _database;
 
         public static void iniciarConexion()
         {
@@ -64,5 +72,34 @@ namespace CRM
                 return -5;
             }
         }
+
+        public static void iniciarDBTwitter(){
+            _client = new MongoClient();
+            _database = _client.GetDatabase("test");
+        }
+
+        public async static void mongoPrueba()
+        {
+            var collection = _database.GetCollection<BsonDocument>("test");
+            BsonDocument filter = new BsonDocument();
+
+            using (var cursor = await collection.FindAsync(filter))
+            {
+                while (await cursor.MoveNextAsync())
+                {
+                    var batch = cursor.Current;
+                    foreach (var document in batch)
+                    {
+                        Console.WriteLine(document);
+                    }
+                }
+            }
+        }
+
+        public static void agregarTweet()
+        {
+
+        }
+
     }
 }
