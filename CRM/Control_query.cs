@@ -90,7 +90,12 @@ namespace CRM
                     var batch = cursor.Current;
                     foreach (var document in batch)
                     {
-                        Console.WriteLine(document);
+                        var filtros = Builders<BsonDocument>.Filter.Eq("a", 1);
+                        var result = await collection.Find(filtros).ToListAsync();
+                        Console.Write("wiii");
+                        Console.WriteLine(result[0]);
+
+
                     }
                 }
             }
