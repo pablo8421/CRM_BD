@@ -75,7 +75,7 @@ namespace CRM
 
         public static void iniciarDBTwitter(){
             _client = new MongoClient();
-            _database = _client.GetDatabase("test");
+            _database = _client.GetDatabase("tweet");
         }
 
         public async static void mongoPrueba()
@@ -96,9 +96,29 @@ namespace CRM
             }
         }
 
-        public static void agregarTweet()
+        public async static void agregarTweet(Tweetinvi.Core.Interfaces.ITweet[] tweets)
         {
+            foreach(Tweetinvi.Core.Interfaces.ITweet tweet in tweets){
+                string name = tweet.Creator.Name;
+                string screeName = tweet.Creator.ScreenName;
+                string contenido = tweet.Text;
+                int longitud = tweet.Length;
 
+                var document = new BsonDocument { {"name", name},
+                                                  {"screenName", screeName},
+                                                  {"contenido", contenido},
+                                                  {"longitud", longitud},
+                                                  {"publicado", new BsonDocument{ {"minuto", tweet.TweetLocalCreationDate.Minute},
+                                                                                  {"hora", tweet.TweetLocalCreationDate.Hour},
+                                                                                  {"dia", tweet.TweetLocalCreationDate.Day},
+                                                                                  {"diaSemana", tweet.TweetLocalCreationDate.DayOfWeek},
+                                                                                  {"mes", tweet.TweetLocalCreationDate.Month},
+                                                                                  {"anio", tweet.TweetLocalCreationDate.Year}}}
+                };
+                
+                var collection = _database.GetCollection<BsonDocument>("tweets");
+                await collection.InsertOneAsync(document);
+            }
         }
 
     }
