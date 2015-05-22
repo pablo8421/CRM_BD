@@ -18,7 +18,7 @@ namespace CRM
             Control_query.iniciarConexion();
 
             Control_query.iniciarDBTwitter();
-            Control_query.mongoPrueba();
+            //Control_query.mongoPrueba();
 
             //Prueba EsquemaCRM
             EsquemaCRM esquema = new EsquemaCRM();
