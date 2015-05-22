@@ -54,8 +54,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureFotoCliente = new System.Windows.Forms.PictureBox();
+            this.textTweets = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureFotoCliente)).BeginInit();
             this.SuspendLayout();
@@ -99,6 +101,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
+            this.splitContainer1.Panel2.Controls.Add(this.textTweets);
             this.splitContainer1.Size = new System.Drawing.Size(919, 485);
             this.splitContainer1.SplitterDistance = 468;
             this.splitContainer1.TabIndex = 0;
@@ -355,6 +358,16 @@
             this.pictureFotoCliente.TabIndex = 0;
             this.pictureFotoCliente.TabStop = false;
             // 
+            // textTweets
+            // 
+            this.textTweets.BackColor = System.Drawing.SystemColors.Control;
+            this.textTweets.Location = new System.Drawing.Point(3, 11);
+            this.textTweets.Multiline = true;
+            this.textTweets.Name = "textTweets";
+            this.textTweets.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textTweets.Size = new System.Drawing.Size(431, 469);
+            this.textTweets.TabIndex = 0;
+            // 
             // PerfilCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -366,6 +379,8 @@
             this.Load += new System.EventHandler(this.PerfilCliente_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureFotoCliente)).EndInit();
@@ -401,5 +416,6 @@
         private System.Windows.Forms.Label lbDPI;
         private System.Windows.Forms.Label lbApellido;
         private System.Windows.Forms.Label lbNombre;
+        private System.Windows.Forms.TextBox textTweets;
     }
 }
