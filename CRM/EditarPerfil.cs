@@ -103,7 +103,7 @@ namespace CRM
                     }
                     else
                     {
-                        String date = "'" + fecha.Value.Year + "-" + fecha.Value.Month + "-" +fecha.Value.Day+ "'";
+                        String date = fecha.Value.Year + "-" + fecha.Value.Month + "-" + fecha.Value.Day;
                         valores.Add(date);
                     }
                 }
