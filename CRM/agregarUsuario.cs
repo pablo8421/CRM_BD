@@ -82,6 +82,7 @@ namespace CRM
                 label_texto.Add(tb);
                 contador++;
             }
+
             for (int i = 0; i < label.Count; i++)
             {
                 splitContainer1.Panel2.Controls.Add(label[i]);

@@ -73,6 +73,7 @@ namespace CRM
             filtros = new List<CheckBox>();
             filtros_texto = new List<TextBox>();
             int contador = 1;
+
             for (int i = 0; i < cliente.columnas.Count; i++)
             {
                 if (!(cliente.columnas[i].Equals("direccion_foto") || cliente.columnas[i].Equals("id")))
