@@ -73,7 +73,7 @@ namespace CRM
             }
 
             if (cbDia.SelectedIndex-1 != -1){
-                dia = cbDia.SelectedIndex;
+                dia = cbDia.SelectedIndex-1;
             }
 
             if (buscarFecha.Checked)
@@ -91,6 +91,7 @@ namespace CRM
 
             using (var cursor = await collection.FindAsync(filter))
             {
+                int contador = 0;
                 while (await cursor.MoveNextAsync())
                 {
                     var batch = cursor.Current;
@@ -225,7 +226,6 @@ namespace CRM
                         if (bandera)
                         {
                             var result = await collection.Find(filtros).ToListAsync();
-                            int contador = 0;
                             foreach (BsonDocument tweet in result)
                             {
                                 string texto = "";
@@ -240,7 +240,6 @@ namespace CRM
                         }
                         else {
                             var result = await collection.Find(null).ToListAsync();
-                            int contador = 0;
                             foreach (BsonDocument tweet in result)
                             {
                                 string texto = "";
@@ -251,10 +250,10 @@ namespace CRM
                                 tbTweets.Text += texto;
                                 contador++;
                             }
-                            tbTweets.Text += "\nCantidad de resultados obtenidos: " + contador;
                         }
                     }
                 }
+                tbTweets.Text += "\nCantidad de resultados obtenidos: " + contador;
             }
         }
     }
