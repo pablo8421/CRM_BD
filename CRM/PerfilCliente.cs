@@ -18,11 +18,14 @@ namespace CRM
         Principal miPrincipal;
         List<String> datosCliente;
         List<CheckBox> filtros;
-        public PerfilCliente(Principal miPrincipal, List<String> datosCliente)
+        List<Int32> fecha;
+
+        public PerfilCliente(Principal miPrincipal, List<String> datosCliente, List<Int32> fecha)
         {
             InitializeComponent();
             this.miPrincipal = miPrincipal;
             this.datosCliente = datosCliente;
+            this.fecha = fecha;
             llenarTweets(datosCliente[12]);
         }
         
@@ -211,7 +214,7 @@ namespace CRM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            EditarPerfil edicion = new EditarPerfil(datosCliente, filtros, new List<Int32>{5,5,2015});
+            EditarPerfil edicion = new EditarPerfil(datosCliente, filtros, fecha);
             edicion.Show();
         }
     }
