@@ -231,7 +231,7 @@ namespace CRM
 
         private string obtenerSelectQuery()
         {
-            //SELECT del query
+            //SELECT del query 
             string query = "SELECT cliente.id,";
 
             foreach (CheckBox caja in filtros)
@@ -250,13 +250,13 @@ namespace CRM
                 query += "* ";
             }
 
-            //FROM del query
+            //FROM del query 
             query += "FROM (cliente JOIN ciudad ON (cliente.id_ciudad = ciudad.id)) JOIN empleo ON (cliente.id_empleo = empleo.id) ";
 
-            //WHERE del query
+            //WHERE del query 
             Boolean sinWhere = true;
 
-            //Por cada filtro
+            //Por cada filtro 
             for (int i = 0; i < filtros.Count; i++)
             {
                 string subquery = "";
