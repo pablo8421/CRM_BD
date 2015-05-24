@@ -26,9 +26,9 @@ namespace CRM
             InitializeComponent();
         }
 
-        public EditarPerfil(List<String> dataCliente, List<CheckBox> filtros, List<Int32> nacimiento)
+        public EditarPerfil(List<String> dataCliente, List<CheckBox> filtros, DateTime nacimiento)
         {
-
+            
             id = Int32.Parse(dataCliente[0]);
 
             InitializeComponent();
@@ -68,9 +68,9 @@ namespace CRM
                 if (i == 2)
                 {
                     fecha = new DateTimePicker();
-                    fecha.Value = new DateTime(nacimiento[2], nacimiento[1], nacimiento[0]);
+                    fecha.Value = nacimiento;
                     fecha.Location = new Point(150, 25 * i);
-
+                    fecha.ValueChanged += fecha_ValueChanged;
                     //Agregar los componentes
                     panel.Controls.Add(label);
                     panel.Controls.Add(fecha);
@@ -84,11 +84,9 @@ namespace CRM
             }
         }
 
-        private void fecha_ValueChanged(Object sender, EventArgs e)
+        private void fecha_ValueChanged(object sender, EventArgs e)
         {
-
-            MessageBox.Show("You are in the DateTimePicker.ValueChanged event.");
-
+            textBoxes[2].Text= "";
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
