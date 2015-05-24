@@ -92,7 +92,15 @@ namespace CRM
             {
                 if(!datosCliente[i].Equals(textBoxes[i].Text)){
                     campos.Add(camposCliente[i]);
-                    valores.Add(textBoxes[i].Text);
+                    if (i != 2)
+                    {
+                        valores.Add(textBoxes[i].Text);
+                    }
+                    else
+                    {
+                        String date = "'" + fecha.Value.Year + "-" + fecha.Value.Month + "-" +fecha.Value.Day+ "'";
+                        valores.Add(date);
+                    }
                 }
             }
             if (campos.Count != 0)
