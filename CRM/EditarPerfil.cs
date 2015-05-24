@@ -17,6 +17,7 @@ namespace CRM
 
         List<Label> labels;
         List<TextBox> textBoxes;
+        DateTimePicker fecha;
 
         int id;
         
@@ -25,7 +26,7 @@ namespace CRM
             InitializeComponent();
         }
 
-        public EditarPerfil(List<String> dataCliente, List<CheckBox> filtros)
+        public EditarPerfil(List<String> dataCliente, List<CheckBox> filtros, List<Int32> nacimiento)
         {
 
             id = Int32.Parse(dataCliente[0]);
@@ -52,20 +53,34 @@ namespace CRM
                 //Generar el label de los filtros
                 Label label = new Label();
                 label.Text = filtros[i].Text;
-                label.Location = new Point(10, 20*i);
+                label.Location = new Point(10, 25*i);
 
                 //Generar el textBox de los datos del cliente
+
                 TextBox textBox = new TextBox();
                 textBox.Text = datosCliente[i];
-                textBox.Location = new Point(150, 20*i);
+                textBox.Location = new Point(150, 25*i);
 
                 //Guardar los componentes
                 labels.Add(label);
                 textBoxes.Add(textBox);
 
-                //Agregar los componentes
-                panel.Controls.Add(label);
-                panel.Controls.Add(textBox);
+                if (i == 2)
+                {
+                    fecha = new DateTimePicker();
+                    fecha.Value = new DateTime(nacimiento[2], nacimiento[1], nacimiento[0]);
+                    fecha.Location = new Point(150, 25 * i);
+
+                    //Agregar los componentes
+                    panel.Controls.Add(label);
+                    panel.Controls.Add(fecha);
+                }
+                else
+                {
+                    //Agregar los componentes
+                    panel.Controls.Add(label);
+                    panel.Controls.Add(textBox);
+                }
             }
         }
 
@@ -93,7 +108,7 @@ namespace CRM
                 
                 //Generar la query en si
                 query = "UPDATE clientes SET " + query + " WHERE " + "id=" + id + ";";
-
+                int res = Control_query.query(query);
             }
         }
     }
