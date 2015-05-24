@@ -236,7 +236,6 @@ namespace CRM
                                 tbTweets.Text += texto;
                                 contador++;
                             }
-                            tbTweets.Text += "\nCantidad de resultados obtenidos: " + contador;
                         }
                         else {
                             var result = await collection.Find(null).ToListAsync();
