@@ -251,6 +251,14 @@ namespace CRM
             {
                 Bitmap paGuardar = new Bitmap(pictureBox1.Image);
                 paGuardar.Save("Imagenes\\" + foto_perfil, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                //SELECT del query
+                String queryA = miPrincipal.obtenerSelectQuery();
+
+                //Hacer la query
+                miPrincipal.dataGridView1.DataSource = Control_query.querySelect(query);
+                miPrincipal.dataGridView1.Columns[0].Visible = false;
+
                 this.Close();
             }
             else
