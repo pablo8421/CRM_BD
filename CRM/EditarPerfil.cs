@@ -122,6 +122,10 @@ namespace CRM
                 //Generar la query en si
                 query = "UPDATE clientes SET " + query + " WHERE " + "id=" + id + ";";
                 int res = Control_query.query(query);
+                if(res == -5){
+                    MessageBox.Show("error");
+                }
+                this.Close();
             }
         }
     }
