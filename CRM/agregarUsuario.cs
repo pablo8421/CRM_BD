@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CRM
-{
+{//wollaaaa
     public partial class AgregarUsuario : Form
     {
         Principal miPrincipal;
@@ -250,6 +250,7 @@ namespace CRM
             if (valor != -5)
             {
                 Bitmap paGuardar = new Bitmap(pictureBox1.Image);
+<<<<<<< .mine
                 paGuardar.Save("Imagenes\\" + foto_perfil, System.Drawing.Imaging.ImageFormat.Jpeg);
 
                 //SELECT del query
@@ -257,6 +258,15 @@ namespace CRM
 
                 //Hacer la query
                 miPrincipal.dataGridView1.DataSource = Control_query.querySelect(queryA);
+=======
+                paGuardar.Save("Imagenes\\" + foto_perfil, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                //SELECT del query
+                String queryA = miPrincipal.obtenerSelectQuery();
+
+                //Hacer la query
+                miPrincipal.dataGridView1.DataSource = Control_query.querySelect(query);
+>>>>>>> .r81
                 miPrincipal.dataGridView1.Columns[0].Visible = false;
 
                 this.Close();
