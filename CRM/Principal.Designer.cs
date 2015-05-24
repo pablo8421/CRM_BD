@@ -30,10 +30,10 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnBuscar = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.btnTwitter = new System.Windows.Forms.Button();
-            this.btnBuscar = new System.Windows.Forms.Button();
             this.btnCampo = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnAñadir = new System.Windows.Forms.Button();
@@ -77,6 +77,17 @@
             this.label1.Text = "Filtros: ";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
+            // btnBuscar
+            // 
+            this.btnBuscar.BackgroundImage = global::CRM.Properties.Resources.Search_50;
+            this.btnBuscar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnBuscar.Location = new System.Drawing.Point(231, 3);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(30, 30);
+            this.btnBuscar.TabIndex = 5;
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
@@ -95,7 +106,7 @@
             // 
             // button1
             // 
-            this.button1.BackgroundImage = global::CRM.Properties.Resources.Search_50;
+            this.button1.BackgroundImage = global::CRM.Properties.Resources.humanoideNaranja;
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button1.Location = new System.Drawing.Point(50, 12);
             this.button1.Name = "button1";
@@ -114,17 +125,6 @@
             this.btnTwitter.TabIndex = 6;
             this.btnTwitter.UseVisualStyleBackColor = true;
             this.btnTwitter.Click += new System.EventHandler(this.btnTwitter_Click);
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.BackgroundImage = global::CRM.Properties.Resources.Search_50;
-            this.btnBuscar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnBuscar.Location = new System.Drawing.Point(231, 3);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(30, 30);
-            this.btnBuscar.TabIndex = 5;
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // btnCampo
             // 
