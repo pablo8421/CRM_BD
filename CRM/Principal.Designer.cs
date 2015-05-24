@@ -95,7 +95,7 @@
             // 
             // button1
             // 
-            this.button1.BackgroundImage = global::CRM.Properties.Resources.Find_User_50;
+            this.button1.BackgroundImage = global::CRM.Properties.Resources.Search_50;
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button1.Location = new System.Drawing.Point(50, 12);
             this.button1.Name = "button1";
