@@ -80,19 +80,19 @@ namespace CRM
                     valores.Add(textBoxes[i].Text);
                 }
             }
-            if (!campos.Equals(""))
+            if (campos.Count != 0)
             {
                 String query = "";
                 //Realizar los SETS
                 for (int i = 0; i < valores.Count; i++)
                 {
-                    query += campos[i] + "=" + valores[i] + ",";
+                    query += campos[i] + "='" + valores[i] + "',";
                 }
                 //Eliminar la ultima comilla innecesaria
                 query = query.Substring(0, query.Length - 1);
                 
                 //Generar la query en si
-                query = "UPDATE clientes SET " + query + " WHERE " + "ACA VA LA CONDICION!!!" + ";";
+                query = "UPDATE clientes SET " + query + " WHERE " + "id=" + id + ";";
 
             }
         }
