@@ -45,7 +45,7 @@ namespace CRM
                 //Generar el textBox de los datos del cliente
                 TextBox textBox = new TextBox();
                 textBox.Text = datosCliente[i];
-                textBox.Location = new Point(50, 20*i);
+                textBox.Location = new Point(150, 20*i);
 
                 //Guardar los componentes
                 labels.Add(label);
@@ -63,7 +63,7 @@ namespace CRM
             List<String> valores= new List<String>();
             for (int i = 0; i < textBoxes.Count; i++)
             {
-                if(!datosCliente.Equals(textBoxes[i].Text)){
+                if(!datosCliente[i].Equals(textBoxes[i].Text)){
                     campos.Add(camposCliente[i]);
                     valores.Add(textBoxes[i].Text);
                 }
