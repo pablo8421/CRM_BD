@@ -72,15 +72,8 @@ namespace CRM
                     var batch = cursor.Current;
                     foreach (var document in batch)
                     {
-                        var filtros = Builders<BsonDocument>.Filter.Eq("screenName", "EmisorasUnidas");
-                        filtros = filtros & Builders<BsonDocument>.Filter.Eq("publicado.dia", 21);
-                        var result = await collection.Find(filtros).ToListAsync();
-                        Console.WriteLine();
-                        foreach (var algo in result)
-                        {
-                            Console.WriteLine(algo);
-                        }
-
+                        var filtros = Builders<BsonDocument>.Filter.Eq("name", nombre);
+                        
                         if (!nombre.Equals(""))
                         {
                             bandera = true;
@@ -97,20 +90,125 @@ namespace CRM
                             else
                             {
                                 bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Eq("name", nombre);
+                                filtros = Builders<BsonDocument>.Filter.Eq("screenName", screenName);
                             }
                         }
 
+                        if (!contenido.Equals(""))
+                        {
+                            if (bandera)
+                            {
+                                filtros = filtros & Builders<BsonDocument>.Filter.Regex("contenido", contenido);
+                            }
+                            else
+                            {
+                                bandera = true;
+                                filtros = Builders<BsonDocument>.Filter.Regex("contenido", contenido);
+                            }
+                        }
 
+                        if (!longitud.Equals(""))
+                        {
+                            if (bandera)
+                            {
+                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("longitud", longitud);
+                            }
+                            else
+                            {
+                                bandera = true;
+                                filtros = Builders<BsonDocument>.Filter.Lte("longitud", longitud);
+                            }
+                        }
+
+                        if (!minuto.Equals(""))
+                        {
+                            if (bandera)
+                            {
+                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("minuto", minuto);
+                            }
+                            else
+                            {
+                                bandera = true;
+                                filtros = Builders<BsonDocument>.Filter.Lte("minuto", minuto);
+                            }
+                        }
+
+                        if (!hora.Equals(""))
+                        {
+                            if (bandera)
+                            {
+                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("hora", hora);
+                            }
+                            else
+                            {
+                                bandera = true;
+                                filtros = Builders<BsonDocument>.Filter.Lte("hora", hora);
+                            }
+                        }
+
+                        if (!dia.Equals(""))
+                        {
+                            if (bandera)
+                            {
+                                filtros = filtros & Builders<BsonDocument>.Filter.Eq("diaSemana", dia);
+                            }
+                            else
+                            {
+                                bandera = true;
+                                filtros = Builders<BsonDocument>.Filter.Eq("diaSemana", dia);
+                            }
+                        }
+
+                        if (!fechaDia.Equals(""))
+                        {
+                            if (bandera)
+                            {
+                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("dia", fechaDia);
+                            }
+                            else
+                            {
+                                bandera = true;
+                                filtros = Builders<BsonDocument>.Filter.Lte("dia", fechaDia);
+                            }
+                        }
+
+                        if (!fechaMes.Equals(""))
+                        {
+                            if (bandera)
+                            {
+                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("mes", fechaMes);
+                            }
+                            else
+                            {
+                                bandera = true;
+                                filtros = Builders<BsonDocument>.Filter.Lte("mes", fechaMes);
+                            }
+                        }
+
+                        if (!fechaAño.Equals(""))
+                        {
+                            if (bandera)
+                            {
+                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("anio", fechaAño);
+                            }
+                            else
+                            {
+                                bandera = true;
+                                filtros = Builders<BsonDocument>.Filter.Lte("anio", fechaAño);
+                            }
+                        }
+
+                        if (bandera) { 
+                            var result = await collection.Find(filtros).ToListAsync();
+                            Console.WriteLine();
+                            foreach (var algo in result)
+                            {
+                                Console.WriteLine(algo);
+                            }
+                        }
                     }
                 }
             }
-
-            
-
-            var result = await collection.Find(filtros).ToListAsync();
-            
-
         }
     }
 }
