@@ -192,7 +192,7 @@
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnCampo;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        public System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnTwitter;

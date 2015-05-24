@@ -311,14 +311,16 @@ namespace CRM
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            List<String> datosCliente = new List<String>();
-            for (int i = 1; i < filtros.Count; i++) {
-                //String dato = (String ) ((DataTable) dataGridView1.DataSource).Rows[e.RowIndex][i];
-                String dato = dataGridView1.Rows[e.RowIndex].Cells[i].Value+"";
-                datosCliente.Add(dato);
+            if (e.RowIndex != -1) { 
+                List<String> datosCliente = new List<String>();
+                for (int i = 1; i < filtros.Count; i++) {
+                    //String dato = (String ) ((DataTable) dataGridView1.DataSource).Rows[e.RowIndex][i];
+                    String dato = dataGridView1.Rows[e.RowIndex].Cells[i].Value+"";
+                    datosCliente.Add(dato);
+                }
+                PerfilCliente perfil = new PerfilCliente(this, datosCliente);
+                perfil.Show();
             }
-            PerfilCliente perfil = new PerfilCliente(this, datosCliente);
-            perfil.Show();
         }
 
         private void btnTwitter_Click(object sender, EventArgs e)
@@ -329,8 +331,11 @@ namespace CRM
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            indiceCliente = (Int32) dataGridView1.Rows[e.RowIndex].Cells[0].Value;
-            nombreCliente = (String)dataGridView1.Rows[e.RowIndex].Cells[1].Value;
+            if (e.RowIndex != -1)
+            {
+                indiceCliente = (Int32)dataGridView1.Rows[e.RowIndex].Cells[0].Value;
+                nombreCliente = (String)dataGridView1.Rows[e.RowIndex].Cells[1].Value;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
