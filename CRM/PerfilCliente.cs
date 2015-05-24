@@ -23,7 +23,7 @@ namespace CRM
             InitializeComponent();
             this.miPrincipal = miPrincipal;
             this.datosCliente = datosCliente;
-            llenarTweets("EmisorasUnidas");
+            llenarTweets(datosCliente[12]);
         }
         
 
@@ -61,6 +61,7 @@ namespace CRM
             lbOcupacion.Text = datosCliente[9];
             lbNombreC.Text = datosCliente[10];
             lbDireccionC.Text = datosCliente[11];
+            lbTwitter.Text = datosCliente[12];
 
             String path = datosCliente[1] + "_" + datosCliente[5] + ".jpg";
             pictureFotoCliente.Load("Imagenes\\" + path);

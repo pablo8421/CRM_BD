@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btnEditar = new System.Windows.Forms.Button();
             this.lbDireccionC = new System.Windows.Forms.Label();
             this.lbNombreC = new System.Windows.Forms.Label();
             this.lbOcupacion = new System.Windows.Forms.Label();
@@ -55,7 +56,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureFotoCliente = new System.Windows.Forms.PictureBox();
             this.textTweets = new System.Windows.Forms.TextBox();
-            this.btnEditar = new System.Windows.Forms.Button();
+            this.lbTwitter = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -73,6 +75,8 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.AutoScroll = true;
+            this.splitContainer1.Panel1.Controls.Add(this.lbTwitter);
+            this.splitContainer1.Panel1.Controls.Add(this.label14);
             this.splitContainer1.Panel1.Controls.Add(this.btnEditar);
             this.splitContainer1.Panel1.Controls.Add(this.lbDireccionC);
             this.splitContainer1.Panel1.Controls.Add(this.lbNombreC);
@@ -108,11 +112,21 @@
             this.splitContainer1.SplitterDistance = 468;
             this.splitContainer1.TabIndex = 0;
             // 
+            // btnEditar
+            // 
+            this.btnEditar.Location = new System.Drawing.Point(216, 167);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(75, 23);
+            this.btnEditar.TabIndex = 25;
+            this.btnEditar.Text = "Editar";
+            this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.button1_Click);
+            // 
             // lbDireccionC
             // 
             this.lbDireccionC.AutoSize = true;
             this.lbDireccionC.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lbDireccionC.Location = new System.Drawing.Point(160, 437);
+            this.lbDireccionC.Location = new System.Drawing.Point(160, 430);
             this.lbDireccionC.Name = "lbDireccionC";
             this.lbDireccionC.Size = new System.Drawing.Size(54, 17);
             this.lbDireccionC.TabIndex = 24;
@@ -233,7 +247,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label12.Location = new System.Drawing.Point(12, 437);
+            this.label12.Location = new System.Drawing.Point(12, 430);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(142, 17);
             this.label12.TabIndex = 12;
@@ -370,15 +384,25 @@
             this.textTweets.Size = new System.Drawing.Size(431, 469);
             this.textTweets.TabIndex = 0;
             // 
-            // btnEditar
+            // lbTwitter
             // 
-            this.btnEditar.Location = new System.Drawing.Point(216, 167);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(75, 23);
-            this.btnEditar.TabIndex = 25;
-            this.btnEditar.Text = "Editar";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.button1_Click);
+            this.lbTwitter.AutoSize = true;
+            this.lbTwitter.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbTwitter.Location = new System.Drawing.Point(72, 459);
+            this.lbTwitter.Name = "lbTwitter";
+            this.lbTwitter.Size = new System.Drawing.Size(54, 17);
+            this.lbTwitter.TabIndex = 27;
+            this.lbTwitter.Text = "label24";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label14.Location = new System.Drawing.Point(12, 459);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(54, 17);
+            this.label14.TabIndex = 26;
+            this.label14.Text = "Twitter:";
             // 
             // PerfilCliente
             // 
@@ -430,5 +454,7 @@
         private System.Windows.Forms.Label lbNombre;
         private System.Windows.Forms.TextBox textTweets;
         private System.Windows.Forms.Button btnEditar;
+        private System.Windows.Forms.Label lbTwitter;
+        private System.Windows.Forms.Label label14;
     }
 }
