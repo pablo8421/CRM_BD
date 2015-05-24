@@ -314,29 +314,17 @@ namespace CRM
             if (e.RowIndex != -1) { 
                 List<String> datosCliente = new List<String>();
                 String dato = "";
-                List<Int32> fecha = new List<Int32>();
+                DateTime date = new DateTime();
                 for (int i = 0; i <= filtros.Count; i++) {
-                        dato = dataGridView1.Rows[e.RowIndex].Cells[i].Value+"";
-                        if (i == 3)
-                        {
-                            DateTime date = (DateTime) dataGridView1.Rows[e.RowIndex].Cells[i].Value;
-                            dato = "AQUI SERIA ESTO";
-                        }
-                        datosCliente.Add(dato);
+                    dato = dataGridView1.Rows[e.RowIndex].Cells[i].Value+"";
                     if (i == 3)
                     {
-                        String fecha_texto = datosCliente[i] + "";
-                        Int32 dia = Convert.ToInt32(fecha_texto.Substring(0, fecha_texto.IndexOf('/')));
-                        fecha.Add(dia);
-                        fecha_texto = fecha_texto.Substring(fecha_texto.IndexOf('/')+1);
-                        Int32 mes = Convert.ToInt32(fecha_texto.Substring(0, fecha_texto.IndexOf('/')));
-                        fecha.Add(mes);
-                        fecha_texto = fecha_texto.Substring(fecha_texto.IndexOf('/')+1);
-                        Int32 anio = Convert.ToInt32(fecha_texto.Substring(0, 4));
-                        fecha.Add(anio);
+                        date = (DateTime) dataGridView1.Rows[e.RowIndex].Cells[i].Value;
+                        dato = date.Day + "/" + date.Month + "/" + date.Year;
                     }
+                    datosCliente.Add(dato);
                 }
-                PerfilCliente perfil = new PerfilCliente(this, datosCliente, fecha);
+                PerfilCliente perfil = new PerfilCliente(this, datosCliente, date);
                 perfil.Show();
             }
         }

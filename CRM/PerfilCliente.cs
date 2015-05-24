@@ -18,9 +18,9 @@ namespace CRM
         Principal miPrincipal;
         List<String> datosCliente;
         List<CheckBox> filtros;
-        List<Int32> fecha;
+        DateTime fecha;
 
-        public PerfilCliente(Principal miPrincipal, List<String> datosCliente, List<Int32> fecha)
+        public PerfilCliente(Principal miPrincipal, List<String> datosCliente, DateTime fecha)
         {
             InitializeComponent();
             this.miPrincipal = miPrincipal;
@@ -214,7 +214,7 @@ namespace CRM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            EditarPerfil edicion = new EditarPerfil(datosCliente, filtros, fecha);
+            EditarPerfil edicion = new EditarPerfil(datosCliente, filtros, date);
             edicion.Show();
         }
     }
