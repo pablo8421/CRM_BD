@@ -259,6 +259,8 @@ namespace CRM
                 miPrincipal.dataGridView1.DataSource = Control_query.querySelect(queryA);
                 miPrincipal.dataGridView1.Columns[0].Visible = false;
 
+                Control_query.agregarTweet(Tweet_control.getTweets(twitter));
+
                 this.Close();
             }
             else

@@ -225,13 +225,16 @@ namespace CRM
 
         public async static void agregarTweet(Tweetinvi.Core.Interfaces.ITweet[] tweets)
         {
-            foreach(Tweetinvi.Core.Interfaces.ITweet tweet in tweets){
-                string name = tweet.Creator.Name;
-                string screeName = tweet.Creator.ScreenName;
-                string contenido = tweet.Text;
-                int longitud = tweet.Length;
+            if (tweets != null)
+            {
+                foreach (Tweetinvi.Core.Interfaces.ITweet tweet in tweets)
+                {
+                    string name = tweet.Creator.Name;
+                    string screeName = tweet.Creator.ScreenName;
+                    string contenido = tweet.Text;
+                    int longitud = tweet.Length;
 
-                var document = new BsonDocument { {"name", name},
+                    var document = new BsonDocument { {"name", name},
                                                   {"screenName", screeName},
                                                   {"contenido", contenido},
                                                   {"longitud", longitud},
@@ -242,11 +245,11 @@ namespace CRM
                                                                                   {"mes", tweet.CreatedAt.Month},
                                                                                   {"anio", tweet.CreatedAt.Year}}}
                 };
-                
-                var collection = _database.GetCollection<BsonDocument>("tweets");
-                await collection.InsertOneAsync(document);
+
+                    var collection = _database.GetCollection<BsonDocument>("tweets");
+                    await collection.InsertOneAsync(document);
+                }
             }
         }
-
     }
 }

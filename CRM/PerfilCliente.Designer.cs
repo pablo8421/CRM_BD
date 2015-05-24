@@ -55,6 +55,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureFotoCliente = new System.Windows.Forms.PictureBox();
             this.textTweets = new System.Windows.Forms.TextBox();
+            this.btnEditar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -72,6 +73,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.AutoScroll = true;
+            this.splitContainer1.Panel1.Controls.Add(this.btnEditar);
             this.splitContainer1.Panel1.Controls.Add(this.lbDireccionC);
             this.splitContainer1.Panel1.Controls.Add(this.lbNombreC);
             this.splitContainer1.Panel1.Controls.Add(this.lbOcupacion);
@@ -368,6 +370,16 @@
             this.textTweets.Size = new System.Drawing.Size(431, 469);
             this.textTweets.TabIndex = 0;
             // 
+            // btnEditar
+            // 
+            this.btnEditar.Location = new System.Drawing.Point(216, 167);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(75, 23);
+            this.btnEditar.TabIndex = 25;
+            this.btnEditar.Text = "Editar";
+            this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.button1_Click);
+            // 
             // PerfilCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -417,5 +429,6 @@
         private System.Windows.Forms.Label lbApellido;
         private System.Windows.Forms.Label lbNombre;
         private System.Windows.Forms.TextBox textTweets;
+        private System.Windows.Forms.Button btnEditar;
     }
 }
