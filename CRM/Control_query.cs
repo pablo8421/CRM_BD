@@ -106,6 +106,91 @@ namespace CRM
             }
         }
 
+        public static string getFecha(BsonDocument tweet)
+        {
+            int minuto = (Int32)tweet.GetElement("publicado").Value.AsBsonDocument.GetElement("minuto").Value;
+            int hora = (Int32)tweet.GetElement("publicado").Value.AsBsonDocument.GetElement("hora").Value;
+            int dia = (Int32)tweet.GetElement("publicado").Value.AsBsonDocument.GetElement("dia").Value;
+            int dia_semana = (Int32)tweet.GetElement("publicado").Value.AsBsonDocument.GetElement("diaSemana").Value; ;
+            int mes = (Int32)tweet.GetElement("publicado").Value.AsBsonDocument.GetElement("mes").Value;
+            int anio = (Int32)tweet.GetElement("publicado").Value.AsBsonDocument.GetElement("anio").Value;
+
+            string dia_semanaS;
+            string mesS;
+
+            switch (dia_semana)
+            {
+                case 0:
+                    dia_semanaS = "Domingo";
+                    break;
+                case 1:
+                    dia_semanaS = "Lunes";
+                    break;
+                case 2:
+                    dia_semanaS = "Martes";
+                    break;
+                case 3:
+                    dia_semanaS = "Miercoles";
+                    break;
+                case 4:
+                    dia_semanaS = "Jueves";
+                    break;
+                case 5:
+                    dia_semanaS = "Viernes";
+                    break;
+                case 6:
+                    dia_semanaS = "Sabado";
+                    break;
+                default:
+                    throw new NotImplementedException("oh shit hermano, ese dia no existe");
+            }
+
+            switch (mes)
+            {
+                case 1:
+                    mesS = "Enero";
+                    break;
+                case 2:
+                    mesS = "Febrero";
+                    break;
+                case 3:
+                    mesS = "Marzo";
+                    break;
+                case 4:
+                    mesS = "Abril";
+                    break;
+                case 5:
+                    mesS = "Mayo";
+                    break;
+                case 6:
+                    mesS = "Junio";
+                    break;
+                case 7:
+                    mesS = "Julio";
+                    break;
+                case 8:
+                    mesS = "Agosto";
+                    break;
+                case 9:
+                    mesS = "Septiembre";
+                    break;
+                case 10:
+                    mesS = "Octubre";
+                    break;
+                case 11:
+                    mesS = "Noviembre";
+                    break;
+                case 12:
+                    mesS = "Diciembre";
+                    break;
+                default:
+                    throw new NotImplementedException("oh shit hermano, ese dia no existe");
+
+            }
+
+            return dia_semanaS + " " + dia + " de " + mesS + " del " + anio + ", a las " + hora + ":" + minuto;
+        }
+
         public async static Task<List<BsonDocument>> buscarPorScreenName(string handle)
         {
             var collection = _database.GetCollection<BsonDocument>("tweets");

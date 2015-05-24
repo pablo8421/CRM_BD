@@ -44,6 +44,8 @@ namespace CRM
 
         }
 
+
+
         private async void btnBuscar_Click(object sender, EventArgs e)
         {
 
@@ -200,10 +202,27 @@ namespace CRM
 
                         if (bandera) { 
                             var result = await collection.Find(filtros).ToListAsync();
-                            Console.WriteLine();
+                            /*Console.WriteLine();
                             foreach (var algo in result)
                             {
                                 Console.WriteLine(algo);
+                            }*/
+
+                            int contador = 0;
+                            foreach (BsonDocument tweet in result)
+                            {
+                                string texto = "";
+                                texto += "Handle: " + tweet.GetElement("screenName").Value + Environment.NewLine;
+                                texto += tweet.GetElement("contenido").Value + Environment.NewLine;
+                                texto += "Publicado el: " + Control_query.getFecha(tweet) + Environment.NewLine;
+                                texto += Environment.NewLine;
+                                tbTweets.Text += texto;
+
+                                contador++;
+                                if (contador >= 200)
+                                {
+                                    break;
+                                }
                             }
                         }
                     }
