@@ -317,6 +317,11 @@ namespace CRM
                 List<Int32> fecha = new List<Int32>();
                 for (int i = 0; i <= filtros.Count; i++) {
                         dato = dataGridView1.Rows[e.RowIndex].Cells[i].Value+"";
+                        if (i == 3)
+                        {
+                            DateTime date = (DateTime) dataGridView1.Rows[e.RowIndex].Cells[i].Value;
+                            dato = "AQUI SERIA ESTO";
+                        }
                         datosCliente.Add(dato);
                     if (i == 3)
                     {

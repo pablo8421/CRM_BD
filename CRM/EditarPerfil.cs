@@ -84,6 +84,13 @@ namespace CRM
             }
         }
 
+        private void fecha_ValueChanged(Object sender, EventArgs e)
+        {
+
+            MessageBox.Show("You are in the DateTimePicker.ValueChanged event.");
+
+        }
+
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             List<String> campos = new List<String>();
