@@ -60,16 +60,19 @@ namespace CRM
             String fechaMes = "";
             String fechaDia = ""; 
             bool bandera = false;
+            tbTweets.Text = "";
 
             if (cbMinuto.SelectedItem != null){
-                minuto = cbMinuto.SelectedItem.ToString();
+                if (cbMinuto.SelectedIndex != 0)
+                    minuto = cbMinuto.SelectedItem.ToString();
             }
 
             if (cbHora.SelectedItem != null){
-                hora = cbHora.SelectedItem.ToString();
+                if (cbHora.SelectedIndex != 0)
+                    hora = cbHora.SelectedItem.ToString();
             }
 
-            if (cbDia.SelectedIndex != -1){
+            if (cbDia.SelectedIndex-1 != -1){
                 dia = cbDia.SelectedIndex;
             }
 
@@ -145,12 +148,12 @@ namespace CRM
                         {
                             if (bandera)
                             {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("minuto", Convert.ToInt64(minuto));
+                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("publicado.minuto", Convert.ToInt64(minuto));
                             }
                             else
                             {
                                 bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Lte("minuto", Convert.ToInt64(minuto));
+                                filtros = Builders<BsonDocument>.Filter.Lte("publicado.minuto", Convert.ToInt64(minuto));
                             }
                         }
 
@@ -158,12 +161,12 @@ namespace CRM
                         {
                             if (bandera)
                             {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("hora", Convert.ToInt64(hora));
+                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("publicado.hora", Convert.ToInt64(hora));
                             }
                             else
                             {
                                 bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Lte("hora", Convert.ToInt64(hora));
+                                filtros = Builders<BsonDocument>.Filter.Lte("publicado.hora", Convert.ToInt64(hora));
                             }
                         }
 
@@ -171,12 +174,12 @@ namespace CRM
                         {
                             if (bandera)
                             {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Eq("diaSemana", dia);
+                                filtros = filtros & Builders<BsonDocument>.Filter.Eq("publicado.diaSemana", dia);
                             }
                             else
                             {
                                 bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Eq("diaSemana", dia);
+                                filtros = Builders<BsonDocument>.Filter.Eq("publicado.diaSemana", dia);
                             }
                         }
 
@@ -184,12 +187,12 @@ namespace CRM
                         {
                             if (bandera)
                             {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("dia", Convert.ToInt64(fechaDia));
+                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("publicado.dia", Convert.ToInt64(fechaDia));
                             }
                             else
                             {
                                 bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Lte("dia", Convert.ToInt64(fechaDia));
+                                filtros = Builders<BsonDocument>.Filter.Lte("publicado.dia", Convert.ToInt64(fechaDia));
                             }
                         }
 
@@ -197,12 +200,12 @@ namespace CRM
                         {
                             if (bandera)
                             {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("mes", Convert.ToInt64(fechaMes));
+                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("publicado.mes", Convert.ToInt64(fechaMes));
                             }
                             else
                             {
                                 bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Lte("mes", Convert.ToInt64(fechaMes));
+                                filtros = Builders<BsonDocument>.Filter.Lte("publicado.mes", Convert.ToInt64(fechaMes));
                             }
                         }
 
@@ -210,16 +213,17 @@ namespace CRM
                         {
                             if (bandera)
                             {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("anio", Convert.ToInt64(fechaAño));
+                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("publicado.anio", Convert.ToInt64(fechaAño));
                             }
                             else
                             {
                                 bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Lte("anio", Convert.ToInt64(fechaAño));
+                                filtros = Builders<BsonDocument>.Filter.Lte("publicado.anio", Convert.ToInt64(fechaAño));
                             }
                         }
 
-                        if (bandera) { 
+                        if (bandera)
+                        {
                             var result = await collection.Find(filtros).ToListAsync();
                             int contador = 0;
                             foreach (BsonDocument tweet in result)
@@ -230,13 +234,24 @@ namespace CRM
                                 texto += "Publicado el: " + Control_query.getFecha(tweet) + Environment.NewLine;
                                 texto += Environment.NewLine;
                                 tbTweets.Text += texto;
-
                                 contador++;
-                                if (contador >= 200)
-                                {
-                                    break;
-                                }
                             }
+                            tbTweets.Text += "\nCantidad de resultados obtenidos: " + contador;
+                        }
+                        else {
+                            var result = await collection.Find(null).ToListAsync();
+                            int contador = 0;
+                            foreach (BsonDocument tweet in result)
+                            {
+                                string texto = "";
+                                texto += "Handle: " + tweet.GetElement("screenName").Value + Environment.NewLine;
+                                texto += tweet.GetElement("contenido").Value + Environment.NewLine;
+                                texto += "Publicado el: " + Control_query.getFecha(tweet) + Environment.NewLine;
+                                texto += Environment.NewLine;
+                                tbTweets.Text += texto;
+                                contador++;
+                            }
+                            tbTweets.Text += "\nCantidad de resultados obtenidos: " + contador;
                         }
                     }
                 }

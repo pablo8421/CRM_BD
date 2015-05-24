@@ -116,13 +116,14 @@
             this.cbDia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDia.FormattingEnabled = true;
             this.cbDia.Items.AddRange(new object[] {
+            "Ninguno",
+            "Domingo",
             "Lunes",
             "Martes",
             "Miercoles",
             "Jueves",
             "Viernes",
-            "Sabado",
-            "Domingo"});
+            "Sabado"});
             this.cbDia.Location = new System.Drawing.Point(116, 263);
             this.cbDia.Name = "cbDia";
             this.cbDia.Size = new System.Drawing.Size(260, 21);
@@ -133,6 +134,7 @@
             this.cbHora.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbHora.FormattingEnabled = true;
             this.cbHora.Items.AddRange(new object[] {
+            "--",
             "1",
             "2",
             "3",
@@ -167,6 +169,7 @@
             this.cbMinuto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMinuto.FormattingEnabled = true;
             this.cbMinuto.Items.AddRange(new object[] {
+            "--",
             "0",
             "1",
             "2",
