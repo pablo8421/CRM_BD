@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CRM
-{//wollaaaa
+{
     public partial class AgregarUsuario : Form
     {
         Principal miPrincipal;
@@ -256,7 +256,7 @@ namespace CRM
                 String queryA = miPrincipal.obtenerSelectQuery();
 
                 //Hacer la query
-                miPrincipal.dataGridView1.DataSource = Control_query.querySelect(query);
+                miPrincipal.dataGridView1.DataSource = Control_query.querySelect(queryA);
                 miPrincipal.dataGridView1.Columns[0].Visible = false;
 
                 this.Close();
