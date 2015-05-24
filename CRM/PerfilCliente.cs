@@ -26,7 +26,7 @@ namespace CRM
             this.miPrincipal = miPrincipal;
             this.datosCliente = datosCliente;
             this.fecha = fecha;
-            llenarTweets(datosCliente[12]);
+            llenarTweets(datosCliente[13]);
         }
         
 
