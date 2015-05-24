@@ -17,16 +17,28 @@ namespace CRM
 
         List<Label> labels;
         List<TextBox> textBoxes;
+
+        int id;
         
         public EditarPerfil()
         {
             InitializeComponent();
         }
 
-        public EditarPerfil(List<String> datosCliente, List<CheckBox> filtros)
+        public EditarPerfil(List<String> dataCliente, List<CheckBox> filtros)
         {
+
+            id = Int32.Parse(dataCliente[0]);
+
             InitializeComponent();
-            this.datosCliente = datosCliente;
+
+            datosCliente = new List<String>();
+            foreach(String data in dataCliente)
+            {
+                datosCliente.Add(data);
+            }
+            datosCliente.RemoveAt(0);
+            
             camposCliente = new List<String>();
 
             labels = new List<Label>();
