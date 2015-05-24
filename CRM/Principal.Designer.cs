@@ -31,6 +31,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
             this.btnTwitter = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnCampo = new System.Windows.Forms.Button();
@@ -56,6 +57,7 @@
             // 
             this.splitContainer1.Panel1.AutoScroll = true;
             this.splitContainer1.Panel1.Controls.Add(this.label1);
+            this.splitContainer1.Panel1.Controls.Add(this.btnBuscar);
             // 
             // splitContainer1.Panel2
             // 
@@ -91,11 +93,22 @@
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
+            // button1
+            // 
+            this.button1.BackgroundImage = global::CRM.Properties.Resources.Find_User_50;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Location = new System.Drawing.Point(50, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(33, 31);
+            this.button1.TabIndex = 7;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // btnTwitter
             // 
             this.btnTwitter.BackgroundImage = global::CRM.Properties.Resources.Twitter_64;
             this.btnTwitter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnTwitter.Location = new System.Drawing.Point(124, 13);
+            this.btnTwitter.Location = new System.Drawing.Point(89, 12);
             this.btnTwitter.Name = "btnTwitter";
             this.btnTwitter.Size = new System.Drawing.Size(33, 31);
             this.btnTwitter.TabIndex = 6;
@@ -106,7 +119,7 @@
             // 
             this.btnBuscar.BackgroundImage = global::CRM.Properties.Resources.Search_50;
             this.btnBuscar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnBuscar.Location = new System.Drawing.Point(88, 13);
+            this.btnBuscar.Location = new System.Drawing.Point(231, 3);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(30, 30);
             this.btnBuscar.TabIndex = 5;
@@ -129,7 +142,7 @@
             // 
             this.btnEliminar.BackgroundImage = global::CRM.Properties.Resources.humanoideRojo;
             this.btnEliminar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnEliminar.Location = new System.Drawing.Point(50, 12);
+            this.btnEliminar.Location = new System.Drawing.Point(286, 12);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(32, 31);
             this.btnEliminar.TabIndex = 2;
@@ -154,8 +167,8 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(823, 452);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnTwitter);
-            this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.btnCampo);
             this.Controls.Add(this.btnEliminar);
@@ -183,6 +196,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnTwitter;
+        private System.Windows.Forms.Button button1;
     }
 }
 
