@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using MongoDB.Driver;
+using MongoDB.Bson;
+
 namespace CRM
 {
     public partial class PerfilCliente : Form
@@ -20,6 +23,7 @@ namespace CRM
             InitializeComponent();
             this.miPrincipal = miPrincipal;
             this.datosCliente = datosCliente;
+            llenarTweets("EmisorasUnidas");
         }
         
 
@@ -88,6 +92,113 @@ namespace CRM
                 pLB2.Y = 467 + contador * 30;
                 label2.Location = pLB2;
                 contador++;
+            }
+        }
+
+        private string getFecha(BsonDocument tweet)
+        {
+            int minuto = (Int32)tweet.GetElement("publicado").Value.AsBsonDocument.GetElement("minuto").Value;
+            int hora = (Int32)tweet.GetElement("publicado").Value.AsBsonDocument.GetElement("hora").Value;
+            int dia = (Int32)tweet.GetElement("publicado").Value.AsBsonDocument.GetElement("dia").Value;
+            int dia_semana = (Int32)tweet.GetElement("publicado").Value.AsBsonDocument.GetElement("diaSemana").Value; ;
+            int mes = (Int32)tweet.GetElement("publicado").Value.AsBsonDocument.GetElement("mes").Value;
+            int anio = (Int32)tweet.GetElement("publicado").Value.AsBsonDocument.GetElement("anio").Value;
+
+            string dia_semanaS;
+            string mesS;
+
+            switch (dia_semana)
+            {
+                case 0:
+                    dia_semanaS = "Domingo";
+                    break;
+                case 1:
+                    dia_semanaS = "Lunes";
+                    break;
+                case 2:
+                    dia_semanaS = "Martes";
+                    break;
+                case 3:
+                    dia_semanaS = "Miercoles";
+                    break;
+                case 4:
+                    dia_semanaS = "Jueves";
+                    break;
+                case 5:
+                    dia_semanaS = "Viernes";
+                    break;
+                case 6:
+                    dia_semanaS = "Sabado";
+                    break;
+                default:
+                    throw new NotImplementedException("oh shit hermano, ese dia no existe");
+            }
+
+            switch (mes)
+            {
+                case 1:
+                    mesS = "Enero";
+                    break;
+                case 2:
+                    mesS = "Febrero";
+                    break;
+                case 3:
+                    mesS = "Marzo";
+                    break;
+                case 4:
+                    mesS = "Abril";
+                    break;
+                case 5:
+                    mesS = "Mayo";
+                    break;
+                case 6:
+                    mesS = "Junio";
+                    break;
+                case 7:
+                    mesS = "Julio";
+                    break;
+                case 8:
+                    mesS = "Agosto";
+                    break;
+                case 9:
+                    mesS = "Septiembre";
+                    break;
+                case 10:
+                    mesS = "Octubre";
+                    break;
+                case 11:
+                    mesS = "Noviembre";
+                    break;
+                case 12:
+                    mesS = "Diciembre";
+                    break;
+                default:
+                    throw new NotImplementedException("oh shit hermano, ese dia no existe");
+
+            }
+
+            return dia_semanaS + " " + dia + " de " + mesS + " del " + anio + ", a las " + hora + ":" + minuto;
+        }
+
+        private async void llenarTweets(String handle)
+        {
+            List<BsonDocument> tweets = await Control_query.buscarPorScreenName(handle);
+            int contador = 0;
+
+            foreach(BsonDocument tweet in tweets)
+            {
+                string texto = "";
+                texto += "Handle: " + tweet.GetElement("screenName").Value + Environment.NewLine;
+                texto += tweet.GetElement("contenido").Value + Environment.NewLine;
+                texto += "Publicado el: " + getFecha(tweet) + Environment.NewLine;
+                texto += Environment.NewLine;
+                textTweets.Text += texto;
+                
+                contador++;
+                if (contador >= 200)
+                {
+                    break;
+                }
             }
         }
     }

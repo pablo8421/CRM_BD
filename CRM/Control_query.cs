@@ -8,8 +8,6 @@ using System.Data;
 
 using MongoDB.Bson;
 using MongoDB.Driver;
-using System.Threading.Tasks;
-using MongoDB.Bson;
 
 namespace CRM
 {
@@ -26,6 +24,8 @@ namespace CRM
 
         static IMongoClient _client;
         static IMongoDatabase _database;
+
+        static public List<BsonDocument> ultimoResultado;
 
         public static void iniciarConexion()
         {
@@ -106,6 +106,38 @@ namespace CRM
             }
         }
 
+        public async static Task<List<BsonDocument>> buscarPorScreenName(string handle)
+        {
+            var collection = _database.GetCollection<BsonDocument>("tweets");
+            BsonDocument filter = new BsonDocument();
+
+            List<BsonDocument> retorno = new List<MongoDB.Bson.BsonDocument>();
+
+            using (var cursor = await collection.FindAsync(filter))
+            {
+                while (await cursor.MoveNextAsync())
+                {
+                    var batch = cursor.Current;
+                    foreach (var document in batch)
+                    {
+                        var filtros = Builders<BsonDocument>.Filter.Eq("screenName", handle);
+                        List<BsonDocument> result = await collection.Find(filtros).ToListAsync();
+                        Console.WriteLine();
+                        foreach (BsonDocument algo in result)
+                        {
+                            retorno.Add(algo);
+                        }
+
+
+
+                    }
+                }
+            }
+
+            ultimoResultado = retorno;
+            return retorno;
+        }
+
         public async static void agregarTweet(Tweetinvi.Core.Interfaces.ITweet[] tweets)
         {
             foreach(Tweetinvi.Core.Interfaces.ITweet tweet in tweets){
@@ -118,12 +150,12 @@ namespace CRM
                                                   {"screenName", screeName},
                                                   {"contenido", contenido},
                                                   {"longitud", longitud},
-                                                  {"publicado", new BsonDocument{ {"minuto", tweet.TweetLocalCreationDate.Minute},
-                                                                                  {"hora", tweet.TweetLocalCreationDate.Hour},
-                                                                                  {"dia", tweet.TweetLocalCreationDate.Day},
-                                                                                  {"diaSemana", tweet.TweetLocalCreationDate.DayOfWeek},
-                                                                                  {"mes", tweet.TweetLocalCreationDate.Month},
-                                                                                  {"anio", tweet.TweetLocalCreationDate.Year}}}
+                                                  {"publicado", new BsonDocument{ {"minuto", tweet.CreatedAt.Minute},
+                                                                                  {"hora", tweet.CreatedAt.Hour},
+                                                                                  {"dia", tweet.CreatedAt.Day},
+                                                                                  {"diaSemana", tweet.CreatedAt.DayOfWeek},
+                                                                                  {"mes", tweet.CreatedAt.Month},
+                                                                                  {"anio", tweet.CreatedAt.Year}}}
                 };
                 
                 var collection = _database.GetCollection<BsonDocument>("tweets");
