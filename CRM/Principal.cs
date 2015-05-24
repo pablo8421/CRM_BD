@@ -313,9 +313,9 @@ namespace CRM
         {
             if (e.RowIndex != -1) { 
                 List<String> datosCliente = new List<String>();
-                for (int i = 1; i <= filtros.Count; i++) {
-                    //String dato = (String ) ((DataTable) dataGridView1.DataSource).Rows[e.RowIndex][i];
-                    String dato = dataGridView1.Rows[e.RowIndex].Cells[i].Value+"";
+                String dato = "";
+                for (int i = 0; i <= filtros.Count; i++) {
+                    dato = dataGridView1.Rows[e.RowIndex].Cells[i].Value+"";
                     datosCliente.Add(dato);
                 }
                 PerfilCliente perfil = new PerfilCliente(this, datosCliente);

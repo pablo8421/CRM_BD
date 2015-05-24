@@ -49,24 +49,24 @@ namespace CRM
         public void cargarPerfil()
         {
             filtros = miPrincipal.filtros;
-            lbNombre.Text = datosCliente[0];
-            lbApellido.Text = datosCliente[1];
-            lbDPI.Text = datosCliente[5];
-            lbEdad.Text = datosCliente[2];
-            lbEmail.Text = datosCliente[6];
-            lbTelFijo.Text = datosCliente[7];
-            lbTelMovil.Text = datosCliente[8];
-            lbCiudad.Text = datosCliente[4];
-            lbPais.Text = datosCliente[3];
-            lbOcupacion.Text = datosCliente[9];
-            lbNombreC.Text = datosCliente[10];
-            lbDireccionC.Text = datosCliente[11];
-            lbTwitter.Text = datosCliente[12];
+            lbNombre.Text = datosCliente[1];
+            lbApellido.Text = datosCliente[2];
+            lbDPI.Text = datosCliente[6];
+            lbEdad.Text = datosCliente[3];
+            lbEmail.Text = datosCliente[7];
+            lbTelFijo.Text = datosCliente[8];
+            lbTelMovil.Text = datosCliente[9];
+            lbCiudad.Text = datosCliente[5];
+            lbPais.Text = datosCliente[4];
+            lbOcupacion.Text = datosCliente[10];
+            lbNombreC.Text = datosCliente[11];
+            lbDireccionC.Text = datosCliente[12];
+            lbTwitter.Text = datosCliente[13];
 
-            String path = datosCliente[1] + "_" + datosCliente[5] + ".jpg";
+            String path = datosCliente[2] + "_" + datosCliente[6] + ".jpg";
             pictureFotoCliente.Load("Imagenes\\" + path);
             int contador = 0;
-            for (int i = 13; i < datosCliente.Count; i++)
+            for (int i = 14; i < datosCliente.Count; i++)
             {
                 Label label1 = new Label();
                 Label label2 = new Label();
