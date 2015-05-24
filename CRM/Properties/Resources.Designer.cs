@@ -63,6 +63,16 @@ namespace CRM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap humanoideAmarillo {
+            get {
+                object obj = ResourceManager.GetObject("humanoideAmarillo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap humanoideAzul {
             get {
                 object obj = ResourceManager.GetObject("humanoideAzul", resourceCulture);

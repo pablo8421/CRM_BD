@@ -66,7 +66,7 @@ namespace CRM
             String path = datosCliente[1] + "_" + datosCliente[5] + ".jpg";
             pictureFotoCliente.Load("Imagenes\\" + path);
             int contador = 0;
-            for (int i = 12; i < datosCliente.Count; i++)
+            for (int i = 13; i < datosCliente.Count; i++)
             {
                 Label label1 = new Label();
                 Label label2 = new Label();
@@ -85,15 +85,21 @@ namespace CRM
 
                 Point pLB1 = new Point();
                 pLB1.X = 12;
-                pLB1.Y = 467 + contador * 30;
+                pLB1.Y = 520 + contador * 30;
                 label1.Location = pLB1;
 
                 Point pLB2 = new Point();
                 pLB2.X = 160;
-                pLB2.Y = 467 + contador * 30;
+                pLB2.Y = 520 + contador * 30;
                 label2.Location = pLB2;
                 contador++;
+
+                label1.Font = new Font(label1.Font.FontFamily, 10);
+                label2.Font = new Font(label2.Font.FontFamily, 10);
+                splitContainer1.Panel1.Controls.Add(label1);
+                splitContainer1.Panel1.Controls.Add(label2);
             }
+
         }
 
         private string getFecha(BsonDocument tweet)
