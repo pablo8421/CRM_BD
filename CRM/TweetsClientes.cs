@@ -55,7 +55,7 @@ namespace CRM
             String longitud = tbLongitud.Text;
             String minuto = "";
             String hora =  "";
-            String dia = "";
+            int dia = -1;
             String fechaAño = ""; 
             String fechaMes = "";
             String fechaDia = ""; 
@@ -69,8 +69,8 @@ namespace CRM
                 hora = cbHora.SelectedItem.ToString();
             }
 
-            if (cbDia.SelectedItem != null){
-                dia = cbDia.SelectedItem.ToString();
+            if (cbDia.SelectedIndex != -1){
+                dia = cbDia.SelectedIndex;
             }
 
             if (buscarFecha.Checked)
@@ -132,12 +132,12 @@ namespace CRM
                         {
                             if (bandera)
                             {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("longitud", longitud);
+                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("longitud", Convert.ToInt64(longitud));
                             }
                             else
                             {
                                 bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Lte("longitud", longitud);
+                                filtros = Builders<BsonDocument>.Filter.Lte("longitud", Convert.ToInt64(longitud));
                             }
                         }
 
@@ -145,12 +145,12 @@ namespace CRM
                         {
                             if (bandera)
                             {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("minuto", minuto);
+                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("minuto", Convert.ToInt64(minuto));
                             }
                             else
                             {
                                 bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Lte("minuto", minuto);
+                                filtros = Builders<BsonDocument>.Filter.Lte("minuto", Convert.ToInt64(minuto));
                             }
                         }
 
@@ -158,16 +158,16 @@ namespace CRM
                         {
                             if (bandera)
                             {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("hora", hora);
+                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("hora", Convert.ToInt64(hora));
                             }
                             else
                             {
                                 bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Lte("hora", hora);
+                                filtros = Builders<BsonDocument>.Filter.Lte("hora", Convert.ToInt64(hora));
                             }
                         }
 
-                        if (!dia.Equals(""))
+                        if (dia!=-1)
                         {
                             if (bandera)
                             {
@@ -184,12 +184,12 @@ namespace CRM
                         {
                             if (bandera)
                             {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("dia", fechaDia);
+                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("dia", Convert.ToInt64(fechaDia));
                             }
                             else
                             {
                                 bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Lte("dia", fechaDia);
+                                filtros = Builders<BsonDocument>.Filter.Lte("dia", Convert.ToInt64(fechaDia));
                             }
                         }
 
@@ -197,12 +197,12 @@ namespace CRM
                         {
                             if (bandera)
                             {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("mes", fechaMes);
+                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("mes", Convert.ToInt64(fechaMes));
                             }
                             else
                             {
                                 bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Lte("mes", fechaMes);
+                                filtros = Builders<BsonDocument>.Filter.Lte("mes", Convert.ToInt64(fechaMes));
                             }
                         }
 
@@ -210,23 +210,17 @@ namespace CRM
                         {
                             if (bandera)
                             {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("anio", fechaAño);
+                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("anio", Convert.ToInt64(fechaAño));
                             }
                             else
                             {
                                 bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Lte("anio", fechaAño);
+                                filtros = Builders<BsonDocument>.Filter.Lte("anio", Convert.ToInt64(fechaAño));
                             }
                         }
 
                         if (bandera) { 
                             var result = await collection.Find(filtros).ToListAsync();
-                            /*Console.WriteLine();
-                            foreach (var algo in result)
-                            {
-                                Console.WriteLine(algo);
-                            }*/
-
                             int contador = 0;
                             foreach (BsonDocument tweet in result)
                             {
