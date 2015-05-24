@@ -72,7 +72,8 @@ namespace CRM
                     hora = cbHora.SelectedItem.ToString();
             }
 
-            if (cbDia.SelectedIndex-1 != -1){
+            if (cbDia.SelectedIndex - 1 != -1 || cbDia.SelectedIndex - 1 != -2)
+            {
                 dia = cbDia.SelectedIndex-1;
             }
 
