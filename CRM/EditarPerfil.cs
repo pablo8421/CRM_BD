@@ -120,10 +120,10 @@ namespace CRM
                 query = query.Substring(0, query.Length - 1);
                 
                 //Generar la query en si
-                query = "UPDATE clientes SET " + query + " WHERE " + "id=" + id + ";";
+                query = "UPDATE cliente SET " + query + " WHERE " + "id=" + id + ";";
                 int res = Control_query.query(query);
                 if(res == -5){
-                    MessageBox.Show("error");
+                    MessageBox.Show("La actualizacion no se pudo hacer", "Error actualizando");
                 }
                 this.Close();
             }
