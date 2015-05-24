@@ -48,6 +48,7 @@
             this.tbNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbTweets = new System.Windows.Forms.TextBox();
+            this.buscarFecha = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -63,6 +64,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.buscarFecha);
             this.splitContainer1.Panel1.Controls.Add(this.btnBuscar);
             this.splitContainer1.Panel1.Controls.Add(this.label9);
             this.splitContainer1.Panel1.Controls.Add(this.cbDia);
@@ -86,7 +88,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tbTweets);
             this.splitContainer1.Size = new System.Drawing.Size(802, 402);
-            this.splitContainer1.SplitterDistance = 380;
+            this.splitContainer1.SplitterDistance = 481;
             this.splitContainer1.TabIndex = 0;
             // 
             // btnBuscar
@@ -244,7 +246,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label8.Location = new System.Drawing.Point(12, 298);
+            this.label8.Location = new System.Drawing.Point(36, 297);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(51, 17);
             this.label8.TabIndex = 14;
@@ -360,9 +362,18 @@
             this.tbTweets.Name = "tbTweets";
             this.tbTweets.ReadOnly = true;
             this.tbTweets.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbTweets.Size = new System.Drawing.Size(413, 397);
+            this.tbTweets.Size = new System.Drawing.Size(312, 397);
             this.tbTweets.TabIndex = 0;
             this.tbTweets.WordWrap = false;
+            // 
+            // buscarFecha
+            // 
+            this.buscarFecha.AutoSize = true;
+            this.buscarFecha.Location = new System.Drawing.Point(15, 300);
+            this.buscarFecha.Name = "buscarFecha";
+            this.buscarFecha.Size = new System.Drawing.Size(15, 14);
+            this.buscarFecha.TabIndex = 21;
+            this.buscarFecha.UseVisualStyleBackColor = true;
             // 
             // TweetsClientes
             // 
@@ -405,5 +416,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox tbTweets;
         private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.CheckBox buscarFecha;
     }
 }

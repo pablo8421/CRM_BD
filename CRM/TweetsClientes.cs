@@ -53,13 +53,32 @@ namespace CRM
             String screenName = tbScreenName.Text;
             String contenido = tbContenido.Text;
             String longitud = tbLongitud.Text;
-            String minuto = cbMinuto.SelectedItem.ToString();
-            String hora = cbHora.SelectedItem.ToString();
-            String dia = cbHora.SelectedItem.ToString();
-            String fechaAño = dpFecha.Value.Year.ToString();
-            String fechaMes = dpFecha.Value.Month.ToString();
-            String fechaDia = dpFecha.Value.Day.ToString();
+            String minuto = "";
+            String hora =  "";
+            String dia = "";
+            String fechaAño = ""; 
+            String fechaMes = "";
+            String fechaDia = ""; 
             bool bandera = false;
+
+            if (cbMinuto.SelectedItem != null){
+                minuto = cbMinuto.SelectedItem.ToString();
+            }
+
+            if (cbHora.SelectedItem != null){
+                hora = cbHora.SelectedItem.ToString();
+            }
+
+            if (cbDia.SelectedItem != null){
+                dia = cbDia.SelectedItem.ToString();
+            }
+
+            if (buscarFecha.Checked)
+            {
+                fechaAño = dpFecha.Value.Year.ToString();
+                fechaMes = dpFecha.Value.Month.ToString();
+                fechaDia = dpFecha.Value.Day.ToString();
+            }
 
             _client = new MongoClient();
             _database = _client.GetDatabase("tweet");
