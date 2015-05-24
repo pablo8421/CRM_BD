@@ -13,8 +13,11 @@ namespace CRM
     public partial class EditarPerfil : Form
     {
         List<String> datosCliente;
-        List<CheckBox> filtros;
+        List<String> camposCliente;
 
+        List<Label> labels;
+        List<TextBox> textBoxes;
+        
         public EditarPerfil()
         {
             InitializeComponent();
@@ -23,8 +26,63 @@ namespace CRM
         public EditarPerfil(List<String> datosCliente, List<CheckBox> filtros)
         {
             InitializeComponent();
-            this.filtros = filtros;
             this.datosCliente = datosCliente;
+            camposCliente = new List<String>();
+
+            labels = new List<Label>();
+            textBoxes = new List<TextBox>();
+
+            for (int i = 0; i < datosCliente.Count; i++)
+            {
+                //Guardar el campo
+                camposCliente.Add(filtros[i].Text);
+
+                //Generar el label de los filtros
+                Label label = new Label();
+                label.Text = filtros[i].Text;
+                label.Location = new Point(10, 20*i);
+
+                //Generar el textBox de los datos del cliente
+                TextBox textBox = new TextBox();
+                textBox.Text = datosCliente[i];
+                textBox.Location = new Point(50, 20*i);
+
+                //Guardar los componentes
+                labels.Add(label);
+                textBoxes.Add(textBox);
+
+                //Agregar los componentes
+                panel.Controls.Add(label);
+                panel.Controls.Add(textBox);
+            }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            List<String> campos = new List<String>();
+            List<String> valores= new List<String>();
+            for (int i = 0; i < textBoxes.Count; i++)
+            {
+                if(!datosCliente.Equals(textBoxes[i].Text)){
+                    campos.Add(camposCliente[i]);
+                    valores.Add(textBoxes[i].Text);
+                }
+            }
+            if (!campos.Equals(""))
+            {
+                String query = "";
+                //Realizar los SETS
+                for (int i = 0; i < valores.Count; i++)
+                {
+                    query += campos[i] + "=" + valores[i] + ",";
+                }
+                //Eliminar la ultima comilla innecesaria
+                query = query.Substring(0, query.Length - 1);
+                
+                //Generar la query en si
+                query = "UPDATE clientes SET " + query + " WHERE " + "ACA VA LA CONDICION!!!" + ";";
+
+            }
         }
     }
 }

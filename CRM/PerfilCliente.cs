@@ -205,7 +205,8 @@ namespace CRM
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            EditarPerfil edicion = new EditarPerfil(datosCliente, filtros);
+            edicion.Show();
         }
     }
 }

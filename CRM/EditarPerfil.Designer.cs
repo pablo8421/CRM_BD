@@ -29,14 +29,30 @@
         private void InitializeComponent()
         {
             this.panel = new System.Windows.Forms.Panel();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel
             // 
+            this.panel.AutoScroll = true;
+            this.panel.Controls.Add(this.btnUpdate);
             this.panel.Location = new System.Drawing.Point(12, 12);
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(713, 456);
             this.panel.TabIndex = 0;
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpdate.Location = new System.Drawing.Point(286, 430);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(115, 23);
+            this.btnUpdate.TabIndex = 0;
+            this.btnUpdate.Text = "Actualizar Datos";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // EditarPerfil
             // 
@@ -46,6 +62,7 @@
             this.Controls.Add(this.panel);
             this.Name = "EditarPerfil";
             this.Text = "Editar Perfil";
+            this.panel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -53,5 +70,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panel;
+        private System.Windows.Forms.Button btnUpdate;
     }
 }
