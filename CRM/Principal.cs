@@ -229,7 +229,7 @@ namespace CRM
 
         }
 
-        private string obtenerSelectQuery()
+        public string obtenerSelectQuery()
         {
             //SELECT del query 
             string query = "SELECT cliente.id,";
@@ -331,6 +331,12 @@ namespace CRM
         {
             indiceCliente = (Int32) dataGridView1.Rows[e.RowIndex].Cells[0].Value;
             nombreCliente = (String)dataGridView1.Rows[e.RowIndex].Cells[1].Value;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            TweetsClientes twcliente = new TweetsClientes();
+            twcliente.ShowDialog();
         }
     }
 }
