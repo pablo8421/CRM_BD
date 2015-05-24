@@ -66,7 +66,10 @@ namespace CRM
             lbDireccionC.Text = datosCliente[12];
             lbTwitter.Text = datosCliente[13];
 
-            String path = datosCliente[2] + "_" + datosCliente[6] + ".jpg";
+
+            //ESTO FUE LO QUE TE DIO HUEVA HACER CHECHA
+            String path = Control_query.querySelect("SELECT direccion_foto FROM cliente WHERE id = " + datosCliente[0] + ";").Rows[0][0].ToString();
+
             pictureFotoCliente.Load("Imagenes\\" + path);
             int contador = 0;
             for (int i = 14; i < datosCliente.Count; i++)
