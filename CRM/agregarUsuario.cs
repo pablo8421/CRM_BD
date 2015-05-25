@@ -145,7 +145,11 @@ namespace CRM
 
         public bool validarDPI(String dpi) {
             if (dpi.Length != 13)
+            {
+                MessageBox.Show("La longitud del No. DPI no es correcta.", "Error en la longitud del DPI", MessageBoxButtons.OK);
                 return false;
+            }
+               
             Match match = Regex.Match(dpi, @"[0-9]+");
             if (match.Success)
                 return true;
@@ -160,7 +164,10 @@ namespace CRM
         public bool validarTelefono(String telefono)
         {
             if (telefono.Length != 8)
+            {
+                MessageBox.Show("La longitud del No. de telefono no es correcta.", "Error en la longitud del No. de telefono", MessageBoxButtons.OK);
                 return false;
+            }
             Match match = Regex.Match(telefono, @"[0-9]+");
             if (match.Success)
                 return true;
