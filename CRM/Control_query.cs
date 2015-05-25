@@ -98,9 +98,6 @@ namespace CRM
                         {
                             Console.WriteLine(algo);
                         }
-
-
-
                     }
                 }
             }
