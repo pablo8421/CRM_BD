@@ -207,11 +207,11 @@ namespace CRM
                         Console.WriteLine();
                         foreach (BsonDocument algo in result)
                         {
-                            retorno.Add(algo);
+                            if (!retorno.Contains(algo))
+                            {
+                                retorno.Add(algo);
+                            }
                         }
-
-
-
                     }
                 }
             }
