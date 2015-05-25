@@ -218,7 +218,12 @@ namespace CRM
         private void button1_Click(object sender, EventArgs e)
         {
             EditarPerfil edicion = new EditarPerfil(datosCliente, filtros, fecha);
-            edicion.Show();
+            edicion.ShowDialog();
+            while (edicion.Visible) { 
+            
+            }
+            String path = Control_query.querySelect("SELECT direccion_foto FROM cliente WHERE id = " + datosCliente[0] + ";").Rows[0][0].ToString();
+            pictureFotoCliente.Load("Imagenes\\" + path);
         }
     }
 }
