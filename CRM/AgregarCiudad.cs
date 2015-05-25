@@ -44,9 +44,7 @@ namespace CRM
         {
             ciudad = textCiudad.Text;
             pais = comboPais.Text;
-
             queryResult = Control_query.query("INSERT INTO ciudad(nombre_ciudad, pais) VALUES('" + ciudad + "', '" + pais + "')");
-            
             this.Close();
         }
     }

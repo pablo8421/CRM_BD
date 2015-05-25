@@ -26,7 +26,7 @@ namespace CRM
             this.miPrincipal = miPrincipal;
             this.datosCliente = datosCliente;
             this.fecha = fecha;
-            llenarTweets(datosCliente[12]);
+            llenarTweets(datosCliente[13]);
         }
         
 
@@ -76,7 +76,7 @@ namespace CRM
             {
                 Label label1 = new Label();
                 Label label2 = new Label();
-                label1.Text = filtros[i].Text + ":";
+                label1.Text = filtros[i-1].Text + ":";
                 label2.Text = datosCliente[i];
 
                 Size tamanioLB1 = new Size();

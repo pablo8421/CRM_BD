@@ -7,9 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
+using System.Net.Mail;
 
 namespace CRM
-{//wollaaaa
+{
     public partial class AgregarUsuario : Form
     {
         Principal miPrincipal;
@@ -141,6 +143,56 @@ namespace CRM
             }
         }
 
+        public bool validarDPI(String dpi) {
+            if (dpi.Length != 13)
+            {
+                MessageBox.Show("La longitud del No. DPI no es correcta.", "Error en la longitud del DPI", MessageBoxButtons.OK);
+                return false;
+            }
+               
+            Match match = Regex.Match(dpi, @"[0-9]+");
+            if (match.Success)
+                return true;
+            else
+            {
+                MessageBox.Show("El No. DPI que ingresó es invalido.", "Error en el DPI", MessageBoxButtons.OK);
+                return false;
+            }
+                
+        }
+
+        public bool validarTelefono(String telefono)
+        {
+            if (telefono.Length != 8)
+            {
+                MessageBox.Show("La longitud del No. de telefono no es correcta.", "Error en la longitud del No. de telefono", MessageBoxButtons.OK);
+                return false;
+            }
+            Match match = Regex.Match(telefono, @"[0-9]+");
+            if (match.Success)
+                return true;
+            else
+            {
+                MessageBox.Show("El No. de telefono que ingresó es invalido.", "Error en el telofono", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
+        public bool validarCorreo(String correo) {
+            try
+            {
+                MailAddress m = new MailAddress(correo);
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("El correo que ingresó es invalido", "Error en el correo", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
+
+
         private void btnAceptar_Click_1(object sender, EventArgs e)
         {
             bool queryCorrecta = true;
@@ -150,122 +202,137 @@ namespace CRM
             String nombre = textNombre.Text;
             String apellido = textApellido.Text;
             String fecha = fechaPicker.Value.Year + "-" + fechaPicker.Value.Month + "-" + fechaPicker.Value.Day;
-
-            //identificador de la ciudad
-            DataRowView fila = (DataRowView)comboCiudad.SelectedItem;
-            int ciudad = 0;
-            try
-            {
-                ciudad = (Int32)fila["id"];
-
-            }
-            catch (Exception error)
-            {
-                AgregarCiudad ciudadForm = new AgregarCiudad(comboCiudad.Text);
-                ciudadForm.ShowDialog();
-                //Resultado del query hecho
-                int res = ciudadForm.queryResult;
-
-                if (res == -5)
-                {
-                    MessageBox.Show("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)", "Problemas al agregar el cliente", MessageBoxButtons.OK);
-                    queryCorrecta = false;
-                }
-                else
-                {
-                    DataTable dt =  Control_query.querySelect("SELECT * FROM ciudad WHERE nombre_ciudad = '" + ciudadForm.ciudad + "' AND " +
-                                                                                                  "pais = '" + ciudadForm.pais +"';");
-                    ciudad = (Int32) dt.Rows[0]["id"];
-                }
-            }
-
             String dpi = textDpi.Text;
             String email = textEmail.Text;
             String telefono_fijo = textTelFijo.Text;
             String telefono_movil = textTelMovil.Text;
-            //identificador del empleo
-            fila = (DataRowView)comboOcuapcion.SelectedItem;
-            int ocupacion = 0;
-            try
-            {
-                ocupacion = (Int32)fila["id"];
-
-            }
-            catch (Exception error)
-            {
-                AgregarEmpleo empleoForm = new AgregarEmpleo(comboOcuapcion.Text);
-                empleoForm.ShowDialog();
-                //Resultado del query hecho
-                int res = empleoForm.queryResult;
-
-                if (res == -5)
-                {
-                    MessageBox.Show("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)", "Problemas al agregar el cliente", MessageBoxButtons.OK);
-                    queryCorrecta = false;
-                }
-                else
-                {
-                    DataTable dt = Control_query.querySelect("SELECT * FROM empleo WHERE nombre_puesto = '" + empleoForm.puesto + "' AND " +
-                                                                                      "nombre_compañia = '" + empleoForm.compania + "' AND " +
-                                                                                   "direccion_compañia = '" + empleoForm.direccion + "';");
-                    ocupacion = (Int32)dt.Rows[0]["id"];
-                }
-            }
-
             String foto_perfil = apellido + "_" + dpi + ".jpg";
             String twitter = tbTwitter.Text;
-            subquery1 = "INSERT INTO cliente (";
-            foreach (String l in miPrincipal.cliente.columnas)
+
+            if (pictureBox1.Image == null)
             {
-                if (!l.Equals("id"))
-                    subquery1 += l+", ";
+                queryCorrecta = false;
+                MessageBox.Show("Coloque una imagen de perfil.", "Error", MessageBoxButtons.OK);
             }
-            subquery1 = subquery1.Substring(0, subquery1.Length - 2);
-            subquery1 += ") ";
-            subquery2 = "VALUES ('" + nombre + "', '" + apellido + "', '" + fecha + "'," + ciudad + ",'" + dpi + "', '" + email + "', " + telefono_fijo + ", " + telefono_movil + ", " + ocupacion + ", '" + foto_perfil + "', '"+twitter+"'";
-            for (int i = 0; i < label_texto.Count; i++)
-            {
-                TextBox tb = label_texto[i];
-                if (miPrincipal.cliente.tipos[i + 12].Contains("text") || miPrincipal.cliente.tipos[i + 12].Contains("date"))
-                    subquery2 += ", '" + tb.Text + "'";
-                else if (miPrincipal.cliente.tipos[i + 12].Contains("integer") || miPrincipal.cliente.tipos[i + 12].Contains("double"))
-                    subquery2 += ", " + tb.Text;
-                else
+
+            queryCorrecta = queryCorrecta && validarDPI(dpi);
+            queryCorrecta = queryCorrecta && validarCorreo(email);
+            queryCorrecta = queryCorrecta && validarTelefono(telefono_fijo);
+            queryCorrecta = queryCorrecta && validarTelefono(telefono_movil);
+
+            if (queryCorrecta) { 
+                //Identificador de la ciudad
+                DataRowView fila = (DataRowView)comboCiudad.SelectedItem;
+                int ciudad = 0;
+                try
                 {
-                    Console.WriteLine("La cantamos");
+                    ciudad = (Int32)fila["id"];
+
+                }
+                catch (Exception error)
+                {
+                    AgregarCiudad ciudadForm = new AgregarCiudad(comboCiudad.Text);
+                    ciudadForm.ShowDialog();
+                    //Resultado del query hecho
+                    int res = ciudadForm.queryResult;
+
+                    if (res == -5)
+                    {
+                        MessageBox.Show("Error al ingresar la ciudad", "Error", MessageBoxButtons.OK);
+                        queryCorrecta = false;
+                    }
+                    else
+                    {
+                        DataTable dt =  Control_query.querySelect("SELECT * FROM ciudad WHERE nombre_ciudad = '" + ciudadForm.ciudad + "' AND " +
+                                                                                                      "pais = '" + ciudadForm.pais +"';");
+                        ciudad = (Int32) dt.Rows[0]["id"];
+                    }
                 }
 
-            }
-            subquery2 += ");";
-            String query = subquery1 + subquery2;
-            int valor;
-            if (queryCorrecta)
-            {
-                valor = Control_query.query(query);
-            }
-            else
-            {
-                valor = -5;
-            }
-            if (valor != -5)
-            {
-                Bitmap paGuardar = new Bitmap(pictureBox1.Image);
-                paGuardar.Save("Imagenes\\" + foto_perfil, System.Drawing.Imaging.ImageFormat.Jpeg);
+                if (queryCorrecta) { 
+                    //Identificador del empleo
+                    fila = (DataRowView)comboOcuapcion.SelectedItem;
+                    int ocupacion = 0;
+                    try
+                    {
+                        ocupacion = (Int32)fila["id"];
+                    }
+                    catch (Exception error)
+                    {
+                        AgregarEmpleo empleoForm = new AgregarEmpleo(comboOcuapcion.Text);
+                        empleoForm.ShowDialog();
+                        //Resultado del query hecho
+                        int res = empleoForm.queryResult;
+                        if (res == -5)
+                        {
+                            MessageBox.Show("Error al agregar el empleo.", "Error", MessageBoxButtons.OK);
+                            queryCorrecta = false;
+                        }
+                        else
+                        {
+                            DataTable dt = Control_query.querySelect("SELECT * FROM empleo WHERE nombre_puesto = '" + empleoForm.puesto + "' AND " +
+                                                                                              "nombre_compañia = '" + empleoForm.compania + "' AND " +
+                                                                                           "direccion_compañia = '" + empleoForm.direccion + "';");
+                            ocupacion = (Int32)dt.Rows[0]["id"];
+                        }
+                    }
 
-                //SELECT del query
-                String queryA = miPrincipal.obtenerSelectQuery();
+                    if (queryCorrecta) { 
+                        subquery1 = "INSERT INTO cliente (";
+                        foreach (String l in miPrincipal.cliente.columnas)
+                        {
+                            if (!l.Equals("id"))
+                                subquery1 += l+", ";
+                        }
+                        subquery1 = subquery1.Substring(0, subquery1.Length - 2);
+                        subquery1 += ") ";
+                        subquery2 = "VALUES ('" + nombre + "', '" + apellido + "', '" + fecha + "'," + ciudad + ",'" + dpi + "', '" + email + "', " + telefono_fijo + ", " + telefono_movil + ", " + ocupacion + ", '" + foto_perfil + "', '"+twitter+"'";
+                        for (int i = 0; i < label_texto.Count; i++)
+                        {
+                            TextBox tb = label_texto[i];
+                            if (miPrincipal.cliente.tipos[i + 12].Contains("text") || miPrincipal.cliente.tipos[i + 12].Contains("date"))
+                                subquery2 += ", '" + tb.Text + "'";
+                            else if (miPrincipal.cliente.tipos[i + 12].Contains("integer") || miPrincipal.cliente.tipos[i + 12].Contains("double"))
+                                subquery2 += ", " + tb.Text;
+                            else
+                            {
+                                Console.WriteLine("La cantamos");
+                            }
 
-                //Hacer la query
-                miPrincipal.dataGridView1.DataSource = Control_query.querySelect(queryA);
-                miPrincipal.dataGridView1.Columns[0].Visible = false;
+                        }
+                        subquery2 += ");";
+                        String query = subquery1 + subquery2;
+                        int valor;
+                        if (queryCorrecta)
+                        {
+                            valor = Control_query.query(query);
+                        }
+                        else
+                        {
+                            valor = -5;
+                        }
+                        if (valor != -5)
+                        {
+                            Bitmap paGuardar = new Bitmap(pictureBox1.Image);
+                            paGuardar.Save("Imagenes\\" + foto_perfil, System.Drawing.Imaging.ImageFormat.Jpeg);
 
-                Control_query.agregarTweet(Tweet_control.getTweets(twitter));
+                            //SELECT del query
+                            String queryA = miPrincipal.obtenerSelectQuery();
 
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)", "Problemas al agregar el cliente", MessageBoxButtons.OK);
+                            //Hacer la query
+                            miPrincipal.dataGridView1.DataSource = Control_query.querySelect(queryA);
+                            miPrincipal.dataGridView1.Columns[0].Visible = false;
+
+                            Control_query.agregarTweet(Tweet_control.getTweets(twitter));
+
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)", "Problemas al agregar el cliente", MessageBoxButtons.OK);
+                        }
+                    }
+                }
             }
         }
     }
