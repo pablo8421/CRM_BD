@@ -89,7 +89,7 @@ namespace CRM
 
             var collection = _database.GetCollection<BsonDocument>("tweets");
             BsonDocument filter = new BsonDocument();
-
+            bool done = false;
             using (var cursor = await collection.FindAsync(filter))
             {
                 int contador = 0;
@@ -223,33 +223,37 @@ namespace CRM
                                 filtros = Builders<BsonDocument>.Filter.Lte("publicado.anio", Convert.ToInt64(fechaAño));
                             }
                         }
-
-                        if (bandera)
+                        if (!done)
                         {
-                            var result = await collection.Find(filtros).ToListAsync();
-                            foreach (BsonDocument tweet in result)
+                            done = true;
+                            if (bandera)
                             {
-                                string texto = "";
-                                texto += "Handle: " + tweet.GetElement("screenName").Value + Environment.NewLine;
-                                texto += tweet.GetElement("contenido").Value + Environment.NewLine;
-                                texto += "Publicado el: " + Control_query.getFecha(tweet) + Environment.NewLine;
-                                texto += Environment.NewLine;
-                                tbTweets.Text += texto;
-                                contador++;
+                                var result = await collection.Find(filtros).ToListAsync();
+                                foreach (BsonDocument tweet in result)
+                                {
+                                    string texto = "";
+                                    texto += "Handle: " + tweet.GetElement("screenName").Value + Environment.NewLine;
+                                    texto += tweet.GetElement("contenido").Value + Environment.NewLine;
+                                    texto += "Publicado el: " + Control_query.getFecha(tweet) + Environment.NewLine;
+                                    texto += Environment.NewLine;
+                                    tbTweets.Text += texto;
+                                    contador++;
+                                }
                             }
-                        }
-                        else {
-                            filtros = new BsonDocument();
-                            var result = await collection.Find(filtros).ToListAsync();
-                            foreach (BsonDocument tweet in result)
+                            else
                             {
-                                string texto = "";
-                                texto += "Handle: " + tweet.GetElement("screenName").Value + Environment.NewLine;
-                                texto += tweet.GetElement("contenido").Value + Environment.NewLine;
-                                texto += "Publicado el: " + Control_query.getFecha(tweet) + Environment.NewLine;
-                                texto += Environment.NewLine;
-                                tbTweets.Text += texto;
-                                contador++;
+                                filtros = new BsonDocument();
+                                var result = await collection.Find(filtros).ToListAsync();
+                                foreach (BsonDocument tweet in result)
+                                {
+                                    string texto = "";
+                                    texto += "Handle: " + tweet.GetElement("screenName").Value + Environment.NewLine;
+                                    texto += tweet.GetElement("contenido").Value + Environment.NewLine;
+                                    texto += "Publicado el: " + Control_query.getFecha(tweet) + Environment.NewLine;
+                                    texto += Environment.NewLine;
+                                    tbTweets.Text += texto;
+                                    contador++;
+                                }
                             }
                         }
                     }
