@@ -78,31 +78,6 @@ namespace CRM
             _database = _client.GetDatabase("tweet");
         }
 
-        public async static void mongoPrueba()
-        {
-            var collection = _database.GetCollection<BsonDocument>("tweets");
-            BsonDocument filter = new BsonDocument();
-
-            using (var cursor = await collection.FindAsync(filter))
-            {
-                while (await cursor.MoveNextAsync())
-                {
-                    var batch = cursor.Current;
-                    foreach (var document in batch)
-                    {
-                        var filtros = Builders<BsonDocument>.Filter.Eq("screenName", "EmisorasUnidas");
-                        filtros = filtros & Builders<BsonDocument>.Filter.Eq("publicado.dia", 21);
-                        var result = await collection.Find(filtros).ToListAsync();
-                        Console.WriteLine();
-                        foreach (var algo in result)
-                        {
-                            Console.WriteLine(algo);
-                        }
-                    }
-                }
-            }
-        }
-
         public static string getFecha(BsonDocument tweet)
         {
             int minuto = (Int32)tweet.GetElement("publicado").Value.AsBsonDocument.GetElement("minuto").Value;
@@ -191,26 +166,20 @@ namespace CRM
         public async static Task<List<BsonDocument>> buscarPorScreenName(string handle)
         {
             var collection = _database.GetCollection<BsonDocument>("tweets");
-            BsonDocument filter = new BsonDocument();
-
+            var filtros = Builders<BsonDocument>.Filter.Eq("screenName", handle);
             List<BsonDocument> retorno = new List<MongoDB.Bson.BsonDocument>();
 
-            using (var cursor = await collection.FindAsync(filter))
+            using (var cursor = await collection.FindAsync(filtros))
             {
                 while (await cursor.MoveNextAsync())
                 {
                     var batch = cursor.Current;
                     foreach (var document in batch)
                     {
-                        var filtros = Builders<BsonDocument>.Filter.Eq("screenName", handle);
-                        List<BsonDocument> result = await collection.Find(filtros).ToListAsync();
                         Console.WriteLine();
-                        foreach (BsonDocument algo in result)
+                        if (!retorno.Contains(document))
                         {
-                            if (!retorno.Contains(algo))
-                            {
-                                retorno.Add(algo);
-                            }
+                            retorno.Add(document);
                         }
                     }
                 }
