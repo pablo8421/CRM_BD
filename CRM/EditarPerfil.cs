@@ -176,6 +176,8 @@ namespace CRM
             if (hayFoto)
             {
                 String path = Control_query.querySelect("SELECT direccion_foto FROM cliente WHERE id = " + id + ";").Rows[0][0].ToString();
+                path = path.Substring(0, path.Length - 4) + "_next.jpg";
+                Control_query.query("UPDATE cliente SET direccion_foto='" + path + "' WHERE id=" + id + ";");
                 Bitmap paGuardar = new Bitmap(picture.Image);
                 paGuardar.Save("Imagenes\\" + path, System.Drawing.Imaging.ImageFormat.Jpeg);
             }
