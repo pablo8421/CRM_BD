@@ -38,28 +38,28 @@ namespace CRM
             String tipoCampo = "";
             queryCorrecta = queryCorrecta && validarCampo(nombreCampo);
 
-            if (comboBoxTipo.SelectedItem != null){
-                tipoCampo = comboBoxTipo.SelectedItem.ToString();
-
-                
-            }
-
-            else {
-                MessageBox.Show("Debe seleccionar un tipo de campo", "Error en el tipo de campo", MessageBoxButtons.OK);
-                queryCorrecta = false;
-            }
             if (queryCorrecta)
-            {
-                String query = "ALTER TABLE cliente ADD COLUMN " + nombreCampo + " " + tipoCampo + ";";
-                int valor = Control_query.query(query);
-                if (valor == -5)
-                {
-                    MessageBox.Show("Hubo un error en el ingreso de datos.", "Error en el ingreso de datos", MessageBoxButtons.OK);
+            {            
+                if (comboBoxTipo.SelectedItem != null){
+                    tipoCampo = comboBoxTipo.SelectedItem.ToString();
                 }
-                miPrincipal.cargarVentanaPrincipal();
-                this.Close();
-            }   
 
+                else {
+                    MessageBox.Show("Debe seleccionar un tipo de campo", "Error en el tipo de campo", MessageBoxButtons.OK);
+                    queryCorrecta = false;
+                }
+                if (queryCorrecta)
+                {
+                    String query = "ALTER TABLE cliente ADD COLUMN " + nombreCampo + " " + tipoCampo + ";";
+                    int valor = Control_query.query(query);
+                    if (valor == -5)
+                    {
+                        MessageBox.Show("Hubo un error en el ingreso de datos.", "Error en el ingreso de datos", MessageBoxButtons.OK);
+                    }
+                    miPrincipal.cargarVentanaPrincipal();
+                    this.Close();
+                }
+            }   
         }
 
         private void label2_Click(object sender, EventArgs e)

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Net.Mail;
+using System.Globalization;
 
 namespace CRM
 {
@@ -191,7 +192,39 @@ namespace CRM
             }
         }
 
+        public bool validarFecha(String fecha)
+        {
+            DateTime dt;
+            return DateTime.TryParseExact(fecha, "yyyy/MM/dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
+        }
 
+        public bool validarEntero(String entero)
+        {
+            try
+            {
+                Int64 m = Convert.ToInt64(entero);
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("El valor '"+entero+"' debe ser entero.", "Error", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
+        public bool validarReal(String real)
+        {
+            try
+            {
+                Double m = Convert.ToDouble(real);
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("El valor '" + real + "' debe ser real.", "Error", MessageBoxButtons.OK);
+                return false;
+            }
+        }
 
         private void btnAceptar_Click_1(object sender, EventArgs e)
         {
@@ -289,16 +322,49 @@ namespace CRM
                         subquery2 = "VALUES ('" + nombre + "', '" + apellido + "', '" + fecha + "'," + ciudad + ",'" + dpi + "', '" + email + "', " + telefono_fijo + ", " + telefono_movil + ", " + ocupacion + ", '" + foto_perfil + "', '"+twitter+"'";
                         for (int i = 0; i < label_texto.Count; i++)
                         {
-                            TextBox tb = label_texto[i];
-                            if (miPrincipal.cliente.tipos[i + 12].Contains("text") || miPrincipal.cliente.tipos[i + 12].Contains("date"))
-                                subquery2 += ", '" + tb.Text + "'";
-                            else if (miPrincipal.cliente.tipos[i + 12].Contains("integer") || miPrincipal.cliente.tipos[i + 12].Contains("double"))
-                                subquery2 += ", " + tb.Text;
-                            else
-                            {
-                                Console.WriteLine("La cantamos");
+                            if (queryCorrecta) { 
+                                TextBox tb = label_texto[i];
+                                if (miPrincipal.cliente.tipos[i + 12].Contains("text"))
+                                {
+                                    subquery2 += ", '" + tb.Text + "'";
+                                }
+                                else if (miPrincipal.cliente.tipos[i + 12].Contains("date"))
+                                {
+                                    if (validarFecha(tb.Text))
+                                    {
+                                        subquery2 += ", '" + tb.Text + "'";
+                                    }
+                                    else 
+                                    {
+                                        queryCorrecta = false;
+                                        MessageBox.Show("El valor '"+tb.Text+"' debe ser una fecha. Formato: yyyy/mm/dd", "Error", MessageBoxButtons.OK);
+                                    }
+                                }
+                                else if (miPrincipal.cliente.tipos[i + 12].Contains("integer"))
+                                {
+                                    if (validarEntero(tb.Text))
+                                    {
+                                        subquery2 += ", '" + tb.Text + "'";
+                                    }
+                                    else
+                                    {
+                                        queryCorrecta = false;
+                                        MessageBox.Show("El valor '" + tb.Text + "' debe ser un número entero.", "Error", MessageBoxButtons.OK);
+                                    }
+                                }
+                                else if (miPrincipal.cliente.tipos[i + 12].Contains("double"))
+                                {
+                                    if (validarReal(tb.Text))
+                                    {
+                                        subquery2 += ", " + tb.Text;
+                                    }
+                                    else
+                                    {
+                                        queryCorrecta = false;
+                                        MessageBox.Show("El valor '" + tb.Text + "' debe ser un número real.", "Error", MessageBoxButtons.OK);
+                                    }
+                                }
                             }
-
                         }
                         subquery2 += ");";
                         String query = subquery1 + subquery2;
@@ -306,30 +372,26 @@ namespace CRM
                         if (queryCorrecta)
                         {
                             valor = Control_query.query(query);
-                        }
-                        else
-                        {
-                            valor = -5;
-                        }
-                        if (valor != -5)
-                        {
-                            Bitmap paGuardar = new Bitmap(pictureBox1.Image);
-                            paGuardar.Save("Imagenes\\" + foto_perfil, System.Drawing.Imaging.ImageFormat.Jpeg);
+                            if (valor != -5)
+                            {
+                                Bitmap paGuardar = new Bitmap(pictureBox1.Image);
+                                paGuardar.Save("Imagenes\\" + foto_perfil, System.Drawing.Imaging.ImageFormat.Jpeg);
 
-                            //SELECT del query
-                            String queryA = miPrincipal.obtenerSelectQuery();
+                                //SELECT del query
+                                String queryA = miPrincipal.obtenerSelectQuery();
 
-                            //Hacer la query
-                            miPrincipal.dataGridView1.DataSource = Control_query.querySelect(queryA);
-                            miPrincipal.dataGridView1.Columns[0].Visible = false;
+                                //Hacer la query
+                                miPrincipal.dataGridView1.DataSource = Control_query.querySelect(queryA);
+                                miPrincipal.dataGridView1.Columns[0].Visible = false;
 
-                            Control_query.agregarTweet(Tweet_control.getTweets(twitter));
+                                Control_query.agregarTweet(Tweet_control.getTweets(twitter));
 
-                            this.Close();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)", "Problemas al agregar el cliente", MessageBoxButtons.OK);
+                                this.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Los datos ingresados son inválidos.", "Error", MessageBoxButtons.OK);
+                            }
                         }
                     }
                 }
