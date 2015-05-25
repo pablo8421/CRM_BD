@@ -101,7 +101,7 @@
             this.Controls.Add(this.textCiudad);
             this.Controls.Add(this.comboPais);
             this.Name = "AgregarCiudad";
-            this.Text = "Agregar Ciudad";
+            this.Text = "Agregar ciudad";
             this.ResumeLayout(false);
             this.PerformLayout();
 

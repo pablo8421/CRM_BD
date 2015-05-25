@@ -55,7 +55,7 @@
             this.btnBusqueda.Name = "btnBusqueda";
             this.btnBusqueda.Size = new System.Drawing.Size(75, 23);
             this.btnBusqueda.TabIndex = 1;
-            this.btnBusqueda.Text = "Busqueda";
+            this.btnBusqueda.Text = "Buscar";
             this.btnBusqueda.UseVisualStyleBackColor = true;
             this.btnBusqueda.Click += new System.EventHandler(this.btnBusqueda_Click);
             // 
@@ -91,7 +91,7 @@
             this.labelBusqueda.Name = "labelBusqueda";
             this.labelBusqueda.Size = new System.Drawing.Size(99, 13);
             this.labelBusqueda.TabIndex = 3;
-            this.labelBusqueda.Text = "Tipo de busqueda: ";
+            this.labelBusqueda.Text = "Tipo de búsqueda: ";
             // 
             // comboOpciones
             // 
@@ -121,7 +121,7 @@
             this.ClientSize = new System.Drawing.Size(671, 449);
             this.Controls.Add(this.split);
             this.Name = "TwitterBusqueda";
-            this.Text = "Busqueda en Twitter";
+            this.Text = "Búsqueda en Twitter";
             this.split.Panel1.ResumeLayout(false);
             this.split.Panel1.PerformLayout();
             this.split.Panel2.ResumeLayout(false);

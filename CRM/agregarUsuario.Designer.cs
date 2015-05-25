@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tbTwitter = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.btnExaminar = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.comboOcuapcion = new System.Windows.Forms.ComboBox();
@@ -52,8 +54,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
-            this.tbTwitter = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -106,6 +106,22 @@
             this.splitContainer1.Size = new System.Drawing.Size(882, 440);
             this.splitContainer1.SplitterDistance = 301;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // tbTwitter
+            // 
+            this.tbTwitter.Location = new System.Drawing.Point(122, 258);
+            this.tbTwitter.Name = "tbTwitter";
+            this.tbTwitter.Size = new System.Drawing.Size(226, 20);
+            this.tbTwitter.TabIndex = 24;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(8, 261);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(42, 13);
+            this.label11.TabIndex = 23;
+            this.label11.Text = "Twitter:";
             // 
             // btnExaminar
             // 
@@ -307,22 +323,6 @@
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(8, 261);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(42, 13);
-            this.label11.TabIndex = 23;
-            this.label11.Text = "Twitter:";
-            // 
-            // tbTwitter
-            // 
-            this.tbTwitter.Location = new System.Drawing.Point(122, 258);
-            this.tbTwitter.Name = "tbTwitter";
-            this.tbTwitter.Size = new System.Drawing.Size(226, 20);
-            this.tbTwitter.TabIndex = 24;
-            // 
             // AgregarUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -332,7 +332,7 @@
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.splitContainer1);
             this.Name = "AgregarUsuario";
-            this.Text = "Agregar Usuario";
+            this.Text = "Agregar usuario";
             this.Load += new System.EventHandler(this.AgregarUsuario_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();

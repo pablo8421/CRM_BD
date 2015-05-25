@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label13 = new System.Windows.Forms.Label();
+            this.lbTwitter = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.btnEditar = new System.Windows.Forms.Button();
             this.lbDireccionC = new System.Windows.Forms.Label();
             this.lbNombreC = new System.Windows.Forms.Label();
             this.lbOcupacion = new System.Windows.Forms.Label();
@@ -53,12 +57,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textTweets = new System.Windows.Forms.TextBox();
-            this.lbTwitter = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.btnEditar = new System.Windows.Forms.Button();
             this.pictureFotoCliente = new System.Windows.Forms.PictureBox();
-            this.label13 = new System.Windows.Forms.Label();
+            this.textTweets = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -113,6 +113,48 @@
             this.splitContainer1.Size = new System.Drawing.Size(919, 485);
             this.splitContainer1.SplitterDistance = 468;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.label13.Location = new System.Drawing.Point(12, 495);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(63, 17);
+            this.label13.TabIndex = 28;
+            this.label13.Text = "OTROS";
+            // 
+            // lbTwitter
+            // 
+            this.lbTwitter.AutoSize = true;
+            this.lbTwitter.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbTwitter.Location = new System.Drawing.Point(72, 459);
+            this.lbTwitter.Name = "lbTwitter";
+            this.lbTwitter.Size = new System.Drawing.Size(54, 17);
+            this.lbTwitter.TabIndex = 27;
+            this.lbTwitter.Text = "label24";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label14.Location = new System.Drawing.Point(12, 459);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(54, 17);
+            this.label14.TabIndex = 26;
+            this.label14.Text = "Twitter:";
+            // 
+            // btnEditar
+            // 
+            this.btnEditar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEditar.BackgroundImage = global::CRM.Properties.Resources.humanoideAmarillo;
+            this.btnEditar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnEditar.Location = new System.Drawing.Point(392, 3);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(37, 38);
+            this.btnEditar.TabIndex = 25;
+            this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.button1_Click);
             // 
             // lbDireccionC
             // 
@@ -357,6 +399,15 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Nombre: ";
             // 
+            // pictureFotoCliente
+            // 
+            this.pictureFotoCliente.Location = new System.Drawing.Point(12, 12);
+            this.pictureFotoCliente.Name = "pictureFotoCliente";
+            this.pictureFotoCliente.Size = new System.Drawing.Size(197, 198);
+            this.pictureFotoCliente.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureFotoCliente.TabIndex = 0;
+            this.pictureFotoCliente.TabStop = false;
+            // 
             // textTweets
             // 
             this.textTweets.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -370,57 +421,6 @@
             this.textTweets.Size = new System.Drawing.Size(439, 477);
             this.textTweets.TabIndex = 0;
             // 
-            // lbTwitter
-            // 
-            this.lbTwitter.AutoSize = true;
-            this.lbTwitter.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lbTwitter.Location = new System.Drawing.Point(72, 459);
-            this.lbTwitter.Name = "lbTwitter";
-            this.lbTwitter.Size = new System.Drawing.Size(54, 17);
-            this.lbTwitter.TabIndex = 27;
-            this.lbTwitter.Text = "label24";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label14.Location = new System.Drawing.Point(12, 459);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(54, 17);
-            this.label14.TabIndex = 26;
-            this.label14.Text = "Twitter:";
-            // 
-            // btnEditar
-            // 
-            this.btnEditar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEditar.BackgroundImage = global::CRM.Properties.Resources.humanoideAmarillo;
-            this.btnEditar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnEditar.Location = new System.Drawing.Point(409, 3);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(37, 38);
-            this.btnEditar.TabIndex = 25;
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // pictureFotoCliente
-            // 
-            this.pictureFotoCliente.Location = new System.Drawing.Point(12, 12);
-            this.pictureFotoCliente.Name = "pictureFotoCliente";
-            this.pictureFotoCliente.Size = new System.Drawing.Size(197, 198);
-            this.pictureFotoCliente.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureFotoCliente.TabIndex = 0;
-            this.pictureFotoCliente.TabStop = false;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.label13.Location = new System.Drawing.Point(12, 495);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(63, 17);
-            this.label13.TabIndex = 28;
-            this.label13.Text = "OTROS";
-            // 
             // PerfilCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -428,7 +428,7 @@
             this.ClientSize = new System.Drawing.Size(919, 485);
             this.Controls.Add(this.splitContainer1);
             this.Name = "PerfilCliente";
-            this.Text = "PerfilCliente";
+            this.Text = "Perfil del cliente";
             this.Load += new System.EventHandler(this.PerfilCliente_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();

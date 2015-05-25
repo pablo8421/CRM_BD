@@ -112,7 +112,7 @@
             this.ClientSize = new System.Drawing.Size(737, 480);
             this.Controls.Add(this.panel);
             this.Name = "EditarPerfil";
-            this.Text = "Editar Perfil";
+            this.Text = "Editar perfil de usuario";
             this.panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
             this.ResumeLayout(false);

@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label10 = new System.Windows.Forms.Label();
+            this.buscarFecha = new System.Windows.Forms.CheckBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.cbDia = new System.Windows.Forms.ComboBox();
@@ -48,8 +50,6 @@
             this.tbNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbTweets = new System.Windows.Forms.TextBox();
-            this.buscarFecha = new System.Windows.Forms.CheckBox();
-            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -93,6 +93,25 @@
             this.splitContainer1.SplitterDistance = 481;
             this.splitContainer1.TabIndex = 0;
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label10.Location = new System.Drawing.Point(12, 238);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(133, 17);
+            this.label10.TabIndex = 22;
+            this.label10.Text = "Publicado antes de:";
+            // 
+            // buscarFecha
+            // 
+            this.buscarFecha.AutoSize = true;
+            this.buscarFecha.Location = new System.Drawing.Point(15, 335);
+            this.buscarFecha.Name = "buscarFecha";
+            this.buscarFecha.Size = new System.Drawing.Size(15, 14);
+            this.buscarFecha.TabIndex = 21;
+            this.buscarFecha.UseVisualStyleBackColor = true;
+            // 
             // btnBuscar
             // 
             this.btnBuscar.Location = new System.Drawing.Point(187, 366);
@@ -109,9 +128,9 @@
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label9.Location = new System.Drawing.Point(3, 8);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(86, 20);
+            this.label9.Size = new System.Drawing.Size(82, 20);
             this.label9.TabIndex = 19;
-            this.label9.Text = "Busqueda:";
+            this.label9.Text = "Búsqueda";
             // 
             // cbDia
             // 
@@ -265,7 +284,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(33, 17);
             this.label7.TabIndex = 12;
-            this.label7.Text = "Dia:";
+            this.label7.Text = "Día:";
             this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // label6
@@ -300,11 +319,11 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label4.Location = new System.Drawing.Point(12, 168);
+            this.label4.Location = new System.Drawing.Point(11, 167);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 17);
+            this.label4.Size = new System.Drawing.Size(100, 17);
             this.label4.TabIndex = 6;
-            this.label4.Text = "Longitud:";
+            this.label4.Text = "Longitud máx.:";
             // 
             // tbContenido
             // 
@@ -371,25 +390,6 @@
             this.tbTweets.TabIndex = 0;
             this.tbTweets.WordWrap = false;
             // 
-            // buscarFecha
-            // 
-            this.buscarFecha.AutoSize = true;
-            this.buscarFecha.Location = new System.Drawing.Point(15, 335);
-            this.buscarFecha.Name = "buscarFecha";
-            this.buscarFecha.Size = new System.Drawing.Size(15, 14);
-            this.buscarFecha.TabIndex = 21;
-            this.buscarFecha.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label10.Location = new System.Drawing.Point(12, 238);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(133, 17);
-            this.label10.TabIndex = 22;
-            this.label10.Text = "Publicado antes de:";
-            // 
             // TweetsClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -398,7 +398,7 @@
             this.ClientSize = new System.Drawing.Size(802, 402);
             this.Controls.Add(this.splitContainer1);
             this.Name = "TweetsClientes";
-            this.Text = "TweetsClientes";
+            this.Text = "Buscador de tweets de clientes";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
