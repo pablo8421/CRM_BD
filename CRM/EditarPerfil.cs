@@ -22,6 +22,7 @@ namespace CRM
         ComboBox ciudad;
         ComboBox empleo;
 
+        bool hayFoto;
         int id;
         
         public EditarPerfil()
@@ -48,6 +49,7 @@ namespace CRM
             labels = new List<Label>();
             textBoxes = new List<TextBox>();
 
+            int c = 1;
             for (int i = 0; i < datosCliente.Count; i++)
             {
                 //Guardar el campo
@@ -56,13 +58,13 @@ namespace CRM
                 //Generar el label de los filtros
                 Label label = new Label();
                 label.Text = filtros[i].Text;
-                label.Location = new Point(10, 25*i);
+                label.Location = new Point(10, 25*c);
 
                 //Generar el textBox de los datos del cliente
 
                 TextBox textBox = new TextBox();
                 textBox.Text = datosCliente[i];
-                textBox.Location = new Point(150, 25*i);
+                textBox.Location = new Point(150, 25*c);
 
                 //Guardar los componentes
                 labels.Add(label);
@@ -72,13 +74,14 @@ namespace CRM
                 {
                     fecha = new DateTimePicker();
                     fecha.Value = nacimiento;
-                    fecha.Location = new Point(150, 25 * i);
+                    fecha.Location = new Point(150, 25 * c);
                     fecha.ValueChanged += fecha_ValueChanged;
                     //Agregar los componentes
                     panel.Controls.Add(label);
                     panel.Controls.Add(fecha);
+                    c++;
                 }
-                else if(i == 4)
+                else if(i == 3)
                 {
 
                     //Configurar el comboBox
@@ -87,14 +90,16 @@ namespace CRM
                     //Agregarlo al panel
                     panel.Controls.Add(label);
                     panel.Controls.Add(ciudad);
+                    c++;
                 }
                 else if(i == 9){
                     //Agregarlo al panel
                     panel.Controls.Add(label);
                     panel.Controls.Add(empleo);
+                    c++;
                 }
                 //Nada
-                else if (i == 5 || i == 10 || i == 11)
+                else if (i == 4 || i == 10 || i == 11)
                 {
 
                 }
@@ -103,6 +108,7 @@ namespace CRM
                     //Agregar los componentes
                     panel.Controls.Add(label);
                     panel.Controls.Add(textBox);
+                    c++;
                 }
             }
         }
@@ -162,9 +168,16 @@ namespace CRM
                 //Generar la query en si
                 query = "UPDATE cliente SET " + query + " WHERE " + "id=" + id + ";";
                 int res = Control_query.query(query);
-                if(res == -5){
+                if(res == -5)
+                {
                     MessageBox.Show("La actualizacion no se pudo hacer", "Error actualizando");
                 }
+            }
+            if (hayFoto)
+            {
+                String path = Control_query.querySelect("SELECT direccion_foto FROM cliente WHERE id = " + id + ";").Rows[0][0].ToString();
+                Bitmap paGuardar = new Bitmap(picture.Image);
+                paGuardar.Save("Imagenes\\" + path, System.Drawing.Imaging.ImageFormat.Jpeg);
             }
             this.Close();
         }
@@ -197,7 +210,7 @@ namespace CRM
             //Configurar el comboBox
             ciudad.DataSource = datos;
             ciudad.DisplayMember = "nombre";
-            ciudad.Location = new Point(150, 25 * 3);
+            ciudad.Location = new Point(150, 25 * 4);
             ciudad.DropDownStyle = ComboBoxStyle.DropDownList;
 
             //EMPLEO
@@ -231,7 +244,11 @@ namespace CRM
         private void btnCiudad_Click(object sender, EventArgs e)
         {
             AgregarCiudad agregar = new AgregarCiudad("");
-            agregar.Show();
+            agregar.ShowDialog();
+            while (agregar.Visible)
+            {
+                //Solo se espera
+            }
             panel.Controls.Remove(ciudad);
 
             actualizarComboBoxes();
@@ -243,13 +260,52 @@ namespace CRM
         private void btnEmpleo_Click(object sender, EventArgs e)
         {
             AgregarEmpleo agregar = new AgregarEmpleo("");
-            agregar.Show();
+            agregar.ShowDialog();
+            while (agregar.Visible)
+            {
+                //Solo se espera
+            }
             panel.Controls.Remove(empleo);
 
             actualizarComboBoxes();
             empleo.Refresh();
             panel.Controls.Add(empleo);
             this.Update();
+        }
+
+        private void btnFoto_Click(object sender, EventArgs e)
+        {
+            // Create an instance of the open file dialog box.
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            // Set filter options and filter index.
+            openFileDialog1.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png |" +
+                                     "All Files (*.*)|*.*";
+            openFileDialog1.FilterIndex = 1;
+
+            openFileDialog1.Multiselect = false;
+
+            // Call the ShowDialog method to show the dialog box.
+            DialogResult userClickedOK = openFileDialog1.ShowDialog();
+
+            // Process input if the user clicked OK.
+            if (userClickedOK == DialogResult.OK)
+            {
+                try
+                {
+                    //Obtener la imagen obtenida del archivo
+                    PictureBox imagen = new PictureBox();
+                    imagen.Image = new Bitmap(openFileDialog1.FileName);
+
+                    //Mostrar la imagen
+                    picture.Image = imagen.Image;
+                    hayFoto = true;
+                }
+                catch (Exception error)
+                {
+                    MessageBox.Show("El archivo seleccionado no era una archivo de imagen valido.", "Error al cargar imagen", MessageBoxButtons.OK);
+                }
+            }
         }
     }
 }

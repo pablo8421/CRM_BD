@@ -29,38 +29,44 @@
         private void InitializeComponent()
         {
             this.panel = new System.Windows.Forms.Panel();
-            this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnCiudad = new System.Windows.Forms.Button();
             this.btnEmpleo = new System.Windows.Forms.Button();
+            this.btnCiudad = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.picture = new System.Windows.Forms.PictureBox();
+            this.btnFoto = new System.Windows.Forms.Button();
             this.panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.SuspendLayout();
             // 
             // panel
             // 
             this.panel.AutoScroll = true;
+            this.panel.Controls.Add(this.btnFoto);
+            this.panel.Controls.Add(this.picture);
             this.panel.Controls.Add(this.btnEmpleo);
             this.panel.Controls.Add(this.btnCiudad);
             this.panel.Controls.Add(this.btnUpdate);
-            this.panel.Location = new System.Drawing.Point(12, 12);
+            this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel.Location = new System.Drawing.Point(0, 0);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(713, 456);
+            this.panel.Size = new System.Drawing.Size(737, 480);
             this.panel.TabIndex = 0;
             // 
-            // btnUpdate
+            // btnEmpleo
             // 
-            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpdate.Location = new System.Drawing.Point(286, 430);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(115, 23);
-            this.btnUpdate.TabIndex = 0;
-            this.btnUpdate.Text = "Actualizar Datos";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            this.btnEmpleo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEmpleo.Location = new System.Drawing.Point(606, 454);
+            this.btnEmpleo.Name = "btnEmpleo";
+            this.btnEmpleo.Size = new System.Drawing.Size(128, 23);
+            this.btnEmpleo.TabIndex = 2;
+            this.btnEmpleo.Text = "Agregar Empleo";
+            this.btnEmpleo.UseVisualStyleBackColor = true;
+            this.btnEmpleo.Click += new System.EventHandler(this.btnEmpleo_Click);
             // 
             // btnCiudad
             // 
-            this.btnCiudad.Location = new System.Drawing.Point(540, 62);
+            this.btnCiudad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCiudad.Location = new System.Drawing.Point(606, 425);
             this.btnCiudad.Name = "btnCiudad";
             this.btnCiudad.Size = new System.Drawing.Size(128, 23);
             this.btnCiudad.TabIndex = 1;
@@ -68,15 +74,36 @@
             this.btnCiudad.UseVisualStyleBackColor = true;
             this.btnCiudad.Click += new System.EventHandler(this.btnCiudad_Click);
             // 
-            // btnEmpleo
+            // btnUpdate
             // 
-            this.btnEmpleo.Location = new System.Drawing.Point(540, 92);
-            this.btnEmpleo.Name = "btnEmpleo";
-            this.btnEmpleo.Size = new System.Drawing.Size(128, 23);
-            this.btnEmpleo.TabIndex = 2;
-            this.btnEmpleo.Text = "Agregar Empleo";
-            this.btnEmpleo.UseVisualStyleBackColor = true;
-            this.btnEmpleo.Click += new System.EventHandler(this.btnEmpleo_Click);
+            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpdate.Location = new System.Drawing.Point(294, 454);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(139, 23);
+            this.btnUpdate.TabIndex = 0;
+            this.btnUpdate.Text = "Actualizar Datos";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // picture
+            // 
+            this.picture.Location = new System.Drawing.Point(455, 29);
+            this.picture.Name = "picture";
+            this.picture.Size = new System.Drawing.Size(231, 182);
+            this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picture.TabIndex = 3;
+            this.picture.TabStop = false;
+            // 
+            // btnFoto
+            // 
+            this.btnFoto.Location = new System.Drawing.Point(535, 217);
+            this.btnFoto.Name = "btnFoto";
+            this.btnFoto.Size = new System.Drawing.Size(75, 23);
+            this.btnFoto.TabIndex = 4;
+            this.btnFoto.Text = "Subir foto";
+            this.btnFoto.UseVisualStyleBackColor = true;
+            this.btnFoto.Click += new System.EventHandler(this.btnFoto_Click);
             // 
             // EditarPerfil
             // 
@@ -87,6 +114,7 @@
             this.Name = "EditarPerfil";
             this.Text = "Editar Perfil";
             this.panel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -97,5 +125,7 @@
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnCiudad;
         private System.Windows.Forms.Button btnEmpleo;
+        private System.Windows.Forms.PictureBox picture;
+        private System.Windows.Forms.Button btnFoto;
     }
 }
