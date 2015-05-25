@@ -184,7 +184,7 @@ namespace CRM
                 MailAddress m = new MailAddress(correo);
                 return true;
             }
-            catch (FormatException fe)
+            catch (Exception e)
             {
                 MessageBox.Show("El correo que ingresó es invalido", "Error en el correo", MessageBoxButtons.OK);
                 return false;
