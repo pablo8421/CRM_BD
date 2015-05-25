@@ -66,8 +66,6 @@ namespace CRM
             lbDireccionC.Text = datosCliente[12];
             lbTwitter.Text = datosCliente[13];
 
-
-            //ESTO FUE LO QUE TE DIO HUEVA HACER CHECHA
             String path = Control_query.querySelect("SELECT direccion_foto FROM cliente WHERE id = " + datosCliente[0] + ";").Rows[0][0].ToString();
 
             pictureFotoCliente.Load("Imagenes\\" + path);
@@ -217,7 +215,7 @@ namespace CRM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            EditarPerfil edicion = new EditarPerfil(datosCliente, filtros, fecha);
+            EditarPerfil edicion = new EditarPerfil(datosCliente, filtros, fecha, miPrincipal.cliente.tipos);
             edicion.ShowDialog();
             while (edicion.Visible) { 
             

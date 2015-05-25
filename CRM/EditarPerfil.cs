@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,7 +17,7 @@ namespace CRM
     {
         List<String> datosCliente;
         List<String> camposDeCliente;
-
+        List<String> tiposCamposExtra;
         List<Label> labels;
         List<TextBox> textBoxes;
         DateTimePicker fecha;
@@ -30,9 +33,9 @@ namespace CRM
             InitializeComponent();
         }
 
-        public EditarPerfil(List<String> dataCliente, List<CheckBox> filtros, DateTime nacimiento)
+        public EditarPerfil(List<String> dataCliente, List<CheckBox> filtros, DateTime nacimiento, List<String> tiposCamposExtra)
         {
-            
+            this.tiposCamposExtra = tiposCamposExtra;
             id = Int32.Parse(dataCliente[0]);
 
             InitializeComponent();
@@ -120,70 +123,206 @@ namespace CRM
             textBoxes[2].Text= "";
         }
 
+        public bool validarDPI(String dpi)
+        {
+            if (dpi.Length != 13)
+            {
+                MessageBox.Show("La longitud del No. DPI no es correcta.", "Error en la longitud del DPI", MessageBoxButtons.OK);
+                return false;
+            }
+
+            Match match = Regex.Match(dpi, @"[0-9]+");
+            if (match.Success)
+                return true;
+            else
+            {
+                MessageBox.Show("El No. DPI que ingresó es invalido.", "Error en el DPI", MessageBoxButtons.OK);
+                return false;
+            }
+
+        }
+
+        public bool validarTelefono(String telefono)
+        {
+            if (telefono.Length != 8)
+            {
+                MessageBox.Show("La longitud del No. de telefono no es correcta.", "Error en la longitud del No. de telefono", MessageBoxButtons.OK);
+                return false;
+            }
+            Match match = Regex.Match(telefono, @"[0-9]+");
+            if (match.Success)
+                return true;
+            else
+            {
+                MessageBox.Show("El No. de telefono que ingresó es invalido.", "Error en el telofono", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
+        public bool validarCorreo(String correo)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(correo);
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("El correo que ingresó es invalido", "Error en el correo", MessageBoxButtons.OK);
+                return false;
+            }
+        }
+
+        public bool validarFecha(String fecha)
+        {
+            DateTime dt;
+            return DateTime.TryParseExact(fecha, "yyyy/MM/dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
+        }
+
+        public bool validarEntero(String entero)
+        {
+            try
+            {
+                Int64 m = Convert.ToInt64(entero);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool validarReal(String real)
+        {
+            try
+            {
+                Double m = Convert.ToDouble(real);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             List<String> camposCliente = new List<String>();
             List<String> valoresCliente = new List<String>();
+            bool queryValida = true;
 
-            textBoxes[4].Text = "";
-            textBoxes[10].Text = "";
+            queryValida = queryValida && validarDPI(textBoxes[5].Text);
+            queryValida = queryValida && validarCorreo(textBoxes[6].Text);
+            queryValida = queryValida && validarTelefono(textBoxes[7].Text);
+            queryValida = queryValida && validarTelefono(textBoxes[8].Text);
 
-            for (int i = 0; i < textBoxes.Count; i++)
-            {
-                if(!datosCliente[i].Equals(textBoxes[i].Text)){
-                    if(i != 3 && i != 4 && !(i >= 9 && i <= 11)){
-                        camposCliente.Add(camposDeCliente[i]);
-                        if (i != 2)
-                        {
-                            valoresCliente.Add(textBoxes[i].Text);
-                        }
-                        else
-                        {
-                            String date = fecha.Value.Year + "-" + fecha.Value.Month + "-" + fecha.Value.Day;
-                            valoresCliente.Add(date);
-                        }
+            if (queryValida) { 
+                textBoxes[4].Text = "";
+                textBoxes[10].Text = "";
 
-                    }
-                    else if (i < 5)
-                    {
-                        camposCliente.Add("id_ciudad");
-                        valoresCliente.Add(((DataRowView)ciudad.SelectedValue)[0].ToString());
-                    }
-                    else
-                    {
-                        camposCliente.Add("id_empleo");
-                        valoresCliente.Add(((DataRowView)empleo.SelectedValue)[0].ToString());
-                    }
-                }
-            }
-            if (camposCliente.Count != 0)
-            {
-                String query = "";
-                //Realizar los SETS
-                for (int i = 0; i < valoresCliente.Count; i++)
+                for (int i = 0; i < textBoxes.Count; i++)
                 {
-                    query += camposCliente[i] + "='" + valoresCliente[i] + "',";
+                    if (queryValida) { 
+                        if(!datosCliente[i].Equals(textBoxes[i].Text)){
+                            if(i != 3 && i != 4 && !(i >= 9 && i <= 11)){
+                                camposCliente.Add(camposDeCliente[i]);
+                                if (i != 2)
+                                {
+                                    if (i >= 13) {
+                                        if (tiposCamposExtra[i-1].Contains("text")) {
+                                            valoresCliente.Add(textBoxes[i].Text);
+                                        }
+                                        else if (tiposCamposExtra[i-1].Contains("date"))
+                                        {
+                                            if (validarFecha(textBoxes[i].Text))
+                                            {
+                                                valoresCliente.Add(textBoxes[i].Text);
+                                            }
+                                            else {
+                                                queryValida = false;
+                                                MessageBox.Show("El valor '" + textBoxes[i].Text + "' debe ser una fecha. Formato: yyyy/mm/dd", "Error", MessageBoxButtons.OK);
+                                            }
+                                        }
+                                        else if (tiposCamposExtra[i-1].Contains("integer"))
+                                        {
+                                            if (validarEntero(textBoxes[i].Text))
+                                            {
+                                                valoresCliente.Add(textBoxes[i].Text);
+                                            }
+                                            else
+                                            {
+                                                queryValida = false;
+                                                MessageBox.Show("El valor '" + textBoxes[i].Text + "' debe ser un número entero.", "Error", MessageBoxButtons.OK);
+                                            }
+                                        }
+                                        else if (tiposCamposExtra[i-1].Contains("double"))
+                                        {
+                                            if (validarReal(textBoxes[i].Text))
+                                            {
+                                                valoresCliente.Add(textBoxes[i].Text);
+                                            }
+                                            else
+                                            {
+                                                queryValida = false;
+                                                MessageBox.Show("El valor '" + textBoxes[i].Text + "' debe ser un número real.", "Error", MessageBoxButtons.OK);
+                                            }
+                                        }
+                                    } 
+                                    else { 
+                                        valoresCliente.Add(textBoxes[i].Text);
+                                    }
+                                }
+                                else
+                                {
+                                    String date = fecha.Value.Year + "-" + fecha.Value.Month + "-" + fecha.Value.Day;
+                                    valoresCliente.Add(date);
+                                }
+
+                            }
+                            else if (i < 5)
+                            {
+                                camposCliente.Add("id_ciudad");
+                                valoresCliente.Add(((DataRowView)ciudad.SelectedValue)[0].ToString());
+                            }
+                            else
+                            {
+                                camposCliente.Add("id_empleo");
+                                valoresCliente.Add(((DataRowView)empleo.SelectedValue)[0].ToString());
+                            }
+                        }
+                    }
                 }
-                //Eliminar la ultima comilla innecesaria
-                query = query.Substring(0, query.Length - 1);
+                if (queryValida) { 
+                    if (camposCliente.Count != 0)
+                    {
+                        String query = "";
+                        //Realizar los SETS
+                        for (int i = 0; i < valoresCliente.Count; i++)
+                        {
+                            query += camposCliente[i] + "='" + valoresCliente[i] + "',";
+                        }
+                        //Eliminar la ultima comilla innecesaria
+                        query = query.Substring(0, query.Length - 1);
                 
-                //Generar la query en si
-                query = "UPDATE cliente SET " + query + " WHERE " + "id=" + id + ";";
-                int res = Control_query.query(query);
-                if(res == -5)
-                {
-                    MessageBox.Show("La actualizacion no se pudo hacer", "Error actualizando");
+                        //Generar la query en si
+                        query = "UPDATE cliente SET " + query + " WHERE " + "id=" + id + ";";
+                        int res = Control_query.query(query);
+                        if(res == -5)
+                        {
+                            MessageBox.Show("La actualizacion no se pudo hacer", "Error actualizando");
+                        }
+                    }
+                    if (hayFoto)
+                    {
+                        String path = Control_query.querySelect("SELECT direccion_foto FROM cliente WHERE id = " + id + ";").Rows[0][0].ToString();
+                        path = path.Substring(0, path.Length - 4) + "_next.jpg";
+                        Control_query.query("UPDATE cliente SET direccion_foto='" + path + "' WHERE id=" + id + ";");
+                        Bitmap paGuardar = new Bitmap(picture.Image);
+                        paGuardar.Save("Imagenes\\" + path, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
+                    this.Close();
                 }
             }
-            if (hayFoto)
-            {
-                String path = Control_query.querySelect("SELECT direccion_foto FROM cliente WHERE id = " + id + ";").Rows[0][0].ToString();
-                path = path.Substring(0, path.Length - 4) + "_next.jpg";
-                Control_query.query("UPDATE cliente SET direccion_foto='" + path + "' WHERE id=" + id + ";");
-                Bitmap paGuardar = new Bitmap(picture.Image);
-                paGuardar.Save("Imagenes\\" + path, System.Drawing.Imaging.ImageFormat.Jpeg);
-            }
-            this.Close();
         }
 
         private void actualizarComboBoxes()
