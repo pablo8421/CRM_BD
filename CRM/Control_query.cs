@@ -50,14 +50,29 @@ namespace CRM
 
         static public DataTable querySelect(String query)
         {
-            NpgsqlDataAdapter da = new NpgsqlDataAdapter(query, conexion);
+            try
+            {
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(query, conexion);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                DataTable dt = new DataTable();
+                dt = ds.Tables[0];
+                return dt;
+            }
+            catch (NpgsqlException e)
+            {
 
-            DataSet ds = new DataSet();
-            da.Fill(ds);
-            DataTable dt = new DataTable();
-            dt = ds.Tables[0];
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter("SELECT * FROM (cliente JOIN ciudad ON (cliente.id_ciudad = ciudad.id)) JOIN empleo ON (cliente.id_empleo = empleo.id) WHERE cliente.id = 0 AND cliente.id = 2;", conexion);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                DataTable dt = new DataTable();
+                dt = ds.Tables[0];
 
-            return dt;
+                Console.WriteLine("Error: "+e.BaseMessage);
+
+                return dt;
+
+            }
         }
 
         static public int query(String query)
