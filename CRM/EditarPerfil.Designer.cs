@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.panel = new System.Windows.Forms.Panel();
+            this.btnFoto = new System.Windows.Forms.Button();
+            this.picture = new System.Windows.Forms.PictureBox();
             this.btnEmpleo = new System.Windows.Forms.Button();
             this.btnCiudad = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.picture = new System.Windows.Forms.PictureBox();
-            this.btnFoto = new System.Windows.Forms.Button();
             this.panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.SuspendLayout();
@@ -51,6 +51,25 @@
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(737, 480);
             this.panel.TabIndex = 0;
+            // 
+            // btnFoto
+            // 
+            this.btnFoto.Location = new System.Drawing.Point(535, 217);
+            this.btnFoto.Name = "btnFoto";
+            this.btnFoto.Size = new System.Drawing.Size(75, 23);
+            this.btnFoto.TabIndex = 4;
+            this.btnFoto.Text = "Subir foto";
+            this.btnFoto.UseVisualStyleBackColor = true;
+            this.btnFoto.Click += new System.EventHandler(this.btnFoto_Click);
+            // 
+            // picture
+            // 
+            this.picture.Location = new System.Drawing.Point(455, 29);
+            this.picture.Name = "picture";
+            this.picture.Size = new System.Drawing.Size(231, 182);
+            this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picture.TabIndex = 3;
+            this.picture.TabStop = false;
             // 
             // btnEmpleo
             // 
@@ -85,25 +104,6 @@
             this.btnUpdate.Text = "Actualizar Datos";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
-            // 
-            // picture
-            // 
-            this.picture.Location = new System.Drawing.Point(455, 29);
-            this.picture.Name = "picture";
-            this.picture.Size = new System.Drawing.Size(231, 182);
-            this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picture.TabIndex = 3;
-            this.picture.TabStop = false;
-            // 
-            // btnFoto
-            // 
-            this.btnFoto.Location = new System.Drawing.Point(535, 217);
-            this.btnFoto.Name = "btnFoto";
-            this.btnFoto.Size = new System.Drawing.Size(75, 23);
-            this.btnFoto.TabIndex = 4;
-            this.btnFoto.Text = "Subir foto";
-            this.btnFoto.UseVisualStyleBackColor = true;
-            this.btnFoto.Click += new System.EventHandler(this.btnFoto_Click);
             // 
             // EditarPerfil
             // 

@@ -43,6 +43,8 @@ namespace CRM
                 datosCliente.Add(data);
             }
             datosCliente.RemoveAt(0);
+            String path = Control_query.querySelect("SELECT direccion_foto FROM cliente WHERE id = " + id + ";").Rows[0][0].ToString();
+            picture.Load("Imagenes\\" + path);
 
             camposDeCliente = new List<String>();
 
