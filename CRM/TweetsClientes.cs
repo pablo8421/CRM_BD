@@ -239,8 +239,7 @@ namespace CRM
                             }
                         }
                         else {
-                            //filtros = Builders<BsonDocument>.Filter.
-                            var result = await collection.Find(null).ToListAsync();
+                            //var result = await _database.GetCollection("tweets");
                             foreach (BsonDocument tweet in result)
                             {
                                 string texto = "";
