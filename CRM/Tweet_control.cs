@@ -19,7 +19,7 @@ namespace CRM
 
         public static Tweetinvi.Core.Interfaces.ITweet[] getTweets(String cuenta)
         {
-            return getTweets(cuenta, 100);
+            return getTweets(cuenta, 10);
         } 
 
         public static Tweetinvi.Core.Interfaces.ITweet[] getTweets(String cuenta, int cantidad)
