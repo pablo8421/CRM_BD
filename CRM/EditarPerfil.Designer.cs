@@ -30,12 +30,16 @@
         {
             this.panel = new System.Windows.Forms.Panel();
             this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnCiudad = new System.Windows.Forms.Button();
+            this.btnEmpleo = new System.Windows.Forms.Button();
             this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel
             // 
             this.panel.AutoScroll = true;
+            this.panel.Controls.Add(this.btnEmpleo);
+            this.panel.Controls.Add(this.btnCiudad);
             this.panel.Controls.Add(this.btnUpdate);
             this.panel.Location = new System.Drawing.Point(12, 12);
             this.panel.Name = "panel";
@@ -54,6 +58,26 @@
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
+            // btnCiudad
+            // 
+            this.btnCiudad.Location = new System.Drawing.Point(540, 62);
+            this.btnCiudad.Name = "btnCiudad";
+            this.btnCiudad.Size = new System.Drawing.Size(128, 23);
+            this.btnCiudad.TabIndex = 1;
+            this.btnCiudad.Text = "Agregar Ciudad";
+            this.btnCiudad.UseVisualStyleBackColor = true;
+            this.btnCiudad.Click += new System.EventHandler(this.btnCiudad_Click);
+            // 
+            // btnEmpleo
+            // 
+            this.btnEmpleo.Location = new System.Drawing.Point(540, 92);
+            this.btnEmpleo.Name = "btnEmpleo";
+            this.btnEmpleo.Size = new System.Drawing.Size(128, 23);
+            this.btnEmpleo.TabIndex = 2;
+            this.btnEmpleo.Text = "Agregar Empleo";
+            this.btnEmpleo.UseVisualStyleBackColor = true;
+            this.btnEmpleo.Click += new System.EventHandler(this.btnEmpleo_Click);
+            // 
             // EditarPerfil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -71,5 +95,7 @@
 
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Button btnCiudad;
+        private System.Windows.Forms.Button btnEmpleo;
     }
 }

@@ -13,11 +13,14 @@ namespace CRM
     public partial class EditarPerfil : Form
     {
         List<String> datosCliente;
-        List<String> camposCliente;
+        List<String> camposDeCliente;
 
         List<Label> labels;
         List<TextBox> textBoxes;
         DateTimePicker fecha;
+
+        ComboBox ciudad;
+        ComboBox empleo;
 
         int id;
         
@@ -39,8 +42,8 @@ namespace CRM
                 datosCliente.Add(data);
             }
             datosCliente.RemoveAt(0);
-            
-            camposCliente = new List<String>();
+
+            camposDeCliente = new List<String>();
 
             labels = new List<Label>();
             textBoxes = new List<TextBox>();
@@ -48,7 +51,7 @@ namespace CRM
             for (int i = 0; i < datosCliente.Count; i++)
             {
                 //Guardar el campo
-                camposCliente.Add(filtros[i].Text);
+                camposDeCliente.Add(filtros[i].Text);
 
                 //Generar el label de los filtros
                 Label label = new Label();
@@ -75,6 +78,38 @@ namespace CRM
                     panel.Controls.Add(label);
                     panel.Controls.Add(fecha);
                 }
+                else if(i == 4)
+                {
+
+                    //Configurar el comboBox
+                    ciudad = new ComboBox();
+                    empleo = new ComboBox();
+                    actualizarComboBoxes();
+                    ciudad.DisplayMember = "nombre";
+                    ciudad.Location = new Point(150, 25 * i);
+                    ciudad.DropDownStyle = ComboBoxStyle.DropDownList;
+
+                    //Agregarlo al panel
+                    panel.Controls.Add(label);
+                    panel.Controls.Add(ciudad);
+                }
+                else if(i == 9){
+                    //Configurar el comboBox
+                    empleo = new ComboBox();
+                    actualizarComboBoxes();
+                    empleo.DisplayMember = "nombre";
+                    empleo.Location = new Point(150, 25 * i);
+                    empleo.DropDownStyle = ComboBoxStyle.DropDownList;
+
+                    //Agregarlo al panel
+                    panel.Controls.Add(label);
+                    panel.Controls.Add(empleo);
+                }
+                //Nada
+                else if (i == 5 || i == 10 || i == 11)
+                {
+
+                }
                 else
                 {
                     //Agregar los componentes
@@ -91,30 +126,47 @@ namespace CRM
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            List<String> campos = new List<String>();
-            List<String> valores= new List<String>();
+            List<String> camposCliente = new List<String>();
+            List<String> valoresCliente = new List<String>();
+
+            textBoxes[4].Text = "";
+            textBoxes[10].Text = "";
+
             for (int i = 0; i < textBoxes.Count; i++)
             {
                 if(!datosCliente[i].Equals(textBoxes[i].Text)){
-                    campos.Add(camposCliente[i]);
-                    if (i != 2)
+                    if(i != 3 && i != 4 && !(i >= 9 && i <= 11)){
+                        camposCliente.Add(camposDeCliente[i]);
+                        if (i != 2)
+                        {
+                            valoresCliente.Add(textBoxes[i].Text);
+                        }
+                        else
+                        {
+                            String date = fecha.Value.Year + "-" + fecha.Value.Month + "-" + fecha.Value.Day;
+                            valoresCliente.Add(date);
+                        }
+
+                    }
+                    else if (i < 5)
                     {
-                        valores.Add(textBoxes[i].Text);
+                        camposCliente.Add("id_ciudad");
+                        valoresCliente.Add(((DataRowView)ciudad.SelectedValue)[0].ToString());
                     }
                     else
                     {
-                        String date = fecha.Value.Year + "-" + fecha.Value.Month + "-" + fecha.Value.Day;
-                        valores.Add(date);
+                        camposCliente.Add("id_empleo");
+                        valoresCliente.Add(((DataRowView)empleo.SelectedValue)[0].ToString());
                     }
                 }
             }
-            if (campos.Count != 0)
+            if (camposCliente.Count != 0)
             {
                 String query = "";
                 //Realizar los SETS
-                for (int i = 0; i < valores.Count; i++)
+                for (int i = 0; i < valoresCliente.Count; i++)
                 {
-                    query += campos[i] + "='" + valores[i] + "',";
+                    query += camposCliente[i] + "='" + valoresCliente[i] + "',";
                 }
                 //Eliminar la ultima comilla innecesaria
                 query = query.Substring(0, query.Length - 1);
@@ -125,8 +177,76 @@ namespace CRM
                 if(res == -5){
                     MessageBox.Show("La actualizacion no se pudo hacer", "Error actualizando");
                 }
-                this.Close();
             }
+            this.Close();
+        }
+
+        private void actualizarComboBoxes()
+        {
+            //CIUDAD
+
+            //Obtener los datos
+            DataTable origen = Control_query.querySelect("SELECT * FROM ciudad;");
+
+            //Generar lo que se va a mostrar
+            DataTable datos = new DataTable();
+            datos.Columns.Add("indice");
+            datos.Columns.Add("nombre");
+
+            //Para guardar el seleccionado
+
+            //Obtener el default
+            int numSelect = (Int32)Control_query.querySelect("SELECT id_ciudad FROM cliente WHERE id = " + id + ";").Rows[0][0];
+
+
+            //Llenar los datos
+            foreach (DataRow row in origen.Rows)
+            {
+                datos.Rows.Add(row["id"], row["nombre_ciudad"] + ", " + row["pais"]);
+            }
+
+            //Configurar el comboBox
+            ciudad.DataSource = datos;
+
+            //EMPLEO
+
+            //Obtener los datos
+            origen = Control_query.querySelect("SELECT * FROM empleo;");
+
+            //Generar lo que se va a mostrar
+            datos = new DataTable();
+            datos.Columns.Add("indice");
+            datos.Columns.Add("nombre");
+
+            //Para guardar el seleccionado
+
+            //Obtener el default
+            numSelect = (Int32)Control_query.querySelect("SELECT id_ciudad FROM cliente WHERE id = " + id + ";").Rows[0][0];
+
+
+            //Llenar los datos
+            foreach (DataRow row in origen.Rows)
+            {
+                datos.Rows.Add(row["id"], row["nombre_puesto"] + ", " + row["nombre_compañia"]);
+
+            }
+
+            //Configurar el comboBox
+            empleo.DataSource = datos;        
+        }
+
+        private void btnCiudad_Click(object sender, EventArgs e)
+        {
+            AgregarCiudad agregar = new AgregarCiudad("");
+            agregar.Show();
+            actualizarComboBoxes();
+        }
+
+        private void btnEmpleo_Click(object sender, EventArgs e)
+        {
+            AgregarEmpleo agregar = new AgregarEmpleo("");
+            agregar.Show();
+            actualizarComboBoxes();
         }
     }
 }
