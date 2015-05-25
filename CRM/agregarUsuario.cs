@@ -209,6 +209,12 @@ namespace CRM
             String foto_perfil = apellido + "_" + dpi + ".jpg";
             String twitter = tbTwitter.Text;
 
+            if (pictureBox1.Image == null)
+            {
+                queryCorrecta = false;
+                MessageBox.Show("Coloque una imagen de perfil.", "Error", MessageBoxButtons.OK);
+            }
+
             queryCorrecta = queryCorrecta && validarDPI(dpi);
             queryCorrecta = queryCorrecta && validarCorreo(email);
             queryCorrecta = queryCorrecta && validarTelefono(telefono_fijo);
@@ -232,7 +238,7 @@ namespace CRM
 
                     if (res == -5)
                     {
-                        MessageBox.Show("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)", "Problemas al agregar el cliente", MessageBoxButtons.OK);
+                        MessageBox.Show("Error al ingresar la ciudad", "Error", MessageBoxButtons.OK);
                         queryCorrecta = false;
                     }
                     else
@@ -243,87 +249,89 @@ namespace CRM
                     }
                 }
 
-                //identificador del empleo
-                fila = (DataRowView)comboOcuapcion.SelectedItem;
-                int ocupacion = 0;
-                try
-                {
-                    ocupacion = (Int32)fila["id"];
-
-                }
-                catch (Exception error)
-                {
-                    AgregarEmpleo empleoForm = new AgregarEmpleo(comboOcuapcion.Text);
-                    empleoForm.ShowDialog();
-                    //Resultado del query hecho
-                    int res = empleoForm.queryResult;
-
-                    if (res == -5)
+                if (queryCorrecta) { 
+                    //Identificador del empleo
+                    fila = (DataRowView)comboOcuapcion.SelectedItem;
+                    int ocupacion = 0;
+                    try
                     {
-                        MessageBox.Show("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)", "Problemas al agregar el cliente", MessageBoxButtons.OK);
-                        queryCorrecta = false;
+                        ocupacion = (Int32)fila["id"];
                     }
-                    else
+                    catch (Exception error)
                     {
-                        DataTable dt = Control_query.querySelect("SELECT * FROM empleo WHERE nombre_puesto = '" + empleoForm.puesto + "' AND " +
-                                                                                          "nombre_compañia = '" + empleoForm.compania + "' AND " +
-                                                                                       "direccion_compañia = '" + empleoForm.direccion + "';");
-                        ocupacion = (Int32)dt.Rows[0]["id"];
-                    }
-                }
-
-                subquery1 = "INSERT INTO cliente (";
-                foreach (String l in miPrincipal.cliente.columnas)
-                {
-                    if (!l.Equals("id"))
-                        subquery1 += l+", ";
-                }
-                subquery1 = subquery1.Substring(0, subquery1.Length - 2);
-                subquery1 += ") ";
-                subquery2 = "VALUES ('" + nombre + "', '" + apellido + "', '" + fecha + "'," + ciudad + ",'" + dpi + "', '" + email + "', " + telefono_fijo + ", " + telefono_movil + ", " + ocupacion + ", '" + foto_perfil + "', '"+twitter+"'";
-                for (int i = 0; i < label_texto.Count; i++)
-                {
-                    TextBox tb = label_texto[i];
-                    if (miPrincipal.cliente.tipos[i + 12].Contains("text") || miPrincipal.cliente.tipos[i + 12].Contains("date"))
-                        subquery2 += ", '" + tb.Text + "'";
-                    else if (miPrincipal.cliente.tipos[i + 12].Contains("integer") || miPrincipal.cliente.tipos[i + 12].Contains("double"))
-                        subquery2 += ", " + tb.Text;
-                    else
-                    {
-                        Console.WriteLine("La cantamos");
+                        AgregarEmpleo empleoForm = new AgregarEmpleo(comboOcuapcion.Text);
+                        empleoForm.ShowDialog();
+                        //Resultado del query hecho
+                        int res = empleoForm.queryResult;
+                        if (res == -5)
+                        {
+                            MessageBox.Show("Error al agregar el empleo.", "Error", MessageBoxButtons.OK);
+                            queryCorrecta = false;
+                        }
+                        else
+                        {
+                            DataTable dt = Control_query.querySelect("SELECT * FROM empleo WHERE nombre_puesto = '" + empleoForm.puesto + "' AND " +
+                                                                                              "nombre_compañia = '" + empleoForm.compania + "' AND " +
+                                                                                           "direccion_compañia = '" + empleoForm.direccion + "';");
+                            ocupacion = (Int32)dt.Rows[0]["id"];
+                        }
                     }
 
-                }
-                subquery2 += ");";
-                String query = subquery1 + subquery2;
-                int valor;
-                if (queryCorrecta)
-                {
-                    valor = Control_query.query(query);
-                }
-                else
-                {
-                    valor = -5;
-                }
-                if (valor != -5)
-                {
-                    Bitmap paGuardar = new Bitmap(pictureBox1.Image);
-                    paGuardar.Save("Imagenes\\" + foto_perfil, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    if (queryCorrecta) { 
+                        subquery1 = "INSERT INTO cliente (";
+                        foreach (String l in miPrincipal.cliente.columnas)
+                        {
+                            if (!l.Equals("id"))
+                                subquery1 += l+", ";
+                        }
+                        subquery1 = subquery1.Substring(0, subquery1.Length - 2);
+                        subquery1 += ") ";
+                        subquery2 = "VALUES ('" + nombre + "', '" + apellido + "', '" + fecha + "'," + ciudad + ",'" + dpi + "', '" + email + "', " + telefono_fijo + ", " + telefono_movil + ", " + ocupacion + ", '" + foto_perfil + "', '"+twitter+"'";
+                        for (int i = 0; i < label_texto.Count; i++)
+                        {
+                            TextBox tb = label_texto[i];
+                            if (miPrincipal.cliente.tipos[i + 12].Contains("text") || miPrincipal.cliente.tipos[i + 12].Contains("date"))
+                                subquery2 += ", '" + tb.Text + "'";
+                            else if (miPrincipal.cliente.tipos[i + 12].Contains("integer") || miPrincipal.cliente.tipos[i + 12].Contains("double"))
+                                subquery2 += ", " + tb.Text;
+                            else
+                            {
+                                Console.WriteLine("La cantamos");
+                            }
 
-                    //SELECT del query
-                    String queryA = miPrincipal.obtenerSelectQuery();
+                        }
+                        subquery2 += ");";
+                        String query = subquery1 + subquery2;
+                        int valor;
+                        if (queryCorrecta)
+                        {
+                            valor = Control_query.query(query);
+                        }
+                        else
+                        {
+                            valor = -5;
+                        }
+                        if (valor != -5)
+                        {
+                            Bitmap paGuardar = new Bitmap(pictureBox1.Image);
+                            paGuardar.Save("Imagenes\\" + foto_perfil, System.Drawing.Imaging.ImageFormat.Jpeg);
 
-                    //Hacer la query
-                    miPrincipal.dataGridView1.DataSource = Control_query.querySelect(queryA);
-                    miPrincipal.dataGridView1.Columns[0].Visible = false;
+                            //SELECT del query
+                            String queryA = miPrincipal.obtenerSelectQuery();
 
-                    Control_query.agregarTweet(Tweet_control.getTweets(twitter));
+                            //Hacer la query
+                            miPrincipal.dataGridView1.DataSource = Control_query.querySelect(queryA);
+                            miPrincipal.dataGridView1.Columns[0].Visible = false;
 
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)", "Problemas al agregar el cliente", MessageBoxButtons.OK);
+                            Control_query.agregarTweet(Tweet_control.getTweets(twitter));
+
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Relax tu mente, trancuil tu cueshpe, que tiene ashegle! :)", "Problemas al agregar el cliente", MessageBoxButtons.OK);
+                        }
+                    }
                 }
             }
         }
