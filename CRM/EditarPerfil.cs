@@ -82,25 +82,13 @@ namespace CRM
                 {
 
                     //Configurar el comboBox
-                    ciudad = new ComboBox();
-                    empleo = new ComboBox();
                     actualizarComboBoxes();
-                    ciudad.DisplayMember = "nombre";
-                    ciudad.Location = new Point(150, 25 * i);
-                    ciudad.DropDownStyle = ComboBoxStyle.DropDownList;
 
                     //Agregarlo al panel
                     panel.Controls.Add(label);
                     panel.Controls.Add(ciudad);
                 }
                 else if(i == 9){
-                    //Configurar el comboBox
-                    empleo = new ComboBox();
-                    actualizarComboBoxes();
-                    empleo.DisplayMember = "nombre";
-                    empleo.Location = new Point(150, 25 * i);
-                    empleo.DropDownStyle = ComboBoxStyle.DropDownList;
-
                     //Agregarlo al panel
                     panel.Controls.Add(label);
                     panel.Controls.Add(empleo);
@@ -183,6 +171,9 @@ namespace CRM
 
         private void actualizarComboBoxes()
         {
+            ciudad = new ComboBox();
+            empleo = new ComboBox();
+
             //CIUDAD
 
             //Obtener los datos
@@ -192,8 +183,6 @@ namespace CRM
             DataTable datos = new DataTable();
             datos.Columns.Add("indice");
             datos.Columns.Add("nombre");
-
-            //Para guardar el seleccionado
 
             //Obtener el default
             int numSelect = (Int32)Control_query.querySelect("SELECT id_ciudad FROM cliente WHERE id = " + id + ";").Rows[0][0];
@@ -207,6 +196,9 @@ namespace CRM
 
             //Configurar el comboBox
             ciudad.DataSource = datos;
+            ciudad.DisplayMember = "nombre";
+            ciudad.Location = new Point(150, 25 * 3);
+            ciudad.DropDownStyle = ComboBoxStyle.DropDownList;
 
             //EMPLEO
 
@@ -217,8 +209,6 @@ namespace CRM
             datos = new DataTable();
             datos.Columns.Add("indice");
             datos.Columns.Add("nombre");
-
-            //Para guardar el seleccionado
 
             //Obtener el default
             numSelect = (Int32)Control_query.querySelect("SELECT id_ciudad FROM cliente WHERE id = " + id + ";").Rows[0][0];
@@ -232,21 +222,34 @@ namespace CRM
             }
 
             //Configurar el comboBox
-            empleo.DataSource = datos;        
+            empleo.DataSource = datos;
+            empleo.DisplayMember = "nombre";
+            empleo.Location = new Point(150, 25 * 9);
+            empleo.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void btnCiudad_Click(object sender, EventArgs e)
         {
             AgregarCiudad agregar = new AgregarCiudad("");
             agregar.Show();
+            panel.Controls.Remove(ciudad);
+
             actualizarComboBoxes();
+            ciudad.Refresh();
+            panel.Controls.Add(ciudad);
+            this.Update();
         }
 
         private void btnEmpleo_Click(object sender, EventArgs e)
         {
             AgregarEmpleo agregar = new AgregarEmpleo("");
             agregar.Show();
+            panel.Controls.Remove(empleo);
+
             actualizarComboBoxes();
+            empleo.Refresh();
+            panel.Controls.Add(empleo);
+            this.Update();
         }
     }
 }
