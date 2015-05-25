@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 using System.Net.Mail;
 
 namespace CRM
-{//wollaaaa
+{
     public partial class AgregarUsuario : Form
     {
         Principal miPrincipal;
@@ -150,7 +150,11 @@ namespace CRM
             if (match.Success)
                 return true;
             else
+            {
+                MessageBox.Show("El No. DPI que ingresó es invalido.", "Error en el DPI", MessageBoxButtons.OK);
                 return false;
+            }
+                
         }
 
         public bool validarTelefono(String telefono)
@@ -161,7 +165,10 @@ namespace CRM
             if (match.Success)
                 return true;
             else
+            {
+                MessageBox.Show("El No. de telefono que ingresó es invalido.", "Error en el telofono", MessageBoxButtons.OK);
                 return false;
+            }
         }
 
         public bool validarCorreo(String correo) {
@@ -172,6 +179,7 @@ namespace CRM
             }
             catch (FormatException fe)
             {
+                MessageBox.Show("El correo que ingresó es invalido", "Error en el correo", MessageBoxButtons.OK);
                 return false;
             }
         }
