@@ -207,7 +207,6 @@ namespace CRM
             }
             catch (Exception e)
             {
-                MessageBox.Show("El valor '"+entero+"' debe ser entero.", "Error", MessageBoxButtons.OK);
                 return false;
             }
         }
@@ -220,8 +219,7 @@ namespace CRM
                 return true;
             }
             catch (Exception e)
-            {
-                MessageBox.Show("El valor '" + real + "' debe ser real.", "Error", MessageBoxButtons.OK);
+            {                
                 return false;
             }
         }
