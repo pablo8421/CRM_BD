@@ -34,6 +34,7 @@
             this.btnEmpleo = new System.Windows.Forms.Button();
             this.btnCiudad = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.SuspendLayout();
@@ -41,6 +42,7 @@
             // panel
             // 
             this.panel.AutoScroll = true;
+            this.panel.Controls.Add(this.button1);
             this.panel.Controls.Add(this.btnFoto);
             this.panel.Controls.Add(this.picture);
             this.panel.Controls.Add(this.btnEmpleo);
@@ -74,22 +76,22 @@
             // btnEmpleo
             // 
             this.btnEmpleo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEmpleo.Location = new System.Drawing.Point(606, 454);
+            this.btnEmpleo.Location = new System.Drawing.Point(645, 454);
             this.btnEmpleo.Name = "btnEmpleo";
-            this.btnEmpleo.Size = new System.Drawing.Size(128, 23);
+            this.btnEmpleo.Size = new System.Drawing.Size(89, 23);
             this.btnEmpleo.TabIndex = 2;
-            this.btnEmpleo.Text = "Agregar Empleo";
+            this.btnEmpleo.Text = "Agregar empleo";
             this.btnEmpleo.UseVisualStyleBackColor = true;
             this.btnEmpleo.Click += new System.EventHandler(this.btnEmpleo_Click);
             // 
             // btnCiudad
             // 
             this.btnCiudad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCiudad.Location = new System.Drawing.Point(606, 425);
+            this.btnCiudad.Location = new System.Drawing.Point(645, 425);
             this.btnCiudad.Name = "btnCiudad";
-            this.btnCiudad.Size = new System.Drawing.Size(128, 23);
+            this.btnCiudad.Size = new System.Drawing.Size(89, 23);
             this.btnCiudad.TabIndex = 1;
-            this.btnCiudad.Text = "Agregar Ciudad";
+            this.btnCiudad.Text = "Agregar ciudad";
             this.btnCiudad.UseVisualStyleBackColor = true;
             this.btnCiudad.Click += new System.EventHandler(this.btnCiudad_Click);
             // 
@@ -97,13 +99,23 @@
             // 
             this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpdate.Location = new System.Drawing.Point(294, 454);
+            this.btnUpdate.Location = new System.Drawing.Point(233, 454);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(139, 23);
+            this.btnUpdate.Size = new System.Drawing.Size(97, 23);
             this.btnUpdate.TabIndex = 0;
-            this.btnUpdate.Text = "Actualizar Datos";
+            this.btnUpdate.Text = "Actualizar datos";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(336, 453);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(95, 25);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Cancelar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // EditarPerfil
             // 
@@ -127,5 +139,6 @@
         private System.Windows.Forms.Button btnEmpleo;
         private System.Windows.Forms.PictureBox picture;
         private System.Windows.Forms.Button btnFoto;
+        private System.Windows.Forms.Button button1;
     }
 }
