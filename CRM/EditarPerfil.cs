@@ -303,13 +303,19 @@ namespace CRM
                         }
                         //Eliminar la ultima comilla innecesaria
                         query = query.Substring(0, query.Length - 1);
-                
+
+                        insertarTweetsNuevos();
+
                         //Generar la query en si
                         query = "UPDATE cliente SET " + query + " WHERE " + "id=" + id + ";";
                         int res = Control_query.query(query);
                         if(res == -5)
                         {
                             MessageBox.Show("La actualizacion no se pudo hacer", "Error actualizando");
+                        }
+                        else
+                        {
+                            borrarTweetsViejos();
                         }
                     }
                     if (hayFoto)
@@ -322,6 +328,24 @@ namespace CRM
                     }
                     this.Close();
                 }
+            }
+        }
+
+        private void borrarTweetsViejos()
+        {
+            if (!datosCliente[12].Equals(textBoxes[12].Text))
+            {
+                string handle = datosCliente[12];
+                Control_query.borrarTweets(handle);
+            }
+        }
+
+        private void insertarTweetsNuevos()
+        {
+            if(!datosCliente[12].Equals(textBoxes[12].Text))
+            {
+                string handle = textBoxes[12].Text;
+                Control_query.agregarTweet(Tweet_control.getTweets(handle));
             }
         }
 
