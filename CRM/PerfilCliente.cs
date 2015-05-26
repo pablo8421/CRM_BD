@@ -17,6 +17,7 @@ namespace CRM
     {
         Principal miPrincipal;
         List<String> datosCliente;
+        List<Label> misLabel = new List<Label>(); 
         List<CheckBox> filtros;
         DateTime fecha;
 
@@ -100,6 +101,7 @@ namespace CRM
 
                 label1.Font = new Font(label1.Font.FontFamily, 10);
                 label2.Font = new Font(label2.Font.FontFamily, 10);
+                misLabel.Add(label2);
                 splitContainer1.Panel1.Controls.Add(label1);
                 splitContainer1.Panel1.Controls.Add(label2);
             }
@@ -220,8 +222,82 @@ namespace CRM
             while (edicion.Visible) { 
             
             }
+            filtros = miPrincipal.filtros;
+            String query1 = "SELECT cliente.id, nombre, apellido, fecha_nacimiento, pais, nombre_ciudad, dpi, correo, telefono_fijo, telefono_movil, nombre_puesto, nombre_compañia, direccion_compañia, cuenta_twitter";
+            String query2 = "";
+
+            for (int i = 13; i < filtros.Count; i++)
+            {
+                query2 += ", " + filtros[i].Text;
+            }
+            query2 += " FROM ((cliente JOIN ciudad ON cliente.id_ciudad = ciudad.id) JOIN empleo ON cliente.id_empleo = empleo.id) WHERE cliente.id =" + datosCliente[0] + ";";
+
+            String query = query1 + query2;
+            DataTable dt = Control_query.querySelect(query);
+            
+            lbNombre.Text = dt.Rows[0][1].ToString();
+            lbApellido.Text = dt.Rows[0][2].ToString();
+            lbDPI.Text = dt.Rows[0][6].ToString();
+            lbEdad.Text = dt.Rows[0][3].ToString();
+            lbEmail.Text = dt.Rows[0][7].ToString();
+            lbTelFijo.Text = dt.Rows[0][8].ToString();
+            lbTelMovil.Text = dt.Rows[0][9].ToString();
+            lbCiudad.Text = dt.Rows[0][5].ToString();
+            lbPais.Text = dt.Rows[0][4].ToString();
+            lbOcupacion.Text = dt.Rows[0][10].ToString();
+            lbNombreC.Text = dt.Rows[0][11].ToString();
+            lbDireccionC.Text = dt.Rows[0][12].ToString();
+            lbTwitter.Text = dt.Rows[0][13].ToString();
+
+
+            datosCliente[1] = dt.Rows[0][1].ToString();
+            datosCliente[2] = dt.Rows[0][2].ToString();
+            datosCliente[6] = dt.Rows[0][6].ToString();
+            datosCliente[3] = dt.Rows[0][3].ToString();
+            datosCliente[7] = dt.Rows[0][7].ToString();
+            datosCliente[8] = dt.Rows[0][8].ToString();
+            datosCliente[9] = dt.Rows[0][9].ToString();
+            datosCliente[5] = dt.Rows[0][5].ToString();
+            datosCliente[4] = dt.Rows[0][4].ToString();
+            datosCliente[10] = dt.Rows[0][10].ToString();
+            datosCliente[11] = dt.Rows[0][11].ToString();
+            datosCliente[12] = dt.Rows[0][12].ToString();
+            datosCliente[13] = dt.Rows[0][13].ToString();
+            
+            int contador = 0;
+            String dato = "";
+            DateTime date = new DateTime();
+            for (int i = 0; i < misLabel.Count; i++)
+            {
+                if (miPrincipal.cliente.tipos[i].Equals("date"))
+                {
+                    try
+                    {
+                        date = (DateTime)dt.Rows[0][i + 14];
+                        dato = date.Year + "/" + date.Month + "/" + date.Day;
+                        misLabel[i].Text = dato;
+                        datosCliente[i + 14] = dato;
+                    }
+                    catch (Exception)
+                    {
+
+                        dato = "";
+                    }
+                }
+                else
+                {
+                    misLabel[i].Text = dt.Rows[0][i + 14].ToString();
+                    datosCliente[i + 14] = dt.Rows[0][i + 14].ToString();
+                }
+               
+
+            }
             String path = Control_query.querySelect("SELECT direccion_foto FROM cliente WHERE id = " + datosCliente[0] + ";").Rows[0][0].ToString();
             pictureFotoCliente.Load("Imagenes\\" + path);
+
+            query = miPrincipal.obtenerSelectQuery();
+            miPrincipal.dataGridView1.DataSource = Control_query.querySelect(query);
+
         }
     }
 }

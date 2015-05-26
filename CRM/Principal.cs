@@ -64,6 +64,7 @@ namespace CRM
         private void Principal_Load(object sender, EventArgs e)
         {
             cargarVentanaPrincipal();
+
         }
 
         public void cargarVentanaPrincipal() {
@@ -321,6 +322,21 @@ namespace CRM
                     {
                         date = (DateTime) dataGridView1.Rows[e.RowIndex].Cells[i].Value;
                         dato = date.Day + "/" + date.Month + "/" + date.Year;
+                    }
+                    if (i >= 13)
+                    {
+                        if (cliente.tipos[i-2].Equals("date"))
+                        {
+                            try
+                            {
+                                date = (DateTime)dataGridView1.Rows[e.RowIndex].Cells[i].Value;
+                                dato = date.Day + "/" + date.Month + "/" + date.Year;
+                            }
+                            catch (Exception)
+                            {
+                                dato = "";
+                            }
+                        }
                     }
                     datosCliente.Add(dato);
                 }
