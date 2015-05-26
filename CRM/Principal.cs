@@ -64,6 +64,7 @@ namespace CRM
         private void Principal_Load(object sender, EventArgs e)
         {
             cargarVentanaPrincipal();
+
         }
 
         public void cargarVentanaPrincipal() {
@@ -315,12 +316,51 @@ namespace CRM
                 List<String> datosCliente = new List<String>();
                 String dato = "";
                 DateTime date = new DateTime();
+                DateTime date2 = new DateTime();
                 for (int i = 0; i <= filtros.Count; i++) {
                     dato = dataGridView1.Rows[e.RowIndex].Cells[i].Value+"";
                     if (i == 3)
                     {
                         date = (DateTime) dataGridView1.Rows[e.RowIndex].Cells[i].Value;
-                        dato = date.Day + "/" + date.Month + "/" + date.Year;
+                        if (date.Month<10){
+                            dato = date.Year + "/0" + date.Month + "/";
+                        }
+                        else { 
+                            dato = date.Year + "/" + date.Month + "/";
+                        } 
+                        if (date.Day < 10){
+                            dato += "0"+date.Day;
+                        }
+                        else { 
+                            dato += date.Day;
+                        }
+                    }
+                    if (i >= 13)
+                    {
+                        if (cliente.tipos[i - 2].Equals("date"))
+                        {
+                            try
+                            {
+                                date2 = (DateTime)dataGridView1.Rows[e.RowIndex].Cells[i].Value;
+                                dato = date2.Year + "/";
+                                if (date2.Month < 10){
+                                    dato += "0" + date2.Month + "/";
+                                }
+                                else { 
+                                    dato += date2.Month + "/";
+                                } 
+                                if (date2.Day < 10){
+                                    dato += "0" + date2.Day;
+                                }
+                                else { 
+                                    dato += date2.Day;
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                dato = "";
+                            }
+                        }
                     }
                     datosCliente.Add(dato);
                 }
