@@ -210,6 +210,8 @@ namespace CRM
                         break;
                     }
                 }
+                textTweets.Text += "Cantidad de resultados obtenidos: "+contador;
+
             }
             catch (TimeoutException t) {
                 MessageBox.Show("Verifique que esté corriendo MongoDB.", "Error de conexión en MongoDB", MessageBoxButtons.OK);
