@@ -232,5 +232,12 @@ namespace CRM
                 }
             }
         }
+
+        internal async static void borrarTweets(string handle)
+        {
+            var collection = _database.GetCollection<BsonDocument>("tweets");
+            var filter = Builders<BsonDocument>.Filter.Eq("screenName", handle);
+            var result = await collection.DeleteManyAsync(filter);
+        }
     }
 }
