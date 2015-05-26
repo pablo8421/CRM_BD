@@ -333,19 +333,33 @@ namespace CRM
 
         private void borrarTweetsViejos()
         {
-            if (!datosCliente[12].Equals(textBoxes[12].Text))
+            try
             {
-                string handle = datosCliente[12];
-                Control_query.borrarTweets(handle);
+                if (!datosCliente[12].Equals(textBoxes[12].Text))
+                {
+                    string handle = datosCliente[12];
+                    Control_query.borrarTweets(handle);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error al tratar de borrar los tweets antiguos", "Actualizacion twitter");
             }
         }
 
         private void insertarTweetsNuevos()
         {
-            if(!datosCliente[12].Equals(textBoxes[12].Text))
+            try
             {
-                string handle = textBoxes[12].Text;
-                Control_query.agregarTweet(Tweet_control.getTweets(handle));
+                if (!datosCliente[12].Equals(textBoxes[12].Text))
+                {
+                    string handle = textBoxes[12].Text;
+                    Control_query.agregarTweet(Tweet_control.getTweets(handle));
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error al tratar de actualizar los tweets", "Actualizacion twitter");
             }
         }
 

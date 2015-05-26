@@ -206,16 +206,18 @@ namespace CRM
 
         public async static void agregarTweet(Tweetinvi.Core.Interfaces.ITweet[] tweets)
         {
-            if (tweets != null)
+            try
             {
-                foreach (Tweetinvi.Core.Interfaces.ITweet tweet in tweets)
+                if (tweets != null)
                 {
-                    string name = tweet.Creator.Name;
-                    string screeName = tweet.Creator.ScreenName;
-                    string contenido = tweet.Text;
-                    int longitud = tweet.Length;
+                    foreach (Tweetinvi.Core.Interfaces.ITweet tweet in tweets)
+                    {
+                        string name = tweet.Creator.Name;
+                        string screeName = tweet.Creator.ScreenName;
+                        string contenido = tweet.Text;
+                        int longitud = tweet.Length;
 
-                    var document = new BsonDocument { {"name", name},
+                        var document = new BsonDocument { {"name", name},
                                                   {"screenName", screeName},
                                                   {"contenido", contenido},
                                                   {"longitud", longitud},
@@ -227,17 +229,30 @@ namespace CRM
                                                                                   {"anio", tweet.CreatedAt.Year}}}
                 };
 
-                    var collection = _database.GetCollection<BsonDocument>("tweets");
-                    await collection.InsertOneAsync(document);
+                        var collection = _database.GetCollection<BsonDocument>("tweets");
+                        await collection.InsertOneAsync(document);
+                    }
                 }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
         }
 
-        internal async static void borrarTweets(string handle)
+        internal async static void borrarTweets(string handle) 
         {
             var collection = _database.GetCollection<BsonDocument>("tweets");
             var filter = Builders<BsonDocument>.Filter.Eq("screenName", handle);
-            var result = await collection.DeleteManyAsync(filter);
+            try
+            {
+                var result = await collection.DeleteManyAsync(filter);
+            }
+            catch (TimeoutException e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }
