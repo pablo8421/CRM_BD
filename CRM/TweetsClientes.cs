@@ -90,175 +90,181 @@ namespace CRM
             var collection = _database.GetCollection<BsonDocument>("tweets");
             BsonDocument filter = new BsonDocument();
             bool done = false;
-            using (var cursor = await collection.FindAsync(filter))
+            try
             {
-                int contador = 0;
-                while (await cursor.MoveNextAsync())
+                using (var cursor = await collection.FindAsync(filter))
                 {
-                    var batch = cursor.Current;
-                    foreach (var document in batch)
+                    int contador = 0;
+                    while (await cursor.MoveNextAsync())
                     {
-                        var filtros = Builders<BsonDocument>.Filter.Eq("name", nombre);
-                        
-                        if (!nombre.Equals(""))
+                        var batch = cursor.Current;
+                        foreach (var document in batch)
                         {
-                            bandera = true;
-                            filtros = Builders<BsonDocument>.Filter.Eq("name", nombre);
+                            var filtros = Builders<BsonDocument>.Filter.Eq("name", nombre);
 
-                        }
-
-                        if (!screenName.Equals(""))
-                        {
-                            if (bandera)
-                            {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Eq("screenName", screenName);
-                            }
-                            else
+                            if (!nombre.Equals(""))
                             {
                                 bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Eq("screenName", screenName);
-                            }
-                        }
+                                filtros = Builders<BsonDocument>.Filter.Eq("name", nombre);
 
-                        if (!contenido.Equals(""))
-                        {
-                            if (bandera)
-                            {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Regex("contenido", contenido);
                             }
-                            else
-                            {
-                                bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Regex("contenido", contenido);
-                            }
-                        }
 
-                        if (!longitud.Equals(""))
-                        {
-                            if (bandera)
+                            if (!screenName.Equals(""))
                             {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("longitud", Convert.ToInt64(longitud));
-                            }
-                            else
-                            {
-                                bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Lte("longitud", Convert.ToInt64(longitud));
-                            }
-                        }
-
-                        if (!minuto.Equals(""))
-                        {
-                            if (bandera)
-                            {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("publicado.minuto", Convert.ToInt64(minuto));
-                            }
-                            else
-                            {
-                                bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Lte("publicado.minuto", Convert.ToInt64(minuto));
-                            }
-                        }
-
-                        if (!hora.Equals(""))
-                        {
-                            if (bandera)
-                            {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("publicado.hora", Convert.ToInt64(hora));
-                            }
-                            else
-                            {
-                                bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Lte("publicado.hora", Convert.ToInt64(hora));
-                            }
-                        }
-
-                        if (dia!=-1)
-                        {
-                            if (bandera)
-                            {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Eq("publicado.diaSemana", dia);
-                            }
-                            else
-                            {
-                                bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Eq("publicado.diaSemana", dia);
-                            }
-                        }
-
-                        if (!fechaDia.Equals(""))
-                        {
-                            if (bandera)
-                            {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("publicado.dia", Convert.ToInt64(fechaDia));
-                            }
-                            else
-                            {
-                                bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Lte("publicado.dia", Convert.ToInt64(fechaDia));
-                            }
-                        }
-
-                        if (!fechaMes.Equals(""))
-                        {
-                            if (bandera)
-                            {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("publicado.mes", Convert.ToInt64(fechaMes));
-                            }
-                            else
-                            {
-                                bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Lte("publicado.mes", Convert.ToInt64(fechaMes));
-                            }
-                        }
-
-                        if (!fechaAño.Equals(""))
-                        {
-                            if (bandera)
-                            {
-                                filtros = filtros & Builders<BsonDocument>.Filter.Lte("publicado.anio", Convert.ToInt64(fechaAño));
-                            }
-                            else
-                            {
-                                bandera = true;
-                                filtros = Builders<BsonDocument>.Filter.Lte("publicado.anio", Convert.ToInt64(fechaAño));
-                            }
-                        }
-                        if (!done)
-                        {
-                            done = true;
-                            if (bandera)
-                            {
-                                var result = await collection.Find(filtros).ToListAsync();
-                                foreach (BsonDocument tweet in result)
+                                if (bandera)
                                 {
-                                    string texto = "";
-                                    texto += "Handle: " + tweet.GetElement("screenName").Value + Environment.NewLine;
-                                    texto += tweet.GetElement("contenido").Value + Environment.NewLine;
-                                    texto += "Publicado el: " + Control_query.getFecha(tweet) + Environment.NewLine;
-                                    texto += Environment.NewLine;
-                                    tbTweets.Text += texto;
-                                    contador++;
+                                    filtros = filtros & Builders<BsonDocument>.Filter.Eq("screenName", screenName);
+                                }
+                                else
+                                {
+                                    bandera = true;
+                                    filtros = Builders<BsonDocument>.Filter.Eq("screenName", screenName);
                                 }
                             }
-                            else
+
+                            if (!contenido.Equals(""))
                             {
-                                filtros = new BsonDocument();
-                                var result = await collection.Find(filtros).ToListAsync();
-                                foreach (BsonDocument tweet in result)
+                                if (bandera)
                                 {
-                                    string texto = "";
-                                    texto += "Handle: " + tweet.GetElement("screenName").Value + Environment.NewLine;
-                                    texto += tweet.GetElement("contenido").Value + Environment.NewLine;
-                                    texto += "Publicado el: " + Control_query.getFecha(tweet) + Environment.NewLine;
-                                    texto += Environment.NewLine;
-                                    tbTweets.Text += texto;
-                                    contador++;
+                                    filtros = filtros & Builders<BsonDocument>.Filter.Regex("contenido", contenido);
+                                }
+                                else
+                                {
+                                    bandera = true;
+                                    filtros = Builders<BsonDocument>.Filter.Regex("contenido", contenido);
+                                }
+                            }
+
+                            if (!longitud.Equals(""))
+                            {
+                                if (bandera)
+                                {
+                                    filtros = filtros & Builders<BsonDocument>.Filter.Lte("longitud", Convert.ToInt64(longitud));
+                                }
+                                else
+                                {
+                                    bandera = true;
+                                    filtros = Builders<BsonDocument>.Filter.Lte("longitud", Convert.ToInt64(longitud));
+                                }
+                            }
+
+                            if (!minuto.Equals(""))
+                            {
+                                if (bandera)
+                                {
+                                    filtros = filtros & Builders<BsonDocument>.Filter.Lte("publicado.minuto", Convert.ToInt64(minuto));
+                                }
+                                else
+                                {
+                                    bandera = true;
+                                    filtros = Builders<BsonDocument>.Filter.Lte("publicado.minuto", Convert.ToInt64(minuto));
+                                }
+                            }
+
+                            if (!hora.Equals(""))
+                            {
+                                if (bandera)
+                                {
+                                    filtros = filtros & Builders<BsonDocument>.Filter.Lte("publicado.hora", Convert.ToInt64(hora));
+                                }
+                                else
+                                {
+                                    bandera = true;
+                                    filtros = Builders<BsonDocument>.Filter.Lte("publicado.hora", Convert.ToInt64(hora));
+                                }
+                            }
+
+                            if (dia != -1)
+                            {
+                                if (bandera)
+                                {
+                                    filtros = filtros & Builders<BsonDocument>.Filter.Eq("publicado.diaSemana", dia);
+                                }
+                                else
+                                {
+                                    bandera = true;
+                                    filtros = Builders<BsonDocument>.Filter.Eq("publicado.diaSemana", dia);
+                                }
+                            }
+
+                            if (!fechaDia.Equals(""))
+                            {
+                                if (bandera)
+                                {
+                                    filtros = filtros & Builders<BsonDocument>.Filter.Lte("publicado.dia", Convert.ToInt64(fechaDia));
+                                }
+                                else
+                                {
+                                    bandera = true;
+                                    filtros = Builders<BsonDocument>.Filter.Lte("publicado.dia", Convert.ToInt64(fechaDia));
+                                }
+                            }
+
+                            if (!fechaMes.Equals(""))
+                            {
+                                if (bandera)
+                                {
+                                    filtros = filtros & Builders<BsonDocument>.Filter.Lte("publicado.mes", Convert.ToInt64(fechaMes));
+                                }
+                                else
+                                {
+                                    bandera = true;
+                                    filtros = Builders<BsonDocument>.Filter.Lte("publicado.mes", Convert.ToInt64(fechaMes));
+                                }
+                            }
+
+                            if (!fechaAño.Equals(""))
+                            {
+                                if (bandera)
+                                {
+                                    filtros = filtros & Builders<BsonDocument>.Filter.Lte("publicado.anio", Convert.ToInt64(fechaAño));
+                                }
+                                else
+                                {
+                                    bandera = true;
+                                    filtros = Builders<BsonDocument>.Filter.Lte("publicado.anio", Convert.ToInt64(fechaAño));
+                                }
+                            }
+                            if (!done)
+                            {
+                                done = true;
+                                if (bandera)
+                                {
+                                    var result = await collection.Find(filtros).ToListAsync();
+                                    foreach (BsonDocument tweet in result)
+                                    {
+                                        string texto = "";
+                                        texto += "Handle: " + tweet.GetElement("screenName").Value + Environment.NewLine;
+                                        texto += tweet.GetElement("contenido").Value + Environment.NewLine;
+                                        texto += "Publicado el: " + Control_query.getFecha(tweet) + Environment.NewLine;
+                                        texto += Environment.NewLine;
+                                        tbTweets.Text += texto;
+                                        contador++;
+                                    }
+                                }
+                                else
+                                {
+                                    filtros = new BsonDocument();
+                                    var result = await collection.Find(filtros).ToListAsync();
+                                    foreach (BsonDocument tweet in result)
+                                    {
+                                        string texto = "";
+                                        texto += "Handle: " + tweet.GetElement("screenName").Value + Environment.NewLine;
+                                        texto += tweet.GetElement("contenido").Value + Environment.NewLine;
+                                        texto += "Publicado el: " + Control_query.getFecha(tweet) + Environment.NewLine;
+                                        texto += Environment.NewLine;
+                                        tbTweets.Text += texto;
+                                        contador++;
+                                    }
                                 }
                             }
                         }
                     }
+                    tbTweets.Text += "\nCantidad de resultados obtenidos: " + contador;
                 }
-                tbTweets.Text += "\nCantidad de resultados obtenidos: " + contador;
+            }
+            catch (TimeoutException t) {
+                MessageBox.Show("Verifique que esté corriendo MongoDB.", "Error de conexión en MongoDB", MessageBoxButtons.OK);
             }
         }
     }

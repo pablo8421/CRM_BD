@@ -117,8 +117,8 @@ namespace CRM
             int mes = (Int32)tweet.GetElement("publicado").Value.AsBsonDocument.GetElement("mes").Value;
             int anio = (Int32)tweet.GetElement("publicado").Value.AsBsonDocument.GetElement("anio").Value;
 
-            string dia_semanaS;
-            string mesS;
+            string dia_semanaS = "";
+            string mesS = "";
 
             switch (dia_semana)
             {
@@ -143,8 +143,6 @@ namespace CRM
                 case 6:
                     dia_semanaS = "Sabado";
                     break;
-                default:
-                    throw new NotImplementedException("oh shit hermano, ese dia no existe");
             }
 
             switch (mes)
@@ -185,9 +183,6 @@ namespace CRM
                 case 12:
                     mesS = "Diciembre";
                     break;
-                default:
-                    throw new NotImplementedException("oh shit hermano, ese dia no existe");
-
             }
 
             return dia_semanaS + " " + dia + " de " + mesS + " del " + anio + ", a las " + hora + ":" + minuto;
@@ -195,23 +190,29 @@ namespace CRM
 
         private async void llenarTweets(String handle)
         {
-            List<BsonDocument> tweets = await Control_query.buscarPorScreenName(handle);
-            int contador = 0;
-
-            foreach(BsonDocument tweet in tweets)
+            try
             {
-                string texto = "";
-                texto += "Handle: " + tweet.GetElement("screenName").Value + Environment.NewLine;
-                texto += tweet.GetElement("contenido").Value + Environment.NewLine;
-                texto += "Publicado el: " + getFecha(tweet) + Environment.NewLine;
-                texto += Environment.NewLine;
-                textTweets.Text += texto;
-                
-                contador++;
-                if (contador >= 200)
+                List<BsonDocument> tweets = await Control_query.buscarPorScreenName(handle);
+                int contador = 0;
+
+                foreach (BsonDocument tweet in tweets)
                 {
-                    break;
+                    string texto = "";
+                    texto += "Handle: " + tweet.GetElement("screenName").Value + Environment.NewLine;
+                    texto += tweet.GetElement("contenido").Value + Environment.NewLine;
+                    texto += "Publicado el: " + getFecha(tweet) + Environment.NewLine;
+                    texto += Environment.NewLine;
+                    textTweets.Text += texto;
+
+                    contador++;
+                    if (contador >= 200)
+                    {
+                        break;
+                    }
                 }
+            }
+            catch (TimeoutException t) {
+                MessageBox.Show("Verifique que esté corriendo MongoDB.", "Error de conexión en MongoDB", MessageBoxButtons.OK);
             }
         }
 
@@ -238,7 +239,8 @@ namespace CRM
             lbNombre.Text = dt.Rows[0][1].ToString();
             lbApellido.Text = dt.Rows[0][2].ToString();
             lbDPI.Text = dt.Rows[0][6].ToString();
-            lbEdad.Text = dt.Rows[0][3].ToString();
+            DateTime date = (DateTime)dt.Rows[0][3];
+            lbEdad.Text = date.Year+"/"+date.Month+"/"+date.Day;
             lbEmail.Text = dt.Rows[0][7].ToString();
             lbTelFijo.Text = dt.Rows[0][8].ToString();
             lbTelMovil.Text = dt.Rows[0][9].ToString();
@@ -253,7 +255,15 @@ namespace CRM
             datosCliente[1] = dt.Rows[0][1].ToString();
             datosCliente[2] = dt.Rows[0][2].ToString();
             datosCliente[6] = dt.Rows[0][6].ToString();
-            datosCliente[3] = dt.Rows[0][3].ToString();
+            datosCliente[3] = date.Year + "/";
+            if (date.Month<10)
+                datosCliente[3] += "0" + date.Month + "/";
+            else
+                datosCliente[3] += date.Month + "/";
+            if (date.Day < 10)
+                datosCliente[3] += "0" + date.Day;
+            else
+                datosCliente[3] += date.Day;
             datosCliente[7] = dt.Rows[0][7].ToString();
             datosCliente[8] = dt.Rows[0][8].ToString();
             datosCliente[9] = dt.Rows[0][9].ToString();
@@ -264,23 +274,30 @@ namespace CRM
             datosCliente[12] = dt.Rows[0][12].ToString();
             datosCliente[13] = dt.Rows[0][13].ToString();
             
-            int contador = 0;
             String dato = "";
-            DateTime date = new DateTime();
+            DateTime date2 = new DateTime();
             for (int i = 0; i < misLabel.Count; i++)
             {
-                if (miPrincipal.cliente.tipos[i].Equals("date"))
+                if (miPrincipal.cliente.tipos[i+12].Contains("date"))
                 {
                     try
                     {
-                        date = (DateTime)dt.Rows[0][i + 14];
-                        dato = date.Year + "/" + date.Month + "/" + date.Day;
+                        date2 = (DateTime)dt.Rows[0][i + 14];
+                        dato = date2.Year + "/"; 
+                        if (date2.Month<10)
+                            dato += "0"+date2.Month + "/";
+                        else
+                            dato += date2.Month + "/";
+                        if (date2.Day < 10)
+                            dato += "0" + date2.Day;
+                        else
+                            dato += date2.Day;
+                        
                         misLabel[i].Text = dato;
                         datosCliente[i + 14] = dato;
                     }
                     catch (Exception)
                     {
-
                         dato = "";
                     }
                 }
